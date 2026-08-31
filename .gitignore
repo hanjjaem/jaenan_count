@@ -1,0 +1,7 @@
+# 원본 명세서 엑셀 (개인정보 보호)
+*.xlsx
+*.xls
+
+# OS / 임시 파일
+.DS_Store
+Thumbs.db
