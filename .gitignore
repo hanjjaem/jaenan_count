@@ -2,6 +2,12 @@
 *.xlsx
 *.xls
 
+# 계좌번호·실명 포함 (개인정보 보호)
+data/
+
 # OS / 임시 파일
 .DS_Store
 Thumbs.db
+
+# Python 캐시
+__pycache__/

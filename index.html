@@ -69,7 +69,7 @@
           <p class="text-xs text-slate-500 flex items-center gap-1.5 mt-0.5">
             <span>KB국민 + 신한카드 99건</span>
             <span class="inline-flex items-center gap-1 text-[11px] text-emerald-600 font-medium bg-emerald-50 px-1.5 py-0.2 rounded border border-emerald-200">
-              <i class="fa-solid fa-calendar-check text-[10px]"></i> 관리기간별 캘린더 시각화
+              <i class="fa-solid fa-calendar-check text-[10px]"></i> 사용일 캘린더 시각화
             </span>
           </p>
         </div>
@@ -123,23 +123,23 @@
                 KB국민카드 (신용)
                 <span class="text-[10px] px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 font-bold border border-amber-200">53건</span>
               </h3>
-              <p class="text-[11px] text-slate-500">결제계좌: 국민은행 자동이체</p>
+              <p class="text-[11px] text-slate-500">결제계좌: 신한은행 / 11040*****45</p>
             </div>
           </div>
           <div class="text-right">
             <span class="text-[10px] font-bold text-amber-700 bg-amber-100 px-2 py-0.5 rounded">결제일 (출금일)</span>
-            <div class="text-base sm:text-lg font-black text-amber-900 mt-0.5">2026.08.07 (금)</div>
+            <div class="text-base sm:text-lg font-black text-amber-900 mt-0.5">2026.08.21 (금)</div>
           </div>
         </div>
 
         <div class="mt-3 pt-3 border-t border-amber-200/60 grid grid-cols-2 gap-2 text-xs">
           <div>
             <span class="text-[10px] text-slate-400 block">이용기간 (신용공여)</span>
-            <b class="text-slate-700 font-mono text-[11px]">2026.06.24 ~ 07.23</b>
+            <b class="text-slate-700 font-mono text-[11px]">2026.07.13 ~ 08.06</b>
           </div>
           <div class="text-right">
             <span class="text-[10px] text-slate-400 block">총 청구금액</span>
-            <b class="text-slate-900 font-mono font-bold text-sm">1,017,470원</b>
+            <b class="text-slate-900 font-mono font-bold text-sm">924,640원</b>
           </div>
         </div>
       </div>
@@ -172,7 +172,7 @@
           </div>
           <div class="text-right">
             <span class="text-[10px] text-slate-400 block">총 청구금액 (원금+할부)</span>
-            <b class="text-slate-900 font-mono font-bold text-sm">397,326원</b>
+            <b class="text-slate-900 font-mono font-bold text-sm">397,437원</b>
           </div>
         </div>
       </div>
@@ -321,37 +321,32 @@
 
         <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex flex-col justify-between">
           <h3 class="text-sm font-bold text-slate-800 flex items-center gap-2">
-            <i class="fa-solid fa-calendar-days text-purple-500"></i>
-            관리기간별 정산 금액 분리
+            <i class="fa-solid fa-file-invoice-dollar text-rose-500"></i>
+            8/21 정산 청구서
           </h3>
-          <div class="space-y-3 my-2">
-            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
-              <div class="flex justify-between items-center text-xs font-semibold text-slate-600">
-                <span>7월 관리기간 (06.24 ~ 07.23)</span>
-                <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-700">7월 정산분</span>
+          <div class="space-y-2 my-2">
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex justify-between items-baseline">
+              <div>
+                <span class="text-xs font-semibold text-slate-700 block">카드 명세서</span>
+                <span class="text-[11px] text-slate-400">8/21 결제분 (KB·신한)</span>
               </div>
-              <div class="mt-2 flex justify-between items-baseline">
-                <span class="text-xs text-slate-500">와이프 청구액</span>
-                <span class="text-base font-extrabold text-slate-900" id="period-7-claim">0원</span>
-              </div>
-              <p class="text-[11px] text-slate-400 mt-1">무신사(2만), 이마트(9.9만), 쿠팡이츠, AI구독, 네이버페이</p>
+              <span class="text-base font-extrabold text-slate-900" id="settle-card">0원</span>
             </div>
-
-            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
-              <div class="flex justify-between items-center text-xs font-semibold text-slate-600">
-                <span>8월 관리기간 (07.24 ~ 08.23)</span>
-                <span class="px-2 py-0.5 rounded bg-purple-100 text-purple-700">8월 정산분</span>
+            <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex justify-between items-baseline">
+              <div>
+                <span class="text-xs font-semibold text-slate-700 block">통장 직접분</span>
+                <span class="text-[11px] text-slate-400">07.22~08.21 · 카드 외 출금</span>
               </div>
-              <div class="mt-2 flex justify-between items-baseline">
-                <span class="text-xs text-slate-500">와이프 청구액</span>
-                <span class="text-base font-extrabold text-slate-900" id="period-8-claim">0원</span>
-              </div>
-              <p class="text-[11px] text-slate-400 mt-1">아파트관리비(17.1만), 쿠팡, 지마켓, 배달식비, 차량정비</p>
+              <span class="text-base font-extrabold text-slate-900" id="settle-bank">0원</span>
+            </div>
+            <div class="px-3 flex justify-between items-baseline text-xs">
+              <span class="text-slate-500">7/24 기수령 고정지출비</span>
+              <span class="font-bold text-blue-600" id="settle-recv">0원</span>
             </div>
           </div>
           <div class="text-xs text-slate-500 pt-2 border-t border-slate-100 flex justify-between font-medium">
-            <span>청구 합계</span>
-            <b class="text-rose-600 font-bold" id="period-total-claim">0원</b>
+            <span>와이프 청구액</span>
+            <b class="text-rose-600 font-bold text-base" id="settle-total">0원</b>
           </div>
         </div>
       </div>
@@ -407,9 +402,9 @@
       </div>
     </div>
 
-    <!-- ==================== VIEW 3: 월간 캘린더 뷰 (관리기간 & 청구기간 시각화 탑재) ==================== -->
+    <!-- ==================== VIEW 3: 월간 캘린더 뷰 (사용일 기준) ==================== -->
     <div id="view-calendar" class="space-y-6 hidden">
-      <!-- 캘린더 상단: 관리기간 & 청구범위 안내 가이드 배너 -->
+      <!-- 캘린더 상단: 결제회차 안내 배너 -->
       <div class="bg-gradient-to-r from-blue-50 via-indigo-50 to-purple-50 rounded-2xl p-4 border border-blue-200 shadow-xs flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
         <div class="space-y-1">
           <div class="flex items-center gap-2">
@@ -421,22 +416,22 @@
           <div class="flex flex-wrap items-center gap-2 text-xs text-slate-600">
             <span class="flex items-center gap-1 font-semibold text-blue-700">
               <span class="w-2.5 h-2.5 rounded-sm bg-blue-400 inline-block"></span>
-              7월 관리기간 (06.24~07.23): <b class="text-slate-900">420,558원</b>
+              카드 명세서 (8/21 결제분): <b class="text-slate-900">1,046,976원</b>
             </span>
             <span class="text-slate-300">|</span>
-            <span class="flex items-center gap-1 font-semibold text-purple-700">
-              <span class="w-2.5 h-2.5 rounded-sm bg-purple-400 inline-block"></span>
-              8월 관리기간 (07.24~08.23): <b class="text-slate-900">718,498원</b>
+            <span class="flex items-center gap-1 font-semibold text-slate-700">
+              <span class="w-2.5 h-2.5 rounded-sm bg-slate-400 inline-block"></span>
+              통장 직접분 (07.22~08.21): <b class="text-slate-900">793,121원</b>
             </span>
             <span class="text-slate-300">|</span>
-            <span class="font-bold text-rose-600">총 청구 합계: 1,139,056원</span>
+            <span class="font-bold text-rose-600">청구액: 1,440,097원 (기수령 40만 차감)</span>
           </div>
         </div>
 
         <!-- 카드사별 결제일 D-day 알림 뱃지 -->
         <div class="flex items-center gap-2 text-xs">
           <div class="px-2.5 py-1 rounded-lg bg-amber-100 border border-amber-300 text-amber-900 font-semibold flex items-center gap-1.5">
-            <i class="fa-solid fa-credit-card text-amber-600"></i> KB결제일: <b>08.07 (금)</b>
+            <i class="fa-solid fa-credit-card text-amber-600"></i> KB결제일: <b>08.21 (금)</b>
           </div>
           <div class="px-2.5 py-1 rounded-lg bg-blue-100 border border-blue-300 text-blue-900 font-semibold flex items-center gap-1.5">
             <i class="fa-solid fa-credit-card text-blue-600"></i> 신한결제일: <b>08.21 (금)</b>
@@ -446,19 +441,7 @@
 
       <!-- 캘린더 전용 필터 툴바 -->
       <div class="bg-white rounded-2xl p-4 border border-slate-200 shadow-sm flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-        <!-- 1. 관리기간 선택 필터 -->
-        <div class="flex flex-wrap items-center gap-1.5">
-          <span class="text-xs font-bold text-slate-500 mr-1"><i class="fa-solid fa-timeline text-blue-500 mr-1"></i>관리기간 보기:</span>
-          <button onclick="setCalPeriodFilter('ALL')" id="btn-cal-p-all" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-white shadow-xs transition">전체 기간</button>
-          <button onclick="setCalPeriodFilter('7월')" id="btn-cal-p-7" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-blue-700 border border-blue-200 hover:bg-blue-50 transition flex items-center gap-1">
-            <span class="w-2 h-2 rounded-full bg-blue-500"></span> 7월 관리기간만 (06.24~07.23)
-          </button>
-          <button onclick="setCalPeriodFilter('8월')" id="btn-cal-p-8" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-purple-700 border border-purple-200 hover:bg-purple-50 transition flex items-center gap-1">
-            <span class="w-2 h-2 rounded-full bg-purple-500"></span> 8월 관리기간만 (07.24~08.23)
-          </button>
-        </div>
-
-        <!-- 2. 지출 유형 필터 -->
+        <!-- 지출 유형 필터 -->
         <div class="flex flex-wrap items-center gap-1.5">
           <span class="text-xs font-bold text-slate-400 mr-1">유형:</span>
           <button onclick="setCalCategoryFilter('ALL')" id="btn-cal-cat-all" class="px-2.5 py-1 rounded-md text-xs font-bold bg-slate-800 text-white transition">전체</button>
@@ -482,15 +465,6 @@
               </button>
             </div>
 
-            <!-- 관리기간 범례 -->
-            <div class="flex items-center gap-2 text-xs">
-              <span class="flex items-center gap-1 text-blue-700 font-semibold bg-blue-50 px-2 py-0.5 rounded border border-blue-200">
-                <span class="w-2 h-2 rounded-full bg-blue-500"></span> 7월 관리기간 (~23일)
-              </span>
-              <span class="flex items-center gap-1 text-purple-700 font-semibold bg-purple-50 px-2 py-0.5 rounded border border-purple-200">
-                <span class="w-2 h-2 rounded-full bg-purple-500"></span> 8월 관리기간 (24일~)
-              </span>
-            </div>
           </div>
 
           <div class="grid grid-cols-7 text-center text-xs font-bold text-slate-400 py-1">
@@ -530,10 +504,10 @@
       <div class="p-4 sm:p-5 border-b border-slate-200 bg-slate-50/50 space-y-3">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
           <div class="flex flex-wrap items-center gap-2">
-            <span class="text-xs font-bold text-slate-600 uppercase tracking-wider">관리기간:</span>
-            <button onclick="setPeriodFilter('ALL')" id="btn-period-all" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-white shadow-sm transition">전체 기간 (99건)</button>
-            <button onclick="setPeriodFilter('7월')" id="btn-period-7" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 transition">7월 정산분</button>
-            <button onclick="setPeriodFilter('8월')" id="btn-period-8" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 transition">8월 정산분</button>
+            <span class="text-xs font-bold text-slate-600 uppercase tracking-wider">결제회차:</span>
+            <button onclick="setPeriodFilter('ALL')" id="btn-period-all" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-white shadow-sm transition">전체 (99건)</button>
+            <button onclick="setPeriodFilter('8/21분')" id="btn-period-8" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 transition">8/21 결제분 (94건)</button>
+            <button onclick="setPeriodFilter('7/21분')" id="btn-period-7" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 transition">7/21 결제분 (5건)</button>
           </div>
           
           <div class="relative w-full md:w-64">
@@ -565,7 +539,7 @@
               <th class="py-3 px-3">카드사</th>
               <th class="py-3 px-4">이용가맹점</th>
               <th class="py-3 px-3 text-right cursor-pointer hover:text-blue-600" onclick="sortBy('billed')">청구금액 <i class="fa-solid fa-sort text-[10px]"></i></th>
-              <th class="py-3 px-3 text-center">관리기간</th>
+              <th class="py-3 px-3 text-center">결제회차</th>
               <th class="py-3 px-3 text-center w-36">대분류 변경</th>
               <th class="py-3 px-3">소분류</th>
               <th class="py-3 px-4">분류 사유 / 메모 (수정가능)</th>
@@ -592,7 +566,10 @@
 
   <!-- 데이터 및 스크립트 -->
   <script>
-    const defaultData = [{"card": "신한카드", "date": "2026.06.21", "merchant": "주식회사 무신사페이먼츠(MU", "amount": 61410, "billed": 20400, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "의류/패션", "reason": "의류 구매 (공금)", "note": "무이자"}, {"card": "신한카드", "date": "2026.07.20", "merchant": "07월5599KT통신요금", "amount": 38500, "billed": 34650, "period": "7월 (06.24~07.23)", "category": "고정지출", "subcategory": "통신비", "reason": "KT 통신비 월납 (10% 할인 3,850원 적용)", "note": "할인"}, {"card": "신한카드", "date": "2026.07.08", "merchant": "씨유(CU) 대연양우내안애점", "amount": 10320, "billed": 10320, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": ""}, {"card": "신한카드", "date": "2026.07.08", "merchant": "씨유(CU) 동구수정점", "amount": 4500, "billed": 4500, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": ""}, {"card": "신한카드", "date": "2026.07.09", "merchant": "씨유(CU) 동구수정점", "amount": 3500, "billed": 3500, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": ""}, {"card": "신한카드", "date": "2026.07.09", "merchant": "씨유(CU) 동구수정점", "amount": 1300, "billed": 1300, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": ""}, {"card": "신한카드", "date": "2026.07.09", "merchant": "페이타랩", "amount": 1500, "billed": 1500, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "카페/커피", "reason": "커피/음료 주문 (패스오더 등)", "note": ""}, {"card": "신한카드", "date": "2026.07.10", "merchant": "씨유(CU) 동구수정점", "amount": 4000, "billed": 4000, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": ""}, {"card": "신한카드", "date": "2026.07.11", "merchant": "텐퍼센트문현교차로점", "amount": 2000, "billed": 2000, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "카페/커피", "reason": "커피/음료 주문 (패스오더 등)", "note": ""}, {"card": "신한카드", "date": "2026.07.12", "merchant": "씨유(CU) 대연양우내안애점", "amount": 1300, "billed": 1300, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": ""}, {"card": "신한카드", "date": "2026.07.13", "merchant": "씨유(CU) 동구수정점", "amount": 3900, "billed": 3900, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": ""}, {"card": "신한카드", "date": "2026.07.14", "merchant": "씨유(CU) 동구수정점", "amount": 800, "billed": 800, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": ""}, {"card": "신한카드", "date": "2026.07.15", "merchant": "씨유(CU) 동구수정점", "amount": 3900, "billed": 3900, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": ""}, {"card": "신한카드", "date": "2026.07.16", "merchant": "씨유(CU) 동구수정점", "amount": 7000, "billed": 7000, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": ""}, {"card": "신한카드", "date": "2026.07.17", "merchant": "고속철도(KTX)부산-서울", "amount": 59400, "billed": 59400, "period": "7월 (06.24~07.23)", "category": "출장비", "subcategory": "교통/KTX", "reason": "업무 출장 고속철도 이동 (회사 정산용)", "note": ""}, {"card": "신한카드", "date": "2026.07.17", "merchant": "주식회사 스타로드대빵오락실", "amount": 5000, "billed": 5000, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "취미/오락", "reason": "오락실 이용", "note": ""}, {"card": "신한카드", "date": "2026.07.17", "merchant": "주식회사 스타로드대빵오락실", "amount": 5000, "billed": 5000, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "취미/오락", "reason": "오락실 이용", "note": ""}, {"card": "신한카드", "date": "2026.07.17", "merchant": "페이타랩", "amount": 1800, "billed": 1800, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "카페/커피", "reason": "커피/음료 주문 (패스오더 등)", "note": ""}, {"card": "신한카드", "date": "2026.07.18", "merchant": "주식회사 우아한형제들", "amount": 16000, "billed": 16000, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "배달식비", "reason": "배달의민족 가족 공동 식사 배달", "note": ""}, {"card": "신한카드", "date": "2026.07.18", "merchant": "씨유(CU) 동구수정점", "amount": 800, "billed": 800, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": ""}, {"card": "신한카드", "date": "2026.07.19", "merchant": "모모스커피 온천장점", "amount": 42000, "billed": 42000, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "카페/커피", "reason": "커피/음료 주문 (패스오더 등)", "note": ""}, {"card": "신한카드", "date": "2026.07.20", "merchant": "씨유(CU) 동구수정점", "amount": 800, "billed": 800, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": ""}, {"card": "신한카드", "date": "2026.07.20", "merchant": "페이타랩", "amount": 1500, "billed": 1500, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "카페/커피", "reason": "커피/음료 주문 (패스오더 등)", "note": ""}, {"card": "신한카드", "date": "2026.07.21", "merchant": "씨유(CU) 동구수정점", "amount": 800, "billed": 800, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": ""}, {"card": "신한카드", "date": "2026.07.22", "merchant": "정성약국", "amount": 6300, "billed": 5670, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "의료/약국", "reason": "약국 의약품 구매 (10% 할인 적용)", "note": "할인"}, {"card": "신한카드", "date": "2026.07.22", "merchant": "씨유(CU) 동구수정점", "amount": 800, "billed": 800, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": ""}, {"card": "신한카드", "date": "2026.07.22", "merchant": "페이타랩", "amount": 1500, "billed": 1500, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "카페/커피", "reason": "커피/음료 주문 (패스오더 등)", "note": ""}, {"card": "신한카드", "date": "2026.07.23", "merchant": "씨유(CU) 동구수정점", "amount": 3900, "billed": 3900, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": ""}, {"card": "신한카드", "date": "2026.07.24", "merchant": "코레일유통주식회사(부산역)", "amount": 7700, "billed": 7700, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "식음료", "reason": "부산역사 내 식음료 구매", "note": ""}, {"card": "신한카드", "date": "2026.07.25", "merchant": "지마켓", "amount": 19940, "billed": 19940, "period": "8월 (07.24~08.23)", "category": "확인필요", "subcategory": "온라인쇼핑", "reason": "온라인 쇼핑몰 결제 (공동 생필품 여부 확인)", "note": ""}, {"card": "신한카드", "date": "2026.07.25", "merchant": "씨유(CU) 대연양우내안애점", "amount": 1300, "billed": 1300, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": ""}, {"card": "신한카드", "date": "2026.07.26", "merchant": "씨유(CU) 대연양우내안애점", "amount": 1300, "billed": 1300, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": ""}, {"card": "신한카드", "date": "2026.07.27", "merchant": "씨유(CU) 동구수정점", "amount": 800, "billed": 800, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": ""}, {"card": "신한카드", "date": "2026.07.28", "merchant": "씨유(CU) 동구수정점", "amount": 1300, "billed": 1300, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": ""}, {"card": "신한카드", "date": "2026.07.28", "merchant": "페이타랩", "amount": 1500, "billed": 1500, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "카페/커피", "reason": "커피/음료 주문 (패스오더 등)", "note": ""}, {"card": "신한카드", "date": "2026.07.29", "merchant": "씨유(CU) 동구수정점", "amount": 800, "billed": 800, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": ""}, {"card": "신한카드", "date": "2026.07.29", "merchant": "페이타랩", "amount": 1500, "billed": 1500, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "카페/커피", "reason": "커피/음료 주문 (패스오더 등)", "note": ""}, {"card": "신한카드", "date": "2026.07.30", "merchant": "네이버페이", "amount": 19800, "billed": 19800, "period": "8월 (07.24~08.23)", "category": "확인필요", "subcategory": "온라인쇼핑", "reason": "온라인 쇼핑몰 결제 (공동 생필품 여부 확인)", "note": ""}, {"card": "신한카드", "date": "2026.07.30", "merchant": "페이타랩", "amount": 2000, "billed": 2000, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "카페/커피", "reason": "커피/음료 주문 (패스오더 등)", "note": ""}, {"card": "신한카드", "date": "2026.07.31", "merchant": "지마켓", "amount": 18280, "billed": 18280, "period": "8월 (07.24~08.23)", "category": "확인필요", "subcategory": "온라인쇼핑", "reason": "온라인 쇼핑몰 결제 (공동 생필품 여부 확인)", "note": ""}, {"card": "신한카드", "date": "2026.08.02", "merchant": "씨유(CU) 대연양우내안애점", "amount": 1300, "billed": 1170, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출 (할인적용)", "note": "할인"}, {"card": "신한카드", "date": "2026.08.02", "merchant": "페이타랩", "amount": 2000, "billed": 2000, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "카페/커피", "reason": "커피/음료 주문 (패스오더 등)", "note": ""}, {"card": "신한카드", "date": "2026.08.06", "merchant": "씨유(CU) 대연양우내안애점", "amount": 3700, "billed": 3330, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출 (할인적용)", "note": "할인"}, {"card": "신한카드", "date": "2026.08.06", "merchant": "지마켓", "amount": 8420, "billed": 7578, "period": "8월 (07.24~08.23)", "category": "확인필요", "subcategory": "온라인쇼핑", "reason": "온라인 쇼핑몰 결제 (공동 생필품 여부 확인)", "note": "할인"}, {"card": "신한카드", "date": "2026.07.21", "merchant": "ANTHROPIC* CLAUDE SUB", "amount": 22, "billed": 33221, "period": "7월 (06.24~07.23)", "category": "고정지출", "subcategory": "정기구독", "reason": "Claude AI 월구독 정기결제", "note": ""}, {"card": "신한카드", "date": "2026.07.21", "merchant": "OPENAI *CHATGPT SUBSCR", "amount": 29000, "billed": 29767, "period": "7월 (06.24~07.23)", "category": "고정지출", "subcategory": "정기구독", "reason": "ChatGPT Plus 월구독 정기결제", "note": ""}, {"card": "국민카드", "date": "2026.07.09", "merchant": "쿠팡이츠-쿠팡이츠", "amount": 28370, "billed": 28370, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "배달식비", "reason": "쿠팡이츠 가족 공동 배달 식사", "note": ""}, {"card": "국민카드", "date": "2026.07.10", "merchant": "쿠팡이츠-쿠팡이츠", "amount": 22900, "billed": 22900, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "배달식비", "reason": "쿠팡이츠 가족 공동 배달 식사", "note": ""}, {"card": "국민카드", "date": "2026.07.12", "merchant": "쿠팡이츠-쿠팡이츠", "amount": 24000, "billed": 24000, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "배달식비", "reason": "쿠팡이츠 가족 공동 배달 식사", "note": ""}, {"card": "국민카드", "date": "2026.07.12", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 16810, "billed": 16810, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": ""}, {"card": "국민카드", "date": "2026.07.13", "merchant": "KT통신요금자동납부(65**96**)", "amount": 35600, "billed": 12600, "period": "7월 (06.24~07.23)", "category": "고정지출", "subcategory": "통신비", "reason": "알뜰폰 통신요금 자동납부 (23,000원 제휴할인)", "note": ""}, {"card": "국민카드", "date": "2026.07.14", "merchant": "네이버페이-롯데쇼핑(주)e커머스사업본부", "amount": 30620, "billed": 30620, "period": "7월 (06.24~07.23)", "category": "확인필요", "subcategory": "온라인쇼핑", "reason": "온라인몰 간편결제 (공동 생필품 여부 확인)", "note": ""}, {"card": "국민카드", "date": "2026.07.14", "merchant": "러키비키 서면1호점", "amount": 4000, "billed": 4000, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "취미/간식", "reason": "개인 간식 및 오락실 이용", "note": ""}, {"card": "국민카드", "date": "2026.07.14", "merchant": "아성다이소", "amount": 7000, "billed": 7000, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "생활용품", "reason": "아성다이소 생활잡화 구매", "note": ""}, {"card": "국민카드", "date": "2026.07.16", "merchant": "(주)이마트 문현점", "amount": 25800, "billed": 25800, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "마트장보기", "reason": "대형마트 가족 식료품/생필품 장보기", "note": ""}, {"card": "국민카드", "date": "2026.07.16", "merchant": "(주)이마트 문현점", "amount": 73320, "billed": 73320, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "마트장보기", "reason": "대형마트 가족 식료품/생필품 장보기", "note": ""}, {"card": "국민카드", "date": "2026.07.17", "merchant": "미션클리어 오락실", "amount": 5000, "billed": 5000, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "취미/간식", "reason": "개인 간식 및 오락실 이용", "note": ""}, {"card": "국민카드", "date": "2026.07.17", "merchant": "미션클리어 오락실", "amount": 5000, "billed": 5000, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "취미/간식", "reason": "개인 간식 및 오락실 이용", "note": ""}, {"card": "국민카드", "date": "2026.07.17", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 28390, "billed": 28390, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": ""}, {"card": "국민카드", "date": "2026.07.18", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 3900, "billed": 3900, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": ""}, {"card": "국민카드", "date": "2026.07.18", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 3900, "billed": 3900, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": ""}, {"card": "국민카드", "date": "2026.07.22", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 8910, "billed": 8910, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": ""}, {"card": "국민카드", "date": "2026.07.24", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 3990, "billed": 3990, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": ""}, {"card": "국민카드", "date": "2026.07.26", "merchant": "네이버페이-롯데쇼핑(주)e커머스사업본부", "amount": 13110, "billed": 13110, "period": "8월 (07.24~08.23)", "category": "확인필요", "subcategory": "온라인쇼핑", "reason": "온라인몰 간편결제 (공동 생필품 여부 확인)", "note": ""}, {"card": "국민카드", "date": "2026.07.26", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 2900, "billed": 2900, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": ""}, {"card": "국민카드", "date": "2026.07.26", "merchant": "네이버페이-롯데쇼핑(주)e커머스사업본부", "amount": 22870, "billed": 22870, "period": "8월 (07.24~08.23)", "category": "확인필요", "subcategory": "온라인쇼핑", "reason": "온라인몰 간편결제 (공동 생필품 여부 확인)", "note": ""}, {"card": "국민카드", "date": "2026.07.26", "merchant": "쿠팡이츠-쿠팡이츠", "amount": 18000, "billed": 18000, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "배달식비", "reason": "쿠팡이츠 가족 공동 배달 식사", "note": ""}, {"card": "국민카드", "date": "2026.07.27", "merchant": "토스페이_일반-(주)비바리퍼블리카", "amount": 10790, "billed": 10790, "period": "8월 (07.24~08.23)", "category": "확인필요", "subcategory": "온라인쇼핑", "reason": "온라인몰 간편결제 (공동 생필품 여부 확인)", "note": ""}, {"card": "국민카드", "date": "2026.07.27", "merchant": "(주)부산도시가스-자동납부", "amount": 13760, "billed": 13760, "period": "8월 (07.24~08.23)", "category": "고정지출", "subcategory": "공과금", "reason": "부산도시가스 요금 자동납부", "note": ""}, {"card": "국민카드", "date": "2026.07.27", "merchant": "KB아파트관리비-26년06월분", "amount": 171380, "billed": 171380, "period": "8월 (07.24~08.23)", "category": "고정지출", "subcategory": "관리비", "reason": "KB아파트 6월분 관리비 정기납부", "note": ""}, {"card": "국민카드", "date": "2026.07.28", "merchant": "배민클럽_우아한형제들-배민클럽_우아한", "amount": 1990, "billed": 1990, "period": "8월 (07.24~08.23)", "category": "고정지출", "subcategory": "정기구독", "reason": "배민클럽 배달 멤버십 월정액 구독", "note": ""}, {"card": "국민카드", "date": "2026.07.30", "merchant": "남구도서관", "amount": 750, "billed": 750, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "도서/문화", "reason": "남구도서관 소액 이용료", "note": ""}, {"card": "국민카드", "date": "2026.07.30", "merchant": "쿠팡이츠-쿠팡이츠", "amount": 26300, "billed": 26300, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "배달식비", "reason": "쿠팡이츠 가족 공동 배달 식사", "note": ""}, {"card": "국민카드", "date": "2026.07.31", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 39510, "billed": 39510, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": ""}, {"card": "국민카드", "date": "2026.07.31", "merchant": "씨유(CU) 대연양우내안애점", "amount": 4200, "billed": 4200, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": ""}, {"card": "국민카드", "date": "2026.07.31", "merchant": "아성다이소", "amount": 19000, "billed": 19000, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "생활용품", "reason": "아성다이소 생활잡화 구매", "note": ""}, {"card": "국민카드", "date": "2026.07.31", "merchant": "(주)이마트 문현점", "amount": 17160, "billed": 17160, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "마트장보기", "reason": "대형마트 가족 식료품/생필품 장보기", "note": ""}, {"card": "국민카드", "date": "2026.08.01", "merchant": "카페룩룩", "amount": 32000, "billed": 32000, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "카페/커피", "reason": "카페 이용 (8/1 분할결제)", "note": ""}, {"card": "국민카드", "date": "2026.08.01", "merchant": "카페룩룩", "amount": 10000, "billed": 10000, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "카페/커피", "reason": "카페 이용 (8/1 분할결제)", "note": ""}, {"card": "국민카드", "date": "2026.08.01", "merchant": "카페룩룩", "amount": 12900, "billed": 12900, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "카페/커피", "reason": "카페 이용 (8/1 분할결제)", "note": ""}, {"card": "국민카드", "date": "2026.08.01", "merchant": "메가마트 문현점", "amount": 20880, "billed": 20880, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "마트장보기", "reason": "대형마트 가족 식료품/생필품 장보기", "note": ""}, {"card": "국민카드", "date": "2026.08.02", "merchant": "(주)신세계백화점센텀시티점", "amount": 3500, "billed": 3500, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "식음/쇼핑", "reason": "신세계백화점 센텀시티점 공동 소비", "note": ""}, {"card": "국민카드", "date": "2026.08.02", "merchant": "(주)신세계백화점센텀시티점", "amount": 3000, "billed": 3000, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "식음/쇼핑", "reason": "신세계백화점 센텀시티점 공동 소비", "note": ""}, {"card": "국민카드", "date": "2026.08.02", "merchant": "(주)신세계백화점센텀시티점", "amount": 11100, "billed": 11100, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "식음/쇼핑", "reason": "신세계백화점 센텀시티점 공동 소비", "note": ""}, {"card": "국민카드", "date": "2026.08.02", "merchant": "APEC나루공원 공영주차장", "amount": 2550, "billed": 2550, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "차량유지", "reason": "공영주차장 주차요금", "note": ""}, {"card": "국민카드", "date": "2026.08.02", "merchant": "쿠팡이츠-쿠팡이츠", "amount": 24000, "billed": 24000, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "배달식비", "reason": "쿠팡이츠 가족 공동 배달 식사", "note": ""}, {"card": "국민카드", "date": "2026.08.02", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 6050, "billed": 6050, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": ""}, {"card": "국민카드", "date": "2026.08.03", "merchant": "쿠팡이츠-쿠팡이츠", "amount": 12900, "billed": 12900, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "배달식비", "reason": "쿠팡이츠 가족 공동 배달 식사", "note": ""}, {"card": "국민카드", "date": "2026.08.03", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 37360, "billed": 37360, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": ""}, {"card": "국민카드", "date": "2026.08.03", "merchant": "씨유(CU) 대연양우내안애점", "amount": 4200, "billed": 4200, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": ""}, {"card": "국민카드", "date": "2026.08.04", "merchant": "쿠팡이츠-쿠팡이츠", "amount": 17700, "billed": 17700, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "배달식비", "reason": "쿠팡이츠 가족 공동 배달 식사", "note": ""}, {"card": "국민카드", "date": "2026.08.04", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 3490, "billed": 3490, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": ""}, {"card": "국민카드", "date": "2026.08.04", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 4700, "billed": 4700, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": ""}, {"card": "국민카드", "date": "2026.08.04", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 4120, "billed": 4120, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": ""}, {"card": "국민카드", "date": "2026.08.05", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 49370, "billed": 49370, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": ""}, {"card": "국민카드", "date": "2026.08.06", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 43460, "billed": 43460, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": ""}, {"card": "국민카드", "date": "2026.08.06", "merchant": "쿠팡(와우멤버십)-쿠팡(와우멤버십)", "amount": 7890, "billed": 7890, "period": "8월 (07.24~08.23)", "category": "고정지출", "subcategory": "정기구독", "reason": "쿠팡 와우멤버십 월정액 구독", "note": ""}, {"card": "국민카드", "date": "2026.08.06", "merchant": "현대서비스 대연점", "amount": 37290, "billed": 37290, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "차량유지", "reason": "현대서비스 차량 정비 및 점검", "note": ""}, {"card": "국민카드", "date": "2026.08.06", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 2780, "billed": 2780, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": ""}];
+    // 통장 직접 출금 중 청구 대상만 (scripts/settle.py 와 같은 구간 07.22~08.21)
+    const bankDirect = [{"date": "2026.07.22", "desc": "카카오페이", "out": 21383, "category": "고정지출", "subcategory": "카카오페이"}, {"date": "2026.07.22", "desc": "동백전충전", "out": 100000, "category": "공금", "subcategory": "지역화폐충전"}, {"date": "2026.07.23", "desc": "삼성화07016", "out": 123137, "category": "고정지출", "subcategory": "보험료"}, {"date": "2026.07.23", "desc": "감만종합사회복", "out": 4000, "category": "공금", "subcategory": "장난감 대여료"}, {"date": "2026.07.23", "desc": "동백전충전", "out": 30000, "category": "공금", "subcategory": "지역화폐충전"}, {"date": "2026.07.23", "desc": "카카오페이", "out": 10000, "category": "고정지출", "subcategory": "카카오페이"}, {"date": "2026.07.26", "desc": "동백전충전", "out": 30000, "category": "공금", "subcategory": "지역화폐충전"}, {"date": "2026.07.26", "desc": "카카오페이", "out": 10000, "category": "고정지출", "subcategory": "카카오페이"}, {"date": "2026.07.27", "desc": "카카오페이", "out": 10000, "category": "고정지출", "subcategory": "카카오페이"}, {"date": "2026.07.29", "desc": "카카오페이", "out": 10000, "category": "고정지출", "subcategory": "카카오페이"}, {"date": "2026.07.29", "desc": "카카오페이", "out": 10574, "category": "고정지출", "subcategory": "카카오페이"}, {"date": "2026.07.30", "desc": "동백전충전", "out": 30000, "category": "공금", "subcategory": "지역화폐충전"}, {"date": "2026.08.04", "desc": "동백전충전", "out": 10000, "category": "공금", "subcategory": "지역화폐충전"}, {"date": "2026.08.05", "desc": "동백전충전", "out": 30000, "category": "공금", "subcategory": "지역화폐충전"}, {"date": "2026.08.05", "desc": "한화손08028", "out": 24599, "category": "고정지출", "subcategory": "보험료"}, {"date": "2026.08.11", "desc": "동백전충전", "out": 10000, "category": "공금", "subcategory": "지역화폐충전"}, {"date": "2026.08.11", "desc": "동백전충전", "out": 10000, "category": "공금", "subcategory": "지역화폐충전"}, {"date": "2026.08.11", "desc": "카카오페이", "out": 10000, "category": "고정지출", "subcategory": "카카오페이"}, {"date": "2026.08.13", "desc": "하나카드", "out": 1900, "category": "공금", "subcategory": "마켓컬리"}, {"date": "2026.08.14", "desc": "동백전충전", "out": 30000, "category": "공금", "subcategory": "지역화폐충전"}, {"date": "2026.08.14", "desc": "동백전충전", "out": 10000, "category": "공금", "subcategory": "지역화폐충전"}, {"date": "2026.08.14", "desc": "동백전충전", "out": 10000, "category": "공금", "subcategory": "지역화폐충전"}, {"date": "2026.08.16", "desc": "카카오페이", "out": 10000, "category": "고정지출", "subcategory": "카카오페이"}, {"date": "2026.08.17", "desc": "KIA 한재림", "out": 100000, "category": "공금", "subcategory": "계약금"}, {"date": "2026.08.18", "desc": "삼성생명08063", "out": 24825, "category": "고정지출", "subcategory": "보험료"}, {"date": "2026.08.18", "desc": "한재림현대카드", "out": 17365, "category": "공금", "subcategory": "하이패스"}, {"date": "2026.08.20", "desc": "카카오페이", "out": 10000, "category": "고정지출", "subcategory": "카카오페이"}, {"date": "2026.08.20", "desc": "동백전충전", "out": 10000, "category": "공금", "subcategory": "지역화폐충전"}, {"date": "2026.08.20", "desc": "자동충전", "out": 13838, "category": "공금", "subcategory": "지역화폐충전"}, {"date": "2026.08.20", "desc": "카카오페이", "out": 10000, "category": "고정지출", "subcategory": "카카오페이"}, {"date": "2026.08.21", "desc": "롯데카드(주)", "out": 61500, "category": "공금", "subcategory": "노트북 할부"}];
+    const RECEIVED = 400000;  // 7/24 수령한 고정지출비
+    const defaultData = [{"card": "신한카드", "date": "2026.06.21", "merchant": "주식회사 무신사페이먼츠(MU", "amount": 61410, "billed": 20400, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "의류/패션", "reason": "의류 구매 (공금)", "note": "무이자", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.20", "merchant": "07월5599KT통신요금", "amount": 38500, "billed": 34650, "period": "7월 (06.24~07.23)", "category": "고정지출", "subcategory": "통신비", "reason": "KT 통신비 월납 (10% 할인 3,850원 적용)", "note": "할인", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.08", "merchant": "씨유(CU) 대연양우내안애점", "amount": 10320, "billed": 10320, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.08", "merchant": "씨유(CU) 동구수정점", "amount": 4500, "billed": 4500, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.09", "merchant": "씨유(CU) 동구수정점", "amount": 3500, "billed": 3500, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.09", "merchant": "씨유(CU) 동구수정점", "amount": 1300, "billed": 1300, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.09", "merchant": "페이타랩", "amount": 1500, "billed": 1500, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "카페/커피", "reason": "커피/음료 주문 (패스오더 등)", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.10", "merchant": "씨유(CU) 동구수정점", "amount": 4000, "billed": 4000, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.11", "merchant": "텐퍼센트문현교차로점", "amount": 2000, "billed": 2000, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "카페/커피", "reason": "커피/음료 주문 (패스오더 등)", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.12", "merchant": "씨유(CU) 대연양우내안애점", "amount": 1300, "billed": 1300, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.13", "merchant": "씨유(CU) 동구수정점", "amount": 3900, "billed": 3900, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.14", "merchant": "씨유(CU) 동구수정점", "amount": 800, "billed": 800, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.15", "merchant": "씨유(CU) 동구수정점", "amount": 3900, "billed": 3900, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.16", "merchant": "씨유(CU) 동구수정점", "amount": 7000, "billed": 7000, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.17", "merchant": "고속철도(KTX)부산-서울", "amount": 59400, "billed": 59400, "period": "7월 (06.24~07.23)", "category": "출장비", "subcategory": "교통/KTX", "reason": "업무 출장 고속철도 이동 (회사 정산용)", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.17", "merchant": "주식회사 스타로드대빵오락실", "amount": 5000, "billed": 5000, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "취미/오락", "reason": "오락실 이용", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.17", "merchant": "주식회사 스타로드대빵오락실", "amount": 5000, "billed": 5000, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "취미/오락", "reason": "오락실 이용", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.17", "merchant": "페이타랩", "amount": 1800, "billed": 1800, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "카페/커피", "reason": "커피/음료 주문 (패스오더 등)", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.18", "merchant": "주식회사 우아한형제들", "amount": 16000, "billed": 16000, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "배달식비", "reason": "배달의민족 가족 공동 식사 배달", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.18", "merchant": "씨유(CU) 동구수정점", "amount": 800, "billed": 800, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.19", "merchant": "모모스커피 온천장점", "amount": 42000, "billed": 42000, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "카페/커피", "reason": "커피/음료 주문 (패스오더 등)", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.20", "merchant": "씨유(CU) 동구수정점", "amount": 800, "billed": 800, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.20", "merchant": "페이타랩", "amount": 1500, "billed": 1500, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "카페/커피", "reason": "커피/음료 주문 (패스오더 등)", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.21", "merchant": "씨유(CU) 동구수정점", "amount": 800, "billed": 800, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.22", "merchant": "정성약국", "amount": 6300, "billed": 5670, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "의료/약국", "reason": "약국 의약품 구매 (10% 할인 적용)", "note": "할인", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.22", "merchant": "씨유(CU) 동구수정점", "amount": 800, "billed": 800, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.22", "merchant": "페이타랩", "amount": 1500, "billed": 1500, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "카페/커피", "reason": "커피/음료 주문 (패스오더 등)", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.23", "merchant": "씨유(CU) 동구수정점", "amount": 3900, "billed": 3900, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.24", "merchant": "코레일유통주식회사(부산역)", "amount": 7700, "billed": 7700, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "식음료", "reason": "부산역사 내 식음료 구매", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.25", "merchant": "지마켓", "amount": 19940, "billed": 19940, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "마트장보기", "reason": "미국산 돼지 등갈비(로인립) 2KG (지마켓)", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.25", "merchant": "씨유(CU) 대연양우내안애점", "amount": 1300, "billed": 1300, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.26", "merchant": "씨유(CU) 대연양우내안애점", "amount": 1300, "billed": 1300, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.27", "merchant": "씨유(CU) 동구수정점", "amount": 800, "billed": 800, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.28", "merchant": "씨유(CU) 동구수정점", "amount": 1300, "billed": 1300, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.28", "merchant": "페이타랩", "amount": 1500, "billed": 1500, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "카페/커피", "reason": "커피/음료 주문 (패스오더 등)", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.29", "merchant": "씨유(CU) 동구수정점", "amount": 800, "billed": 800, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.29", "merchant": "페이타랩", "amount": 1500, "billed": 1500, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "카페/커피", "reason": "커피/음료 주문 (패스오더 등)", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.30", "merchant": "네이버페이", "amount": 19800, "billed": 19800, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "의류/패션", "reason": "뉴발란스 양말 4팩 x2건 (네이버페이)", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.30", "merchant": "페이타랩", "amount": 2000, "billed": 2000, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "카페/커피", "reason": "커피/음료 주문 (패스오더 등)", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.31", "merchant": "지마켓", "amount": 18280, "billed": 18280, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "마트장보기", "reason": "바베큐/수육용 통삼겹살 2KG (지마켓)", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.08.02", "merchant": "씨유(CU) 대연양우내안애점", "amount": 1300, "billed": 1170, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출 (할인적용)", "note": "할인", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.08.02", "merchant": "페이타랩", "amount": 2000, "billed": 2000, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "카페/커피", "reason": "커피/음료 주문 (패스오더 등)", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.08.06", "merchant": "씨유(CU) 대연양우내안애점", "amount": 3700, "billed": 3330, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출 (할인적용)", "note": "할인", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.08.06", "merchant": "지마켓", "amount": 8420, "billed": 7578, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "생활용품", "reason": "필립스 알카라인 AA/AAA 건전지 40개입 (지마켓)", "note": "할인", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.21", "merchant": "ANTHROPIC* CLAUDE SUB", "amount": 22, "billed": 33221, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "정기구독", "reason": "Claude AI 월구독 정기결제", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.21", "merchant": "OPENAI *CHATGPT SUBSCR", "amount": 29000, "billed": 29767, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "정기구독", "reason": "ChatGPT Plus 월구독 정기결제", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.09", "merchant": "쿠팡이츠-쿠팡이츠", "amount": 28370, "billed": 28370, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "배달식비", "reason": "쿠팡이츠 가족 공동 배달 식사", "note": "", "bill": "7/21분"}, {"card": "국민카드", "date": "2026.07.10", "merchant": "쿠팡이츠-쿠팡이츠", "amount": 22900, "billed": 22900, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "배달식비", "reason": "쿠팡이츠 가족 공동 배달 식사", "note": "", "bill": "7/21분"}, {"card": "국민카드", "date": "2026.07.12", "merchant": "쿠팡이츠-쿠팡이츠", "amount": 24000, "billed": 24000, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "배달식비", "reason": "쿠팡이츠 가족 공동 배달 식사", "note": "", "bill": "7/21분"}, {"card": "국민카드", "date": "2026.07.12", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 16810, "billed": 16810, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": "", "bill": "7/21분"}, {"card": "국민카드", "date": "2026.07.13", "merchant": "KT통신요금자동납부(65**96**)", "amount": 35600, "billed": 12600, "period": "7월 (06.24~07.23)", "category": "고정지출", "subcategory": "통신비", "reason": "알뜰폰 통신요금 자동납부 (23,000원 제휴할인)", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.14", "merchant": "네이버페이-롯데쇼핑(주)e커머스사업본부", "amount": 30620, "billed": 30620, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "마트장보기", "reason": "노르웨이 딥스킨 생연어 1kg 필렛 (네이버페이)", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.14", "merchant": "러키비키 서면1호점", "amount": 4000, "billed": 4000, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "취미/간식", "reason": "개인 간식 및 오락실 이용", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.14", "merchant": "아성다이소", "amount": 7000, "billed": 7000, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "생활용품", "reason": "아성다이소 생활잡화 구매", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.16", "merchant": "(주)이마트 문현점", "amount": 25800, "billed": 25800, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "마트장보기", "reason": "대형마트 가족 식료품/생필품 장보기", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.16", "merchant": "(주)이마트 문현점", "amount": 73320, "billed": 73320, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "마트장보기", "reason": "대형마트 가족 식료품/생필품 장보기", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.17", "merchant": "미션클리어 오락실", "amount": 5000, "billed": 5000, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "취미/간식", "reason": "개인 간식 및 오락실 이용", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.17", "merchant": "미션클리어 오락실", "amount": 5000, "billed": 5000, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "취미/간식", "reason": "개인 간식 및 오락실 이용", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.17", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 28390, "billed": 28390, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.18", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 3900, "billed": 3900, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.18", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 3900, "billed": 3900, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.22", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 8910, "billed": 8910, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.24", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 3990, "billed": 3990, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.26", "merchant": "네이버페이-롯데쇼핑(주)e커머스사업본부", "amount": 13110, "billed": 13110, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "의류/패션", "reason": "인코드 남성 무봉제 드로즈 5매 (네이버페이)", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.26", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 2900, "billed": 2900, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.26", "merchant": "네이버페이-롯데쇼핑(주)e커머스사업본부", "amount": 22870, "billed": 22870, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "마트장보기", "reason": "펩시 제로슈거 210ml 60캔 (네이버페이)", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.26", "merchant": "쿠팡이츠-쿠팡이츠", "amount": 18000, "billed": 18000, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "배달식비", "reason": "쿠팡이츠 가족 공동 배달 식사", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.27", "merchant": "토스페이_일반-(주)비바리퍼블리카", "amount": 10790, "billed": 10790, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "온라인쇼핑", "reason": "토스페이 결제 (품목 미확인, 공금 확정)", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.27", "merchant": "(주)부산도시가스-자동납부", "amount": 13760, "billed": 13760, "period": "8월 (07.24~08.23)", "category": "고정지출", "subcategory": "공과금", "reason": "부산도시가스 요금 자동납부", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.27", "merchant": "KB아파트관리비-26년06월분", "amount": 171380, "billed": 171380, "period": "8월 (07.24~08.23)", "category": "고정지출", "subcategory": "관리비", "reason": "KB아파트 6월분 관리비 정기납부", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.28", "merchant": "배민클럽_우아한형제들-배민클럽_우아한", "amount": 1990, "billed": 1990, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "정기구독", "reason": "배민클럽 배달 멤버십 월정액 구독", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.30", "merchant": "남구도서관", "amount": 750, "billed": 750, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "도서/문화", "reason": "남구도서관 소액 이용료", "note": "", "bill": "7/21분"}, {"card": "국민카드", "date": "2026.07.30", "merchant": "쿠팡이츠-쿠팡이츠", "amount": 26300, "billed": 26300, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "배달식비", "reason": "쿠팡이츠 가족 공동 배달 식사", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.31", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 39510, "billed": 39510, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.31", "merchant": "씨유(CU) 대연양우내안애점", "amount": 4200, "billed": 4200, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.31", "merchant": "아성다이소", "amount": 19000, "billed": 19000, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "생활용품", "reason": "아성다이소 생활잡화 구매", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.31", "merchant": "(주)이마트 문현점", "amount": 17160, "billed": 17160, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "마트장보기", "reason": "대형마트 가족 식료품/생필품 장보기", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.01", "merchant": "카페룩룩", "amount": 32000, "billed": 32000, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "카페/커피", "reason": "카페 이용 (8/1 분할결제)", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.01", "merchant": "카페룩룩", "amount": 10000, "billed": 10000, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "카페/커피", "reason": "카페 이용 (8/1 분할결제)", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.01", "merchant": "카페룩룩", "amount": 12900, "billed": 12900, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "카페/커피", "reason": "카페 이용 (8/1 분할결제)", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.01", "merchant": "메가마트 문현점", "amount": 20880, "billed": 20880, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "마트장보기", "reason": "대형마트 가족 식료품/생필품 장보기", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.02", "merchant": "(주)신세계백화점센텀시티점", "amount": 3500, "billed": 3500, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "식음/쇼핑", "reason": "신세계백화점 센텀시티점 공동 소비", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.02", "merchant": "(주)신세계백화점센텀시티점", "amount": 3000, "billed": 3000, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "식음/쇼핑", "reason": "신세계백화점 센텀시티점 공동 소비", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.02", "merchant": "(주)신세계백화점센텀시티점", "amount": 11100, "billed": 11100, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "식음/쇼핑", "reason": "신세계백화점 센텀시티점 공동 소비", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.02", "merchant": "APEC나루공원 공영주차장", "amount": 2550, "billed": 2550, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "차량유지", "reason": "공영주차장 주차요금", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.02", "merchant": "쿠팡이츠-쿠팡이츠", "amount": 24000, "billed": 24000, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "배달식비", "reason": "쿠팡이츠 가족 공동 배달 식사", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.02", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 6050, "billed": 6050, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.03", "merchant": "쿠팡이츠-쿠팡이츠", "amount": 12900, "billed": 12900, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "배달식비", "reason": "쿠팡이츠 가족 공동 배달 식사", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.03", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 37360, "billed": 37360, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.03", "merchant": "씨유(CU) 대연양우내안애점", "amount": 4200, "billed": 4200, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.04", "merchant": "쿠팡이츠-쿠팡이츠", "amount": 17700, "billed": 17700, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "배달식비", "reason": "쿠팡이츠 가족 공동 배달 식사", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.04", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 3490, "billed": 3490, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.04", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 4700, "billed": 4700, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.04", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 4120, "billed": 4120, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.05", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 49370, "billed": 49370, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.06", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 43460, "billed": 43460, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.06", "merchant": "쿠팡(와우멤버십)-쿠팡(와우멤버십)", "amount": 7890, "billed": 7890, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "정기구독", "reason": "쿠팡 와우멤버십 월정액 구독", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.06", "merchant": "현대서비스 대연점", "amount": 37290, "billed": 37290, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "차량유지", "reason": "현대서비스 차량 정비 및 점검", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.06", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 2780, "billed": 2780, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": "", "bill": "8/21분"}];
     const STORAGE_KEY = 'jaenan_budget_txns_v2_synced';
     const SHOPPING_TXN_IDS = [30, 38, 40, 44, 52, 64, 66, 68];
 
@@ -648,11 +625,10 @@
     let sortField = 'date';
     let sortOrder = 'asc';
 
-    // 캘린더 상태 & 관리기간 필터
+    // 캘린더 상태
     let calYear = 2026;
     let calMonth = 7;
     let calSelectedDate = '2026.07.27';
-    let calPeriodFilter = 'ALL';   // ALL, 7월, 8월
     let calCategoryFilter = 'ALL'; // ALL, CLAIM, 출장비, 내 용돈, 확인필요
     let calCardFilter = 'ALL';
 
@@ -860,12 +836,12 @@
       document.getElementById('count-cat-allowance').innerText = txns.filter(t => t.category === '내 용돈').length;
       document.getElementById('count-cat-check').innerText = checkCount;
 
-      const p7Claim = txns.filter(t => t.period.startsWith('7월') && (t.category === '공금' || t.category === '고정지출')).reduce((sum, t) => sum + t.billed, 0);
-      const p8Claim = txns.filter(t => t.period.startsWith('8월') && (t.category === '공금' || t.category === '고정지출')).reduce((sum, t) => sum + t.billed, 0);
-      
-      document.getElementById('period-7-claim').innerText = p7Claim.toLocaleString() + '원';
-      document.getElementById('period-8-claim').innerText = p8Claim.toLocaleString() + '원';
-      document.getElementById('period-total-claim').innerText = (p7Claim + p8Claim).toLocaleString() + '원';
+      const cardClaim = txns.filter(t => t.bill === '8/21분' && (t.category === '공금' || t.category === '고정지출')).reduce((s, t) => s + t.billed, 0);
+      const bankClaim = bankDirect.reduce((s, t) => s + t.out, 0);
+      document.getElementById('settle-card').innerText = cardClaim.toLocaleString() + '원';
+      document.getElementById('settle-bank').innerText = bankClaim.toLocaleString() + '원';
+      document.getElementById('settle-recv').innerText = '-' + RECEIVED.toLocaleString() + '원';
+      document.getElementById('settle-total').innerText = (cardClaim + bankClaim - RECEIVED).toLocaleString() + '원';
 
       renderTable();
       updateCharts(totalClaim, businessTotal, allowanceTotal, checkTotal);
@@ -877,8 +853,7 @@
       const tbody = document.getElementById('txns-table-body');
       
       let filtered = txns.filter(item => {
-        if (currentPeriod === '7월' && !item.period.startsWith('7월')) return false;
-        if (currentPeriod === '8월' && !item.period.startsWith('8월')) return false;
+        if (currentPeriod !== 'ALL' && item.bill !== currentPeriod) return false;
 
         if (currentCategory === 'CLAIM' && item.category !== '공금' && item.category !== '고정지출') return false;
         if (currentCategory === '출장비' && item.category !== '출장비') return false;
@@ -943,7 +918,7 @@
               ${item.billed.toLocaleString()}원
             </td>
             <td class="py-2.5 px-3 text-center whitespace-nowrap">
-              <span class="text-[11px] px-2 py-0.5 rounded font-medium ${item.period.startsWith('7월') ? 'bg-blue-50 text-blue-700 border border-blue-100' : 'bg-purple-50 text-purple-700 border border-purple-100'}">${item.period.split(' ')[0]}</span>
+              <span class="text-[11px] px-2 py-0.5 rounded font-medium ${item.bill === '8/21분' ? 'bg-blue-50 text-blue-700 border border-blue-100' : 'bg-slate-100 text-slate-500 border border-slate-200'}">${item.bill}</span>
             </td>
             <td class="py-2 px-2 text-center whitespace-nowrap">
               <select onchange="changeCategory(${item.id}, this.value)" class="text-xs px-2.5 py-1 rounded-lg border focus:ring-2 focus:ring-blue-500 cursor-pointer ${selectBg} shadow-xs">
@@ -970,7 +945,7 @@
       currentPeriod = p;
       ['all', '7', '8'].forEach(k => {
         const btn = document.getElementById(`btn-period-${k}`);
-        btn.className = (k === 'all' && p === 'ALL') || (k === '7' && p === '7월') || (k === '8' && p === '8월')
+        btn.className = (k === 'all' && p === 'ALL') || (k === '7' && p === '7/21분') || (k === '8' && p === '8/21분')
           ? 'px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-white shadow-sm transition'
           : 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 transition';
       });
@@ -1287,19 +1262,7 @@
       stockMainChart.update();
     }
 
-    // ==================== 📅 월간 캘린더 모듈 (관리기간 시각화) ====================
-    function setCalPeriodFilter(p) {
-      calPeriodFilter = p;
-      ['all', '7', '8'].forEach(k => {
-        const btn = document.getElementById(`btn-cal-p-${k}`);
-        btn.className = (k === 'all' && p === 'ALL') || (k === '7' && p === '7월') || (k === '8' && p === '8월')
-          ? 'px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-white shadow-xs transition'
-          : 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 transition';
-      });
-      renderCalendar();
-      renderCalSelectedDetails(calSelectedDate);
-    }
-
+    // ==================== 📅 월간 캘린더 모듈 (사용일 기준) ====================
     function setCalCategoryFilter(cat) {
       calCategoryFilter = cat;
       const cats = [
@@ -1327,16 +1290,6 @@
       renderCalendar();
     }
 
-    function getPeriodByDate(y, m, d) {
-      // 06.24 ~ 07.23 -> 7월 관리기간
-      // 07.24 ~ 08.23 -> 8월 관리기간
-      if (m === 6 && d >= 24) return '7월';
-      if (m === 7 && d <= 23) return '7월';
-      if (m === 7 && d >= 24) return '8월';
-      if (m === 8 && d <= 23) return '8월';
-      return m <= 6 ? '7월' : '8월';
-    }
-
     function renderCalendar() {
       document.getElementById('cal-month-title').innerText = `${calYear}년 ${calMonth}월`;
       const grid = document.getElementById('cal-days-grid');
@@ -1351,9 +1304,6 @@
         const y = parseInt(parts[0]);
         const m = parseInt(parts[1]);
         const d = parseInt(parts[2]);
-
-        const itemPeriod = getPeriodByDate(y, m, d);
-        if (calPeriodFilter !== 'ALL' && itemPeriod !== calPeriodFilter) return;
 
         let matchesCat = true;
         const isClaim = t.category === '공금' || t.category === '고정지출';
@@ -1385,26 +1335,18 @@
         const hasSpend = !!data;
         const isSelected = calSelectedDate === fullDateStr;
 
-        const periodType = getPeriodByDate(calYear, calMonth, day);
-        const isPeriod7 = periodType === '7월';
 
         // 결제일 특별 뱃지 (8월 7일: KB국민 결제일 / 8월 21일: 신한 결제일)
         let payDayBadge = '';
-        if (calMonth === 8 && day === 7) {
-          payDayBadge = `<span class="text-[9px] font-bold text-amber-900 bg-amber-200/90 px-1 rounded block truncate mt-0.5 border border-amber-300">💳 KB결제일</span>`;
-        } else if (calMonth === 8 && day === 21) {
-          payDayBadge = `<span class="text-[9px] font-bold text-blue-900 bg-blue-200/90 px-1 rounded block truncate mt-0.5 border border-blue-300">💳 신한결제일</span>`;
+        if (calMonth === 8 && day === 21) {
+          payDayBadge = `<span class="text-[9px] font-bold text-blue-900 bg-blue-200/90 px-1 rounded block truncate mt-0.5 border border-blue-300">💳 KB·신한 결제일</span>`;
         }
 
-        // 관리기간 상단 컬러 띠 & 라벨
-        const periodHeaderTag = isPeriod7 
-          ? `<span class="text-[9px] font-semibold text-blue-600 bg-blue-50/80 px-1 rounded">7월정산</span>`
-          : `<span class="text-[9px] font-semibold text-purple-600 bg-purple-50/80 px-1 rounded">8월정산</span>`;
+        // 사용일 뷰 — 관리기간 띠는 결제회차와 어긋나므로 표시하지 않는다
+        const periodHeaderTag = '';
 
         let spendBadge = '';
-        let bgStyle = isPeriod7 
-          ? 'bg-blue-50/20 border-blue-100 hover:border-blue-300' 
-          : 'bg-purple-50/20 border-purple-100 hover:border-purple-300';
+        let bgStyle = 'bg-white border-slate-200 hover:border-slate-400';
 
         if (isSelected) {
           bgStyle = 'bg-blue-50/90 border-blue-500 shadow-md ring-2 ring-blue-400/40';
@@ -1428,7 +1370,7 @@
 
         cellsHtml += `
           <div onclick="selectCalDate('${fullDateStr}')" class="cal-day-cell h-24 sm:h-28 p-1.5 rounded-xl border ${bgStyle} cursor-pointer flex flex-col justify-between transition text-left relative overflow-hidden">
-            <!-- 상단: 날짜 + 관리기간 띠 + 결제건수 -->
+            <!-- 상단: 날짜 + 결제일 뱃지 -->
             <div>
               <div class="flex justify-between items-start">
                 <span class="text-xs font-bold ${dayColor}">${day}</span>
@@ -1457,9 +1399,7 @@
 
     function renderCalSelectedDetails(dateStr) {
       document.getElementById('cal-selected-date').innerText = dateStr;
-      const parts = dateStr.split('.');
-      const period = getPeriodByDate(parseInt(parts[0]), parseInt(parts[1]), parseInt(parts[2]));
-      document.getElementById('cal-selected-period-tag').innerText = period === '7월' ? '7월 관리기간 (06.24 ~ 07.23 사용분)' : '8월 관리기간 (07.24 ~ 08.23 사용분)';
+      document.getElementById('cal-selected-period-tag').innerText = '사용일 기준';
 
       const listEl = document.getElementById('cal-selected-list');
       const totalEl = document.getElementById('cal-selected-total');
