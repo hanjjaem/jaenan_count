@@ -12,7 +12,7 @@ from pathlib import Path
 import xlrd
 
 ROOT = Path(__file__).resolve().parent.parent
-DEFAULT_XLS = ROOT / "신한은행_거래내역조회_20260904072434.xls"
+DEFAULT_XLS = ROOT / "신한은행_거래내역조회_20260930215519.xls"
 OUT = ROOT / "data" / "bank_txns.json"
 
 # 가계부 관리기간: 매월 24일 ~ 다음달 23일 (index.html 기준)
@@ -29,6 +29,9 @@ CATEGORY_RULES = [
     # --- 출금 ---
     # 07-24 토스페이 3건은 KTX 예매(2건은 즉시 취소·환불). 같은 날 한국철도공사 환급과 짝.
     (r"2026-07-24.*토스페이", "out", "출장비", "KTX 예매"),
+    (r"2026-09-07.*토스페이", "out", "출장비", "KTX 예매"),
+    (r"네이버페이충전", "out", "내 용돈", "네이버페이 충전"),
+    (r"^2026-09-01 .* 한재림$", "out", "고정지출", "본인 이체"),
     (r"동백전충전|자동충전", "out", "공금", "지역화폐충전"),
     (r"KIA 한재림", "out", "공금", "계약금"),
     (r"카카오페이", "out", "고정지출", "카카오페이"),

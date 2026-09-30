@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>8월 신용카드 가계 정산 & 주식형 분석 대시보드</title>
+  <title>가계 카드 정산 대시보드</title>
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <!-- Chart.js CDN -->
@@ -63,13 +63,13 @@
         </div>
         <div>
           <h1 class="text-lg sm:text-xl font-bold text-slate-900 flex items-center gap-2">
-            8월 신용카드 가계 정산 & 지출 차트
+            <span id="app-title">가계 카드 정산</span>
             <span class="text-xs font-semibold px-2.5 py-0.5 rounded-full bg-rose-100 text-rose-700 border border-rose-200">와이프 청구용</span>
           </h1>
           <p class="text-xs text-slate-500 flex items-center gap-1.5 mt-0.5">
-            <span>KB국민 + 신한카드 99건</span>
+            <span id="app-sub"></span>
             <span class="inline-flex items-center gap-1 text-[11px] text-emerald-600 font-medium bg-emerald-50 px-1.5 py-0.2 rounded border border-emerald-200">
-              <i class="fa-solid fa-calendar-check text-[10px]"></i> 사용일 캘린더 시각화
+              <i class="fa-solid fa-calendar-check text-[10px]"></i> 카드 결제일 기준 정산
             </span>
           </p>
         </div>
@@ -77,6 +77,10 @@
 
       <!-- 메인 뷰 전환 탭 & 액션 버튼 -->
       <div class="flex flex-wrap items-center gap-2">
+        <label class="flex items-center gap-1.5 text-xs font-bold text-slate-600">
+          <i class="fa-solid fa-file-invoice-dollar text-rose-500"></i> 정산회차
+          <select id="settle-select" onchange="setSettlement(this.value)" class="text-xs font-bold px-2 py-1.5 rounded-lg border border-slate-300 bg-white focus:outline-none focus:ring-2 focus:ring-blue-500"></select>
+        </label>
         <div class="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-bold">
           <button onclick="switchView('dashboard')" id="tab-dashboard" class="px-3 py-1.5 rounded-lg bg-white text-blue-600 shadow-xs transition flex items-center gap-1.5">
             <i class="fa-solid fa-chart-pie"></i> 대시보드
@@ -109,74 +113,8 @@
   <!-- 메인 컨테이너 -->
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
 
-    <!-- 💳 카드사별 명세서 청구 일정 카드 -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
-      <!-- KB국민카드 청구 일정 -->
-      <div class="bg-gradient-to-r from-amber-500/10 via-amber-500/5 to-white border border-amber-300 rounded-2xl p-4 sm:p-5 shadow-xs relative overflow-hidden flex flex-col justify-between">
-        <div class="flex justify-between items-start">
-          <div class="flex items-center gap-2.5">
-            <div class="w-8 h-8 rounded-lg bg-amber-500 text-white font-black flex items-center justify-center text-xs shadow-xs">
-              KB
-            </div>
-            <div>
-              <h3 class="text-sm font-extrabold text-slate-900 flex items-center gap-2">
-                KB국민카드 (신용)
-                <span class="text-[10px] px-2 py-0.5 rounded-full bg-amber-100 text-amber-800 font-bold border border-amber-200">53건</span>
-              </h3>
-              <p class="text-[11px] text-slate-500">결제계좌: 신한은행 / 11040*****45</p>
-            </div>
-          </div>
-          <div class="text-right">
-            <span class="text-[10px] font-bold text-amber-700 bg-amber-100 px-2 py-0.5 rounded">결제일 (출금일)</span>
-            <div class="text-base sm:text-lg font-black text-amber-900 mt-0.5">2026.08.21 (금)</div>
-          </div>
-        </div>
-
-        <div class="mt-3 pt-3 border-t border-amber-200/60 grid grid-cols-2 gap-2 text-xs">
-          <div>
-            <span class="text-[10px] text-slate-400 block">이용기간 (신용공여)</span>
-            <b class="text-slate-700 font-mono text-[11px]">2026.07.13 ~ 08.06</b>
-          </div>
-          <div class="text-right">
-            <span class="text-[10px] text-slate-400 block">총 청구금액</span>
-            <b class="text-slate-900 font-mono font-bold text-sm">924,640원</b>
-          </div>
-        </div>
-      </div>
-
-      <!-- 신한카드 청구 일정 -->
-      <div class="bg-gradient-to-r from-blue-500/10 via-blue-500/5 to-white border border-blue-300 rounded-2xl p-4 sm:p-5 shadow-xs relative overflow-hidden flex flex-col justify-between">
-        <div class="flex justify-between items-start">
-          <div class="flex items-center gap-2.5">
-            <div class="w-8 h-8 rounded-lg bg-blue-600 text-white font-black flex items-center justify-center text-xs shadow-xs">
-              SH
-            </div>
-            <div>
-              <h3 class="text-sm font-extrabold text-slate-900 flex items-center gap-2">
-                신한카드 (신용-끝자리196)
-                <span class="text-[10px] px-2 py-0.5 rounded-full bg-blue-100 text-blue-800 font-bold border border-blue-200">46건</span>
-              </h3>
-              <p class="text-[11px] text-slate-500">결제계좌: 신한은행 / 11040*****45</p>
-            </div>
-          </div>
-          <div class="text-right">
-            <span class="text-[10px] font-bold text-blue-700 bg-blue-100 px-2 py-0.5 rounded">결제일 (출금일)</span>
-            <div class="text-base sm:text-lg font-black text-blue-900 mt-0.5">2026.08.21 (금)</div>
-          </div>
-        </div>
-
-        <div class="mt-3 pt-3 border-t border-blue-200/60 grid grid-cols-2 gap-2 text-xs">
-          <div>
-            <span class="text-[10px] text-slate-400 block">이용기간 (신용공여)</span>
-            <b class="text-slate-700 font-mono text-[11px]">2026.07.08 ~ 08.07</b>
-          </div>
-          <div class="text-right">
-            <span class="text-[10px] text-slate-400 block">총 청구금액 (원금+할부)</span>
-            <b class="text-slate-900 font-mono font-bold text-sm">397,437원</b>
-          </div>
-        </div>
-      </div>
-    </div>
+    <!-- 💳 카드사별 명세서 청구 일정 카드 (JS 렌더링) -->
+    <div id="card-banners" class="grid grid-cols-1 md:grid-cols-2 gap-4"></div>
 
     <!-- 1. 핵심 정산 KPI 카드 (5분할 카드) -->
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3 sm:gap-4">
@@ -188,7 +126,7 @@
         <div>
           <div class="flex justify-between items-start">
             <span class="text-[11px] font-bold uppercase text-rose-100 bg-rose-700/50 px-2 py-0.5 rounded">와이프 청구액</span>
-            <span class="text-[10px] bg-white/20 px-1.5 py-0.5 rounded text-white font-medium">공금+고정비</span>
+            <span class="text-[10px] bg-white/20 px-1.5 py-0.5 rounded text-white font-medium">카드+통장−기수령</span>
           </div>
           <div class="mt-2.5 flex items-baseline gap-1">
             <span id="kpi-claim-amount" class="text-2xl sm:text-3xl font-extrabold tracking-tight">0</span>
@@ -197,7 +135,7 @@
         </div>
         <p class="text-[11px] text-rose-100/90 mt-2.5 pt-2 border-t border-rose-400/40 flex justify-between">
           <span>확정 <b id="kpi-claim-count">0건</b></span>
-          <span id="kpi-claim-status" class="font-semibold text-white">공금 100% 반영</span>
+          <span id="kpi-claim-status" class="font-semibold text-white"></span>
         </p>
       </div>
 
@@ -214,7 +152,7 @@
           </div>
         </div>
         <div class="text-[11px] text-cyan-700/80 mt-2.5 pt-2 border-t border-cyan-100 flex justify-between">
-          <span>KTX 고속철도 (7.17)</span>
+          <span id="kpi-business-note">KTX 등 회사 환급</span>
           <span class="font-semibold" id="kpi-business-count">1건</span>
         </div>
       </div>
@@ -242,7 +180,7 @@
         <div>
           <div class="flex justify-between items-start">
             <span class="text-xs font-bold text-amber-700 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded">미분류 확인필요</span>
-            <span class="text-[10px] text-slate-400">쇼핑몰 등</span>
+            <span class="text-[10px] text-slate-400">분류 대기</span>
           </div>
           <div class="mt-2.5 flex items-baseline gap-1 text-slate-900">
             <span id="kpi-check-amount" class="text-xl sm:text-2xl font-extrabold tracking-tight">0</span>
@@ -259,8 +197,8 @@
       <div class="bg-white rounded-2xl p-4 sm:p-5 border border-slate-200 shadow-sm flex flex-col justify-between">
         <div>
           <div class="flex justify-between items-start">
-            <span class="text-xs font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded">카드 청구 총액</span>
-            <span class="text-[10px] text-blue-600 font-semibold">KB + 신한</span>
+            <span class="text-xs font-bold text-slate-500 bg-slate-100 px-2 py-0.5 rounded">이번 회차 총 지출</span>
+            <span class="text-[10px] text-blue-600 font-semibold">카드 + 통장</span>
           </div>
           <div class="mt-2.5 flex items-baseline gap-1 text-slate-900">
             <span id="kpi-total-amount" class="text-xl sm:text-2xl font-extrabold tracking-tight">0</span>
@@ -268,8 +206,8 @@
           </div>
         </div>
         <div class="text-[11px] text-slate-500 mt-2.5 pt-2 border-t border-slate-100 flex justify-between">
-          <span>국민 1,017,470</span>
-          <span>신한 397,326</span>
+          <span id="kpi-total-card"></span>
+          <span id="kpi-total-bank"></span>
         </div>
       </div>
     </div>
@@ -316,31 +254,31 @@
           <div class="h-56 relative my-2">
             <canvas id="chartCategory"></canvas>
           </div>
-          <p class="text-xs text-slate-400 text-center pt-2 border-t border-slate-100">쿠팡/쇼핑몰, 배달식비, 관리비, 대형마트 등</p>
+          <p class="text-xs text-slate-400 text-center pt-2 border-t border-slate-100">청구 대상 소분류 기준 (카드+통장)</p>
         </div>
 
         <div class="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm flex flex-col justify-between">
           <h3 class="text-sm font-bold text-slate-800 flex items-center gap-2">
             <i class="fa-solid fa-file-invoice-dollar text-rose-500"></i>
-            8/21 정산 청구서
+            <span id="settle-title">정산 청구서</span>
           </h3>
           <div class="space-y-2 my-2">
             <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex justify-between items-baseline">
               <div>
                 <span class="text-xs font-semibold text-slate-700 block">카드 명세서</span>
-                <span class="text-[11px] text-slate-400">8/21 결제분 (KB·신한)</span>
+                <span class="text-[11px] text-slate-400" id="settle-card-sub"></span>
               </div>
               <span class="text-base font-extrabold text-slate-900" id="settle-card">0원</span>
             </div>
             <div class="p-3 rounded-xl bg-slate-50 border border-slate-200 flex justify-between items-baseline">
               <div>
                 <span class="text-xs font-semibold text-slate-700 block">통장 직접분</span>
-                <span class="text-[11px] text-slate-400">07.22~08.21 · 카드 외 출금</span>
+                <span class="text-[11px] text-slate-400" id="settle-bank-sub"></span>
               </div>
               <span class="text-base font-extrabold text-slate-900" id="settle-bank">0원</span>
             </div>
             <div class="px-3 flex justify-between items-baseline text-xs">
-              <span class="text-slate-500">7/24 기수령 고정지출비</span>
+              <span class="text-slate-500" id="settle-recv-label">기수령 고정지출비</span>
               <span class="font-bold text-blue-600" id="settle-recv">0원</span>
             </div>
           </div>
@@ -375,23 +313,23 @@
         <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 my-4">
           <div class="bg-slate-800/60 p-3 rounded-xl border border-slate-700/50">
             <span class="text-[11px] text-slate-400 block">최대 지출일 (Peak)</span>
-            <div class="text-base font-bold text-rose-400 mt-0.5" id="stock-peak-day">07.27 (196,730원)</div>
-            <span class="text-[10px] text-slate-500">아파트관리비+도시가스</span>
+            <div class="text-base font-bold text-rose-400 mt-0.5" id="stock-peak-day"></div>
+            <span class="text-[10px] text-slate-500 block truncate" id="stock-peak-note"></span>
           </div>
           <div class="bg-slate-800/60 p-3 rounded-xl border border-slate-700/50">
             <span class="text-[11px] text-slate-400 block">일평균 지출액</span>
-            <div class="text-base font-bold text-blue-400 mt-0.5" id="stock-daily-avg">45,638원</div>
-            <span class="text-[10px] text-slate-500">총 31개 결제 일자</span>
+            <div class="text-base font-bold text-blue-400 mt-0.5" id="stock-daily-avg"></div>
+            <span class="text-[10px] text-slate-500" id="stock-days-note"></span>
           </div>
           <div class="bg-slate-800/60 p-3 rounded-xl border border-slate-700/50">
-            <span class="text-[11px] text-slate-400 block">7월 기간 지출 합계</span>
-            <div class="text-base font-bold text-emerald-400 mt-0.5" id="stock-p7-total">607,548원</div>
-            <span class="text-[10px] text-slate-500">06.24 ~ 07.23</span>
+            <span class="text-[11px] text-slate-400 block">카드 사용분 합계</span>
+            <div class="text-base font-bold text-emerald-400 mt-0.5" id="stock-card-total"></div>
+            <span class="text-[10px] text-slate-500">KB·신한 명세서</span>
           </div>
           <div class="bg-slate-800/60 p-3 rounded-xl border border-slate-700/50">
-            <span class="text-[11px] text-slate-400 block">8월 기간 지출 합계</span>
-            <div class="text-base font-bold text-purple-400 mt-0.5" id="stock-p8-total">807,248원</div>
-            <span class="text-[10px] text-slate-500">07.24 ~ 08.23</span>
+            <span class="text-[11px] text-slate-400 block">통장 직접분 합계</span>
+            <div class="text-base font-bold text-purple-400 mt-0.5" id="stock-bank-total"></div>
+            <span class="text-[10px] text-slate-500" id="stock-bank-note"></span>
           </div>
         </div>
 
@@ -409,32 +347,15 @@
         <div class="space-y-1">
           <div class="flex items-center gap-2">
             <span class="px-2 py-0.5 rounded-md bg-blue-600 text-white font-bold text-xs">이번 정산 청구 범위</span>
-            <h4 class="text-xs sm:text-sm font-bold text-slate-900">
-              2026.06.21 ~ 2026.08.06 사용분 (총 99건)
-            </h4>
+            <h4 class="text-xs sm:text-sm font-bold text-slate-900" id="cal-range-title"></h4>
           </div>
-          <div class="flex flex-wrap items-center gap-2 text-xs text-slate-600">
-            <span class="flex items-center gap-1 font-semibold text-blue-700">
-              <span class="w-2.5 h-2.5 rounded-sm bg-blue-400 inline-block"></span>
-              카드 명세서 (8/21 결제분): <b class="text-slate-900">1,046,976원</b>
-            </span>
-            <span class="text-slate-300">|</span>
-            <span class="flex items-center gap-1 font-semibold text-slate-700">
-              <span class="w-2.5 h-2.5 rounded-sm bg-slate-400 inline-block"></span>
-              통장 직접분 (07.22~08.21): <b class="text-slate-900">793,121원</b>
-            </span>
-            <span class="text-slate-300">|</span>
-            <span class="font-bold text-rose-600">청구액: 1,440,097원 (기수령 40만 차감)</span>
-          </div>
+          <div class="flex flex-wrap items-center gap-2 text-xs text-slate-600" id="cal-range-detail"></div>
         </div>
 
-        <!-- 카드사별 결제일 D-day 알림 뱃지 -->
+        <!-- 결제일 뱃지 -->
         <div class="flex items-center gap-2 text-xs">
-          <div class="px-2.5 py-1 rounded-lg bg-amber-100 border border-amber-300 text-amber-900 font-semibold flex items-center gap-1.5">
-            <i class="fa-solid fa-credit-card text-amber-600"></i> KB결제일: <b>08.21 (금)</b>
-          </div>
           <div class="px-2.5 py-1 rounded-lg bg-blue-100 border border-blue-300 text-blue-900 font-semibold flex items-center gap-1.5">
-            <i class="fa-solid fa-credit-card text-blue-600"></i> 신한결제일: <b>08.21 (금)</b>
+            <i class="fa-solid fa-credit-card text-blue-600"></i> KB·신한 결제일: <b id="cal-pay-date"></b>
           </div>
         </div>
       </div>
@@ -459,7 +380,7 @@
               <button onclick="changeCalMonth(-1)" class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center transition">
                 <i class="fa-solid fa-chevron-left text-xs"></i>
               </button>
-              <h3 class="text-lg font-bold text-slate-900" id="cal-month-title">2026년 7월</h3>
+              <h3 class="text-lg font-bold text-slate-900" id="cal-month-title"></h3>
               <button onclick="changeCalMonth(1)" class="w-8 h-8 rounded-lg bg-slate-100 hover:bg-slate-200 text-slate-700 flex items-center justify-center transition">
                 <i class="fa-solid fa-chevron-right text-xs"></i>
               </button>
@@ -485,10 +406,10 @@
           <div>
             <div class="flex justify-between items-start pb-3 border-b border-slate-100">
               <div>
-                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider" id="cal-selected-period-tag">7월 관리기간 (06.24~07.23)</span>
-                <h4 class="text-lg font-bold text-slate-900 mt-0.5" id="cal-selected-date">2026.07.27</h4>
+                <span class="text-xs font-bold text-slate-400 uppercase tracking-wider" id="cal-selected-period-tag">사용일 기준</span>
+                <h4 class="text-lg font-bold text-slate-900 mt-0.5" id="cal-selected-date"></h4>
               </div>
-              <span class="text-xs font-bold px-2 py-1 rounded bg-rose-50 text-rose-700 border border-rose-200" id="cal-selected-total">196,730원</span>
+              <span class="text-xs font-bold px-2 py-1 rounded bg-rose-50 text-rose-700 border border-rose-200" id="cal-selected-total"></span>
             </div>
 
             <div class="mt-4 space-y-2.5 max-h-96 overflow-y-auto pr-1" id="cal-selected-list"></div>
@@ -504,10 +425,8 @@
       <div class="p-4 sm:p-5 border-b border-slate-200 bg-slate-50/50 space-y-3">
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3">
           <div class="flex flex-wrap items-center gap-2">
-            <span class="text-xs font-bold text-slate-600 uppercase tracking-wider">결제회차:</span>
-            <button onclick="setPeriodFilter('ALL')" id="btn-period-all" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-white shadow-sm transition">전체 (99건)</button>
-            <button onclick="setPeriodFilter('8/21분')" id="btn-period-8" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 transition">8/21 결제분 (94건)</button>
-            <button onclick="setPeriodFilter('7/21분')" id="btn-period-7" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 transition">7/21 결제분 (5건)</button>
+            <span class="text-xs font-bold text-slate-600 uppercase tracking-wider">경로:</span>
+            <div id="src-filters" class="flex flex-wrap items-center gap-2"></div>
           </div>
           
           <div class="relative w-full md:w-64">
@@ -518,13 +437,13 @@
 
         <div class="flex flex-wrap items-center gap-1.5 pt-1">
           <span class="text-xs font-bold text-slate-600 mr-1">분류:</span>
-          <button onclick="setCategoryFilter('ALL')" id="btn-cat-all" class="px-2.5 py-1 rounded-md text-xs font-bold bg-slate-200 text-slate-800 transition">전체 (<span id="count-cat-all">99</span>)</button>
+          <button onclick="setCategoryFilter('ALL')" id="btn-cat-all" class="px-2.5 py-1 rounded-md text-xs font-bold bg-slate-200 text-slate-800 transition">전체 (<span id="count-cat-all">0</span>)</button>
           <button onclick="setCategoryFilter('CLAIM')" id="btn-cat-claim" class="px-2.5 py-1 rounded-md text-xs font-semibold bg-white text-rose-700 border border-rose-200 hover:bg-rose-50 transition">와이프 청구 (<span id="count-cat-claim">0</span>)</button>
-          <button onclick="setCategoryFilter('출장비')" id="btn-cat-business" class="px-2.5 py-1 rounded-md text-xs font-semibold bg-white text-cyan-800 border border-cyan-300 hover:bg-cyan-50 transition">출장비 (<span id="count-cat-business">1</span>)</button>
+          <button onclick="setCategoryFilter('출장비')" id="btn-cat-business" class="px-2.5 py-1 rounded-md text-xs font-semibold bg-white text-cyan-800 border border-cyan-300 hover:bg-cyan-50 transition">출장비 (<span id="count-cat-business">0</span>)</button>
           <button onclick="setCategoryFilter('내 용돈')" id="btn-cat-allowance" class="px-2.5 py-1 rounded-md text-xs font-semibold bg-white text-emerald-700 border border-emerald-200 hover:bg-emerald-50 transition">남편 용돈 (<span id="count-cat-allowance">0</span>)</button>
           <button onclick="setCategoryFilter('확인필요')" id="btn-cat-check" class="px-2.5 py-1 rounded-md text-xs font-semibold bg-white text-amber-700 border border-amber-200 hover:bg-amber-50 transition">미분류 (<span id="count-cat-check">0</span>)</button>
           <div class="ml-auto text-xs text-slate-400">
-            표시 항목: <b id="table-showing-count" class="text-slate-700">99</b>건
+            표시 항목: <b id="table-showing-count" class="text-slate-700">0</b>건
           </div>
         </div>
       </div>
@@ -536,10 +455,9 @@
             <tr class="border-b border-slate-200 bg-slate-100/75 text-slate-600 font-semibold">
               <th class="py-3 px-3 w-10 text-center">#</th>
               <th class="py-3 px-3 cursor-pointer hover:text-blue-600" onclick="sortBy('date')">이용일 <i class="fa-solid fa-sort text-[10px]"></i></th>
-              <th class="py-3 px-3">카드사</th>
+              <th class="py-3 px-3">경로</th>
               <th class="py-3 px-4">이용가맹점</th>
               <th class="py-3 px-3 text-right cursor-pointer hover:text-blue-600" onclick="sortBy('billed')">청구금액 <i class="fa-solid fa-sort text-[10px]"></i></th>
-              <th class="py-3 px-3 text-center">결제회차</th>
               <th class="py-3 px-3 text-center w-36">대분류 변경</th>
               <th class="py-3 px-3">소분류</th>
               <th class="py-3 px-4">분류 사유 / 메모 (수정가능)</th>
@@ -566,71 +484,54 @@
 
   <!-- 데이터 및 스크립트 -->
   <script>
-    // 통장 직접 출금 중 청구 대상만 (scripts/settle.py 와 같은 구간 07.22~08.21)
-    const bankDirect = [{"date": "2026.07.22", "desc": "카카오페이", "out": 21383, "category": "고정지출", "subcategory": "카카오페이"}, {"date": "2026.07.22", "desc": "동백전충전", "out": 100000, "category": "공금", "subcategory": "지역화폐충전"}, {"date": "2026.07.23", "desc": "삼성화07016", "out": 123137, "category": "고정지출", "subcategory": "보험료"}, {"date": "2026.07.23", "desc": "감만종합사회복", "out": 4000, "category": "공금", "subcategory": "장난감 대여료"}, {"date": "2026.07.23", "desc": "동백전충전", "out": 30000, "category": "공금", "subcategory": "지역화폐충전"}, {"date": "2026.07.23", "desc": "카카오페이", "out": 10000, "category": "고정지출", "subcategory": "카카오페이"}, {"date": "2026.07.26", "desc": "동백전충전", "out": 30000, "category": "공금", "subcategory": "지역화폐충전"}, {"date": "2026.07.26", "desc": "카카오페이", "out": 10000, "category": "고정지출", "subcategory": "카카오페이"}, {"date": "2026.07.27", "desc": "카카오페이", "out": 10000, "category": "고정지출", "subcategory": "카카오페이"}, {"date": "2026.07.29", "desc": "카카오페이", "out": 10000, "category": "고정지출", "subcategory": "카카오페이"}, {"date": "2026.07.29", "desc": "카카오페이", "out": 10574, "category": "고정지출", "subcategory": "카카오페이"}, {"date": "2026.07.30", "desc": "동백전충전", "out": 30000, "category": "공금", "subcategory": "지역화폐충전"}, {"date": "2026.08.04", "desc": "동백전충전", "out": 10000, "category": "공금", "subcategory": "지역화폐충전"}, {"date": "2026.08.05", "desc": "동백전충전", "out": 30000, "category": "공금", "subcategory": "지역화폐충전"}, {"date": "2026.08.05", "desc": "한화손08028", "out": 24599, "category": "고정지출", "subcategory": "보험료"}, {"date": "2026.08.11", "desc": "동백전충전", "out": 10000, "category": "공금", "subcategory": "지역화폐충전"}, {"date": "2026.08.11", "desc": "동백전충전", "out": 10000, "category": "공금", "subcategory": "지역화폐충전"}, {"date": "2026.08.11", "desc": "카카오페이", "out": 10000, "category": "고정지출", "subcategory": "카카오페이"}, {"date": "2026.08.13", "desc": "하나카드", "out": 1900, "category": "공금", "subcategory": "마켓컬리"}, {"date": "2026.08.14", "desc": "동백전충전", "out": 30000, "category": "공금", "subcategory": "지역화폐충전"}, {"date": "2026.08.14", "desc": "동백전충전", "out": 10000, "category": "공금", "subcategory": "지역화폐충전"}, {"date": "2026.08.14", "desc": "동백전충전", "out": 10000, "category": "공금", "subcategory": "지역화폐충전"}, {"date": "2026.08.16", "desc": "카카오페이", "out": 10000, "category": "고정지출", "subcategory": "카카오페이"}, {"date": "2026.08.17", "desc": "KIA 한재림", "out": 100000, "category": "공금", "subcategory": "계약금"}, {"date": "2026.08.18", "desc": "삼성생명08063", "out": 24825, "category": "고정지출", "subcategory": "보험료"}, {"date": "2026.08.18", "desc": "한재림현대카드", "out": 17365, "category": "공금", "subcategory": "하이패스"}, {"date": "2026.08.20", "desc": "카카오페이", "out": 10000, "category": "고정지출", "subcategory": "카카오페이"}, {"date": "2026.08.20", "desc": "동백전충전", "out": 10000, "category": "공금", "subcategory": "지역화폐충전"}, {"date": "2026.08.20", "desc": "자동충전", "out": 13838, "category": "공금", "subcategory": "지역화폐충전"}, {"date": "2026.08.20", "desc": "카카오페이", "out": 10000, "category": "고정지출", "subcategory": "카카오페이"}, {"date": "2026.08.21", "desc": "롯데카드(주)", "out": 61500, "category": "공금", "subcategory": "노트북 할부"}];
-    const RECEIVED = 400000;  // 7/24 수령한 고정지출비
-    const defaultData = [{"card": "신한카드", "date": "2026.06.21", "merchant": "주식회사 무신사페이먼츠(MU", "amount": 61410, "billed": 20400, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "의류/패션", "reason": "의류 구매 (공금)", "note": "무이자", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.20", "merchant": "07월5599KT통신요금", "amount": 38500, "billed": 34650, "period": "7월 (06.24~07.23)", "category": "고정지출", "subcategory": "통신비", "reason": "KT 통신비 월납 (10% 할인 3,850원 적용)", "note": "할인", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.08", "merchant": "씨유(CU) 대연양우내안애점", "amount": 10320, "billed": 10320, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.08", "merchant": "씨유(CU) 동구수정점", "amount": 4500, "billed": 4500, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.09", "merchant": "씨유(CU) 동구수정점", "amount": 3500, "billed": 3500, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.09", "merchant": "씨유(CU) 동구수정점", "amount": 1300, "billed": 1300, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.09", "merchant": "페이타랩", "amount": 1500, "billed": 1500, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "카페/커피", "reason": "커피/음료 주문 (패스오더 등)", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.10", "merchant": "씨유(CU) 동구수정점", "amount": 4000, "billed": 4000, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.11", "merchant": "텐퍼센트문현교차로점", "amount": 2000, "billed": 2000, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "카페/커피", "reason": "커피/음료 주문 (패스오더 등)", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.12", "merchant": "씨유(CU) 대연양우내안애점", "amount": 1300, "billed": 1300, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.13", "merchant": "씨유(CU) 동구수정점", "amount": 3900, "billed": 3900, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.14", "merchant": "씨유(CU) 동구수정점", "amount": 800, "billed": 800, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.15", "merchant": "씨유(CU) 동구수정점", "amount": 3900, "billed": 3900, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.16", "merchant": "씨유(CU) 동구수정점", "amount": 7000, "billed": 7000, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.17", "merchant": "고속철도(KTX)부산-서울", "amount": 59400, "billed": 59400, "period": "7월 (06.24~07.23)", "category": "출장비", "subcategory": "교통/KTX", "reason": "업무 출장 고속철도 이동 (회사 정산용)", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.17", "merchant": "주식회사 스타로드대빵오락실", "amount": 5000, "billed": 5000, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "취미/오락", "reason": "오락실 이용", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.17", "merchant": "주식회사 스타로드대빵오락실", "amount": 5000, "billed": 5000, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "취미/오락", "reason": "오락실 이용", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.17", "merchant": "페이타랩", "amount": 1800, "billed": 1800, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "카페/커피", "reason": "커피/음료 주문 (패스오더 등)", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.18", "merchant": "주식회사 우아한형제들", "amount": 16000, "billed": 16000, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "배달식비", "reason": "배달의민족 가족 공동 식사 배달", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.18", "merchant": "씨유(CU) 동구수정점", "amount": 800, "billed": 800, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.19", "merchant": "모모스커피 온천장점", "amount": 42000, "billed": 42000, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "카페/커피", "reason": "커피/음료 주문 (패스오더 등)", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.20", "merchant": "씨유(CU) 동구수정점", "amount": 800, "billed": 800, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.20", "merchant": "페이타랩", "amount": 1500, "billed": 1500, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "카페/커피", "reason": "커피/음료 주문 (패스오더 등)", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.21", "merchant": "씨유(CU) 동구수정점", "amount": 800, "billed": 800, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.22", "merchant": "정성약국", "amount": 6300, "billed": 5670, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "의료/약국", "reason": "약국 의약품 구매 (10% 할인 적용)", "note": "할인", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.22", "merchant": "씨유(CU) 동구수정점", "amount": 800, "billed": 800, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.22", "merchant": "페이타랩", "amount": 1500, "billed": 1500, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "카페/커피", "reason": "커피/음료 주문 (패스오더 등)", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.23", "merchant": "씨유(CU) 동구수정점", "amount": 3900, "billed": 3900, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.24", "merchant": "코레일유통주식회사(부산역)", "amount": 7700, "billed": 7700, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "식음료", "reason": "부산역사 내 식음료 구매", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.25", "merchant": "지마켓", "amount": 19940, "billed": 19940, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "마트장보기", "reason": "미국산 돼지 등갈비(로인립) 2KG (지마켓)", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.25", "merchant": "씨유(CU) 대연양우내안애점", "amount": 1300, "billed": 1300, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.26", "merchant": "씨유(CU) 대연양우내안애점", "amount": 1300, "billed": 1300, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.27", "merchant": "씨유(CU) 동구수정점", "amount": 800, "billed": 800, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.28", "merchant": "씨유(CU) 동구수정점", "amount": 1300, "billed": 1300, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.28", "merchant": "페이타랩", "amount": 1500, "billed": 1500, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "카페/커피", "reason": "커피/음료 주문 (패스오더 등)", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.29", "merchant": "씨유(CU) 동구수정점", "amount": 800, "billed": 800, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.29", "merchant": "페이타랩", "amount": 1500, "billed": 1500, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "카페/커피", "reason": "커피/음료 주문 (패스오더 등)", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.30", "merchant": "네이버페이", "amount": 19800, "billed": 19800, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "의류/패션", "reason": "뉴발란스 양말 4팩 x2건 (네이버페이)", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.30", "merchant": "페이타랩", "amount": 2000, "billed": 2000, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "카페/커피", "reason": "커피/음료 주문 (패스오더 등)", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.31", "merchant": "지마켓", "amount": 18280, "billed": 18280, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "마트장보기", "reason": "바베큐/수육용 통삼겹살 2KG (지마켓)", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.08.02", "merchant": "씨유(CU) 대연양우내안애점", "amount": 1300, "billed": 1170, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출 (할인적용)", "note": "할인", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.08.02", "merchant": "페이타랩", "amount": 2000, "billed": 2000, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "카페/커피", "reason": "커피/음료 주문 (패스오더 등)", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.08.06", "merchant": "씨유(CU) 대연양우내안애점", "amount": 3700, "billed": 3330, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출 (할인적용)", "note": "할인", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.08.06", "merchant": "지마켓", "amount": 8420, "billed": 7578, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "생활용품", "reason": "필립스 알카라인 AA/AAA 건전지 40개입 (지마켓)", "note": "할인", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.21", "merchant": "ANTHROPIC* CLAUDE SUB", "amount": 22, "billed": 33221, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "정기구독", "reason": "Claude AI 월구독 정기결제", "note": "", "bill": "8/21분"}, {"card": "신한카드", "date": "2026.07.21", "merchant": "OPENAI *CHATGPT SUBSCR", "amount": 29000, "billed": 29767, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "정기구독", "reason": "ChatGPT Plus 월구독 정기결제", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.09", "merchant": "쿠팡이츠-쿠팡이츠", "amount": 28370, "billed": 28370, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "배달식비", "reason": "쿠팡이츠 가족 공동 배달 식사", "note": "", "bill": "7/21분"}, {"card": "국민카드", "date": "2026.07.10", "merchant": "쿠팡이츠-쿠팡이츠", "amount": 22900, "billed": 22900, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "배달식비", "reason": "쿠팡이츠 가족 공동 배달 식사", "note": "", "bill": "7/21분"}, {"card": "국민카드", "date": "2026.07.12", "merchant": "쿠팡이츠-쿠팡이츠", "amount": 24000, "billed": 24000, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "배달식비", "reason": "쿠팡이츠 가족 공동 배달 식사", "note": "", "bill": "7/21분"}, {"card": "국민카드", "date": "2026.07.12", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 16810, "billed": 16810, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": "", "bill": "7/21분"}, {"card": "국민카드", "date": "2026.07.13", "merchant": "KT통신요금자동납부(65**96**)", "amount": 35600, "billed": 12600, "period": "7월 (06.24~07.23)", "category": "고정지출", "subcategory": "통신비", "reason": "알뜰폰 통신요금 자동납부 (23,000원 제휴할인)", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.14", "merchant": "네이버페이-롯데쇼핑(주)e커머스사업본부", "amount": 30620, "billed": 30620, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "마트장보기", "reason": "노르웨이 딥스킨 생연어 1kg 필렛 (네이버페이)", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.14", "merchant": "러키비키 서면1호점", "amount": 4000, "billed": 4000, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "취미/간식", "reason": "개인 간식 및 오락실 이용", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.14", "merchant": "아성다이소", "amount": 7000, "billed": 7000, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "생활용품", "reason": "아성다이소 생활잡화 구매", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.16", "merchant": "(주)이마트 문현점", "amount": 25800, "billed": 25800, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "마트장보기", "reason": "대형마트 가족 식료품/생필품 장보기", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.16", "merchant": "(주)이마트 문현점", "amount": 73320, "billed": 73320, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "마트장보기", "reason": "대형마트 가족 식료품/생필품 장보기", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.17", "merchant": "미션클리어 오락실", "amount": 5000, "billed": 5000, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "취미/간식", "reason": "개인 간식 및 오락실 이용", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.17", "merchant": "미션클리어 오락실", "amount": 5000, "billed": 5000, "period": "7월 (06.24~07.23)", "category": "내 용돈", "subcategory": "취미/간식", "reason": "개인 간식 및 오락실 이용", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.17", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 28390, "billed": 28390, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.18", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 3900, "billed": 3900, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.18", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 3900, "billed": 3900, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.22", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 8910, "billed": 8910, "period": "7월 (06.24~07.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.24", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 3990, "billed": 3990, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.26", "merchant": "네이버페이-롯데쇼핑(주)e커머스사업본부", "amount": 13110, "billed": 13110, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "의류/패션", "reason": "인코드 남성 무봉제 드로즈 5매 (네이버페이)", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.26", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 2900, "billed": 2900, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.26", "merchant": "네이버페이-롯데쇼핑(주)e커머스사업본부", "amount": 22870, "billed": 22870, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "마트장보기", "reason": "펩시 제로슈거 210ml 60캔 (네이버페이)", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.26", "merchant": "쿠팡이츠-쿠팡이츠", "amount": 18000, "billed": 18000, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "배달식비", "reason": "쿠팡이츠 가족 공동 배달 식사", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.27", "merchant": "토스페이_일반-(주)비바리퍼블리카", "amount": 10790, "billed": 10790, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "온라인쇼핑", "reason": "토스페이 결제 (품목 미확인, 공금 확정)", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.27", "merchant": "(주)부산도시가스-자동납부", "amount": 13760, "billed": 13760, "period": "8월 (07.24~08.23)", "category": "고정지출", "subcategory": "공과금", "reason": "부산도시가스 요금 자동납부", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.27", "merchant": "KB아파트관리비-26년06월분", "amount": 171380, "billed": 171380, "period": "8월 (07.24~08.23)", "category": "고정지출", "subcategory": "관리비", "reason": "KB아파트 6월분 관리비 정기납부", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.28", "merchant": "배민클럽_우아한형제들-배민클럽_우아한", "amount": 1990, "billed": 1990, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "정기구독", "reason": "배민클럽 배달 멤버십 월정액 구독", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.30", "merchant": "남구도서관", "amount": 750, "billed": 750, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "도서/문화", "reason": "남구도서관 소액 이용료", "note": "", "bill": "7/21분"}, {"card": "국민카드", "date": "2026.07.30", "merchant": "쿠팡이츠-쿠팡이츠", "amount": 26300, "billed": 26300, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "배달식비", "reason": "쿠팡이츠 가족 공동 배달 식사", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.31", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 39510, "billed": 39510, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.31", "merchant": "씨유(CU) 대연양우내안애점", "amount": 4200, "billed": 4200, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.31", "merchant": "아성다이소", "amount": 19000, "billed": 19000, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "생활용품", "reason": "아성다이소 생활잡화 구매", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.07.31", "merchant": "(주)이마트 문현점", "amount": 17160, "billed": 17160, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "마트장보기", "reason": "대형마트 가족 식료품/생필품 장보기", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.01", "merchant": "카페룩룩", "amount": 32000, "billed": 32000, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "카페/커피", "reason": "카페 이용 (8/1 분할결제)", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.01", "merchant": "카페룩룩", "amount": 10000, "billed": 10000, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "카페/커피", "reason": "카페 이용 (8/1 분할결제)", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.01", "merchant": "카페룩룩", "amount": 12900, "billed": 12900, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "카페/커피", "reason": "카페 이용 (8/1 분할결제)", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.01", "merchant": "메가마트 문현점", "amount": 20880, "billed": 20880, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "마트장보기", "reason": "대형마트 가족 식료품/생필품 장보기", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.02", "merchant": "(주)신세계백화점센텀시티점", "amount": 3500, "billed": 3500, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "식음/쇼핑", "reason": "신세계백화점 센텀시티점 공동 소비", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.02", "merchant": "(주)신세계백화점센텀시티점", "amount": 3000, "billed": 3000, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "식음/쇼핑", "reason": "신세계백화점 센텀시티점 공동 소비", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.02", "merchant": "(주)신세계백화점센텀시티점", "amount": 11100, "billed": 11100, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "식음/쇼핑", "reason": "신세계백화점 센텀시티점 공동 소비", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.02", "merchant": "APEC나루공원 공영주차장", "amount": 2550, "billed": 2550, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "차량유지", "reason": "공영주차장 주차요금", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.02", "merchant": "쿠팡이츠-쿠팡이츠", "amount": 24000, "billed": 24000, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "배달식비", "reason": "쿠팡이츠 가족 공동 배달 식사", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.02", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 6050, "billed": 6050, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.03", "merchant": "쿠팡이츠-쿠팡이츠", "amount": 12900, "billed": 12900, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "배달식비", "reason": "쿠팡이츠 가족 공동 배달 식사", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.03", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 37360, "billed": 37360, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.03", "merchant": "씨유(CU) 대연양우내안애점", "amount": 4200, "billed": 4200, "period": "8월 (07.24~08.23)", "category": "내 용돈", "subcategory": "편의점", "reason": "CU 편의점 소액 지출", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.04", "merchant": "쿠팡이츠-쿠팡이츠", "amount": 17700, "billed": 17700, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "배달식비", "reason": "쿠팡이츠 가족 공동 배달 식사", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.04", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 3490, "billed": 3490, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.04", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 4700, "billed": 4700, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.04", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 4120, "billed": 4120, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.05", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 49370, "billed": 49370, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.06", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 43460, "billed": 43460, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.06", "merchant": "쿠팡(와우멤버십)-쿠팡(와우멤버십)", "amount": 7890, "billed": 7890, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "정기구독", "reason": "쿠팡 와우멤버십 월정액 구독", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.06", "merchant": "현대서비스 대연점", "amount": 37290, "billed": 37290, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "차량유지", "reason": "현대서비스 차량 정비 및 점검", "note": "", "bill": "8/21분"}, {"card": "국민카드", "date": "2026.08.06", "merchant": "쿠팡(쿠페이)-쿠팡(쿠페이)", "amount": 2780, "billed": 2780, "period": "8월 (07.24~08.23)", "category": "공금", "subcategory": "쿠팡장보기", "reason": "쿠팡 생필품/식재료 온라인 장보기", "note": "", "bill": "8/21분"}];
-    const STORAGE_KEY = 'jaenan_budget_txns_v2_synced';
-    const SHOPPING_TXN_IDS = [30, 38, 40, 44, 52, 64, 66, 68];
+    /*DATA:START*/
+    const SETTLEMENTS = [{"key":"8/21분","pay":"2026.08.21","window":["2026.07.22","2026.08.21"],"received":400000,"receivedDate":"2026.07.24","cards":{"국민카드":{"period":"07.13 ~ 08.06","paid":924640,"count":48,"total":924640},"신한카드":{"period":"07.08 ~ 08.07","paid":397437,"count":46,"total":397326}},"rows":[{"id":"0821-c001","src":"신한카드","date":"2026.06.21","merchant":"주식회사 무신사페이먼츠(MU","billed":20400,"category":"공금","subcategory":"의류/패션","reason":"의류 구매 (공금)"},{"id":"0821-c002","src":"신한카드","date":"2026.07.20","merchant":"07월5599KT통신요금","billed":34650,"category":"고정지출","subcategory":"통신비","reason":"KT 통신비 월납 (10% 할인 3,850원 적용)"},{"id":"0821-c003","src":"신한카드","date":"2026.07.08","merchant":"씨유(CU) 대연양우내안애점","billed":10320,"category":"내 용돈","subcategory":"편의점","reason":"CU 편의점 소액 지출"},{"id":"0821-c004","src":"신한카드","date":"2026.07.08","merchant":"씨유(CU) 동구수정점","billed":4500,"category":"내 용돈","subcategory":"편의점","reason":"CU 편의점 소액 지출"},{"id":"0821-c005","src":"신한카드","date":"2026.07.09","merchant":"씨유(CU) 동구수정점","billed":3500,"category":"내 용돈","subcategory":"편의점","reason":"CU 편의점 소액 지출"},{"id":"0821-c006","src":"신한카드","date":"2026.07.09","merchant":"씨유(CU) 동구수정점","billed":1300,"category":"내 용돈","subcategory":"편의점","reason":"CU 편의점 소액 지출"},{"id":"0821-c007","src":"신한카드","date":"2026.07.09","merchant":"페이타랩","billed":1500,"category":"내 용돈","subcategory":"카페/커피","reason":"커피/음료 주문 (패스오더 등)"},{"id":"0821-c008","src":"신한카드","date":"2026.07.10","merchant":"씨유(CU) 동구수정점","billed":4000,"category":"내 용돈","subcategory":"편의점","reason":"CU 편의점 소액 지출"},{"id":"0821-c009","src":"신한카드","date":"2026.07.11","merchant":"텐퍼센트문현교차로점","billed":2000,"category":"내 용돈","subcategory":"카페/커피","reason":"커피/음료 주문 (패스오더 등)"},{"id":"0821-c010","src":"신한카드","date":"2026.07.12","merchant":"씨유(CU) 대연양우내안애점","billed":1300,"category":"내 용돈","subcategory":"편의점","reason":"CU 편의점 소액 지출"},{"id":"0821-c011","src":"신한카드","date":"2026.07.13","merchant":"씨유(CU) 동구수정점","billed":3900,"category":"내 용돈","subcategory":"편의점","reason":"CU 편의점 소액 지출"},{"id":"0821-c012","src":"신한카드","date":"2026.07.14","merchant":"씨유(CU) 동구수정점","billed":800,"category":"내 용돈","subcategory":"편의점","reason":"CU 편의점 소액 지출"},{"id":"0821-c013","src":"신한카드","date":"2026.07.15","merchant":"씨유(CU) 동구수정점","billed":3900,"category":"내 용돈","subcategory":"편의점","reason":"CU 편의점 소액 지출"},{"id":"0821-c014","src":"신한카드","date":"2026.07.16","merchant":"씨유(CU) 동구수정점","billed":7000,"category":"내 용돈","subcategory":"편의점","reason":"CU 편의점 소액 지출"},{"id":"0821-c015","src":"신한카드","date":"2026.07.17","merchant":"고속철도(KTX)부산-서울","billed":59400,"category":"출장비","subcategory":"교통/KTX","reason":"업무 출장 고속철도 이동 (회사 정산용)"},{"id":"0821-c016","src":"신한카드","date":"2026.07.17","merchant":"주식회사 스타로드대빵오락실","billed":5000,"category":"내 용돈","subcategory":"취미/오락","reason":"오락실 이용"},{"id":"0821-c017","src":"신한카드","date":"2026.07.17","merchant":"주식회사 스타로드대빵오락실","billed":5000,"category":"내 용돈","subcategory":"취미/오락","reason":"오락실 이용"},{"id":"0821-c018","src":"신한카드","date":"2026.07.17","merchant":"페이타랩","billed":1800,"category":"내 용돈","subcategory":"카페/커피","reason":"커피/음료 주문 (패스오더 등)"},{"id":"0821-c019","src":"신한카드","date":"2026.07.18","merchant":"주식회사 우아한형제들","billed":16000,"category":"공금","subcategory":"배달식비","reason":"배달의민족 가족 공동 식사 배달"},{"id":"0821-c020","src":"신한카드","date":"2026.07.18","merchant":"씨유(CU) 동구수정점","billed":800,"category":"내 용돈","subcategory":"편의점","reason":"CU 편의점 소액 지출"},{"id":"0821-c021","src":"신한카드","date":"2026.07.19","merchant":"모모스커피 온천장점","billed":42000,"category":"내 용돈","subcategory":"카페/커피","reason":"커피/음료 주문 (패스오더 등)"},{"id":"0821-c022","src":"신한카드","date":"2026.07.20","merchant":"씨유(CU) 동구수정점","billed":800,"category":"내 용돈","subcategory":"편의점","reason":"CU 편의점 소액 지출"},{"id":"0821-c023","src":"신한카드","date":"2026.07.20","merchant":"페이타랩","billed":1500,"category":"내 용돈","subcategory":"카페/커피","reason":"커피/음료 주문 (패스오더 등)"},{"id":"0821-c024","src":"신한카드","date":"2026.07.21","merchant":"씨유(CU) 동구수정점","billed":800,"category":"내 용돈","subcategory":"편의점","reason":"CU 편의점 소액 지출"},{"id":"0821-c025","src":"신한카드","date":"2026.07.22","merchant":"정성약국","billed":5670,"category":"내 용돈","subcategory":"의료/약국","reason":"약국 의약품 구매 (10% 할인 적용)"},{"id":"0821-c026","src":"신한카드","date":"2026.07.22","merchant":"씨유(CU) 동구수정점","billed":800,"category":"내 용돈","subcategory":"편의점","reason":"CU 편의점 소액 지출"},{"id":"0821-c027","src":"신한카드","date":"2026.07.22","merchant":"페이타랩","billed":1500,"category":"내 용돈","subcategory":"카페/커피","reason":"커피/음료 주문 (패스오더 등)"},{"id":"0821-c028","src":"신한카드","date":"2026.07.23","merchant":"씨유(CU) 동구수정점","billed":3900,"category":"내 용돈","subcategory":"편의점","reason":"CU 편의점 소액 지출"},{"id":"0821-c029","src":"신한카드","date":"2026.07.24","merchant":"코레일유통주식회사(부산역)","billed":7700,"category":"내 용돈","subcategory":"식음료","reason":"부산역사 내 식음료 구매"},{"id":"0821-c030","src":"신한카드","date":"2026.07.25","merchant":"지마켓","billed":19940,"category":"공금","subcategory":"마트장보기","reason":"미국산 돼지 등갈비(로인립) 2KG (지마켓)"},{"id":"0821-c031","src":"신한카드","date":"2026.07.25","merchant":"씨유(CU) 대연양우내안애점","billed":1300,"category":"내 용돈","subcategory":"편의점","reason":"CU 편의점 소액 지출"},{"id":"0821-c032","src":"신한카드","date":"2026.07.26","merchant":"씨유(CU) 대연양우내안애점","billed":1300,"category":"내 용돈","subcategory":"편의점","reason":"CU 편의점 소액 지출"},{"id":"0821-c033","src":"신한카드","date":"2026.07.27","merchant":"씨유(CU) 동구수정점","billed":800,"category":"내 용돈","subcategory":"편의점","reason":"CU 편의점 소액 지출"},{"id":"0821-c034","src":"신한카드","date":"2026.07.28","merchant":"씨유(CU) 동구수정점","billed":1300,"category":"내 용돈","subcategory":"편의점","reason":"CU 편의점 소액 지출"},{"id":"0821-c035","src":"신한카드","date":"2026.07.28","merchant":"페이타랩","billed":1500,"category":"내 용돈","subcategory":"카페/커피","reason":"커피/음료 주문 (패스오더 등)"},{"id":"0821-c036","src":"신한카드","date":"2026.07.29","merchant":"씨유(CU) 동구수정점","billed":800,"category":"내 용돈","subcategory":"편의점","reason":"CU 편의점 소액 지출"},{"id":"0821-c037","src":"신한카드","date":"2026.07.29","merchant":"페이타랩","billed":1500,"category":"내 용돈","subcategory":"카페/커피","reason":"커피/음료 주문 (패스오더 등)"},{"id":"0821-c038","src":"신한카드","date":"2026.07.30","merchant":"네이버페이","billed":19800,"category":"공금","subcategory":"의류/패션","reason":"뉴발란스 양말 4팩 x2건 (네이버페이)"},{"id":"0821-c039","src":"신한카드","date":"2026.07.30","merchant":"페이타랩","billed":2000,"category":"내 용돈","subcategory":"카페/커피","reason":"커피/음료 주문 (패스오더 등)"},{"id":"0821-c040","src":"신한카드","date":"2026.07.31","merchant":"지마켓","billed":18280,"category":"공금","subcategory":"마트장보기","reason":"바베큐/수육용 통삼겹살 2KG (지마켓)"},{"id":"0821-c041","src":"신한카드","date":"2026.08.02","merchant":"씨유(CU) 대연양우내안애점","billed":1170,"category":"내 용돈","subcategory":"편의점","reason":"CU 편의점 소액 지출 (할인적용)"},{"id":"0821-c042","src":"신한카드","date":"2026.08.02","merchant":"페이타랩","billed":2000,"category":"내 용돈","subcategory":"카페/커피","reason":"커피/음료 주문 (패스오더 등)"},{"id":"0821-c043","src":"신한카드","date":"2026.08.06","merchant":"씨유(CU) 대연양우내안애점","billed":3330,"category":"내 용돈","subcategory":"편의점","reason":"CU 편의점 소액 지출 (할인적용)"},{"id":"0821-c044","src":"신한카드","date":"2026.08.06","merchant":"지마켓","billed":7578,"category":"공금","subcategory":"생활용품","reason":"필립스 알카라인 AA/AAA 건전지 40개입 (지마켓)"},{"id":"0821-c045","src":"신한카드","date":"2026.07.21","merchant":"ANTHROPIC* CLAUDE SUB","billed":33221,"category":"공금","subcategory":"정기구독","reason":"Claude AI 월구독 정기결제"},{"id":"0821-c046","src":"신한카드","date":"2026.07.21","merchant":"OPENAI *CHATGPT SUBSCR","billed":29767,"category":"공금","subcategory":"정기구독","reason":"ChatGPT Plus 월구독 정기결제"},{"id":"0821-c047","src":"국민카드","date":"2026.07.13","merchant":"KT통신요금자동납부(65**96**)","billed":12600,"category":"고정지출","subcategory":"통신비","reason":"알뜰폰 통신요금 자동납부 (23,000원 제휴할인)"},{"id":"0821-c048","src":"국민카드","date":"2026.07.14","merchant":"네이버페이-롯데쇼핑(주)e커머스사업본부","billed":30620,"category":"공금","subcategory":"마트장보기","reason":"노르웨이 딥스킨 생연어 1kg 필렛 (네이버페이)"},{"id":"0821-c049","src":"국민카드","date":"2026.07.14","merchant":"러키비키 서면1호점","billed":4000,"category":"내 용돈","subcategory":"취미/간식","reason":"개인 간식 및 오락실 이용"},{"id":"0821-c050","src":"국민카드","date":"2026.07.14","merchant":"아성다이소","billed":7000,"category":"공금","subcategory":"생활용품","reason":"아성다이소 생활잡화 구매"},{"id":"0821-c051","src":"국민카드","date":"2026.07.16","merchant":"(주)이마트 문현점","billed":25800,"category":"공금","subcategory":"마트장보기","reason":"대형마트 가족 식료품/생필품 장보기"},{"id":"0821-c052","src":"국민카드","date":"2026.07.16","merchant":"(주)이마트 문현점","billed":73320,"category":"공금","subcategory":"마트장보기","reason":"대형마트 가족 식료품/생필품 장보기"},{"id":"0821-c053","src":"국민카드","date":"2026.07.17","merchant":"미션클리어 오락실","billed":5000,"category":"내 용돈","subcategory":"취미/간식","reason":"개인 간식 및 오락실 이용"},{"id":"0821-c054","src":"국민카드","date":"2026.07.17","merchant":"미션클리어 오락실","billed":5000,"category":"내 용돈","subcategory":"취미/간식","reason":"개인 간식 및 오락실 이용"},{"id":"0821-c055","src":"국민카드","date":"2026.07.17","merchant":"쿠팡(쿠페이)-쿠팡(쿠페이)","billed":28390,"category":"공금","subcategory":"쿠팡장보기","reason":"쿠팡 생필품/식재료 온라인 장보기"},{"id":"0821-c056","src":"국민카드","date":"2026.07.18","merchant":"쿠팡(쿠페이)-쿠팡(쿠페이)","billed":3900,"category":"공금","subcategory":"쿠팡장보기","reason":"쿠팡 생필품/식재료 온라인 장보기"},{"id":"0821-c057","src":"국민카드","date":"2026.07.18","merchant":"쿠팡(쿠페이)-쿠팡(쿠페이)","billed":3900,"category":"공금","subcategory":"쿠팡장보기","reason":"쿠팡 생필품/식재료 온라인 장보기"},{"id":"0821-c058","src":"국민카드","date":"2026.07.22","merchant":"쿠팡(쿠페이)-쿠팡(쿠페이)","billed":8910,"category":"공금","subcategory":"쿠팡장보기","reason":"쿠팡 생필품/식재료 온라인 장보기"},{"id":"0821-c059","src":"국민카드","date":"2026.07.24","merchant":"쿠팡(쿠페이)-쿠팡(쿠페이)","billed":3990,"category":"공금","subcategory":"쿠팡장보기","reason":"쿠팡 생필품/식재료 온라인 장보기"},{"id":"0821-c060","src":"국민카드","date":"2026.07.26","merchant":"네이버페이-롯데쇼핑(주)e커머스사업본부","billed":13110,"category":"공금","subcategory":"의류/패션","reason":"인코드 남성 무봉제 드로즈 5매 (네이버페이)"},{"id":"0821-c061","src":"국민카드","date":"2026.07.26","merchant":"쿠팡(쿠페이)-쿠팡(쿠페이)","billed":2900,"category":"공금","subcategory":"쿠팡장보기","reason":"쿠팡 생필품/식재료 온라인 장보기"},{"id":"0821-c062","src":"국민카드","date":"2026.07.26","merchant":"네이버페이-롯데쇼핑(주)e커머스사업본부","billed":22870,"category":"공금","subcategory":"마트장보기","reason":"펩시 제로슈거 210ml 60캔 (네이버페이)"},{"id":"0821-c063","src":"국민카드","date":"2026.07.26","merchant":"쿠팡이츠-쿠팡이츠","billed":18000,"category":"공금","subcategory":"배달식비","reason":"쿠팡이츠 가족 공동 배달 식사"},{"id":"0821-c064","src":"국민카드","date":"2026.07.27","merchant":"토스페이_일반-(주)비바리퍼블리카","billed":10790,"category":"공금","subcategory":"온라인쇼핑","reason":"토스페이 결제 (품목 미확인, 공금 확정)"},{"id":"0821-c065","src":"국민카드","date":"2026.07.27","merchant":"(주)부산도시가스-자동납부","billed":13760,"category":"고정지출","subcategory":"공과금","reason":"부산도시가스 요금 자동납부"},{"id":"0821-c066","src":"국민카드","date":"2026.07.27","merchant":"KB아파트관리비-26년06월분","billed":171380,"category":"고정지출","subcategory":"관리비","reason":"KB아파트 6월분 관리비 정기납부"},{"id":"0821-c067","src":"국민카드","date":"2026.07.28","merchant":"배민클럽_우아한형제들-배민클럽_우아한","billed":1990,"category":"공금","subcategory":"정기구독","reason":"배민클럽 배달 멤버십 월정액 구독"},{"id":"0821-c068","src":"국민카드","date":"2026.07.30","merchant":"쿠팡이츠-쿠팡이츠","billed":26300,"category":"공금","subcategory":"배달식비","reason":"쿠팡이츠 가족 공동 배달 식사"},{"id":"0821-c069","src":"국민카드","date":"2026.07.31","merchant":"쿠팡(쿠페이)-쿠팡(쿠페이)","billed":39510,"category":"공금","subcategory":"쿠팡장보기","reason":"쿠팡 생필품/식재료 온라인 장보기"},{"id":"0821-c070","src":"국민카드","date":"2026.07.31","merchant":"씨유(CU) 대연양우내안애점","billed":4200,"category":"내 용돈","subcategory":"편의점","reason":"CU 편의점 소액 지출"},{"id":"0821-c071","src":"국민카드","date":"2026.07.31","merchant":"아성다이소","billed":19000,"category":"공금","subcategory":"생활용품","reason":"아성다이소 생활잡화 구매"},{"id":"0821-c072","src":"국민카드","date":"2026.07.31","merchant":"(주)이마트 문현점","billed":17160,"category":"공금","subcategory":"마트장보기","reason":"대형마트 가족 식료품/생필품 장보기"},{"id":"0821-c073","src":"국민카드","date":"2026.08.01","merchant":"카페룩룩","billed":32000,"category":"내 용돈","subcategory":"카페/커피","reason":"카페 이용 (8/1 분할결제)"},{"id":"0821-c074","src":"국민카드","date":"2026.08.01","merchant":"카페룩룩","billed":10000,"category":"내 용돈","subcategory":"카페/커피","reason":"카페 이용 (8/1 분할결제)"},{"id":"0821-c075","src":"국민카드","date":"2026.08.01","merchant":"카페룩룩","billed":12900,"category":"내 용돈","subcategory":"카페/커피","reason":"카페 이용 (8/1 분할결제)"},{"id":"0821-c076","src":"국민카드","date":"2026.08.01","merchant":"메가마트 문현점","billed":20880,"category":"공금","subcategory":"마트장보기","reason":"대형마트 가족 식료품/생필품 장보기"},{"id":"0821-c077","src":"국민카드","date":"2026.08.02","merchant":"(주)신세계백화점센텀시티점","billed":3500,"category":"공금","subcategory":"식음/쇼핑","reason":"신세계백화점 센텀시티점 공동 소비"},{"id":"0821-c078","src":"국민카드","date":"2026.08.02","merchant":"(주)신세계백화점센텀시티점","billed":3000,"category":"공금","subcategory":"식음/쇼핑","reason":"신세계백화점 센텀시티점 공동 소비"},{"id":"0821-c079","src":"국민카드","date":"2026.08.02","merchant":"(주)신세계백화점센텀시티점","billed":11100,"category":"공금","subcategory":"식음/쇼핑","reason":"신세계백화점 센텀시티점 공동 소비"},{"id":"0821-c080","src":"국민카드","date":"2026.08.02","merchant":"APEC나루공원 공영주차장","billed":2550,"category":"공금","subcategory":"차량유지","reason":"공영주차장 주차요금"},{"id":"0821-c081","src":"국민카드","date":"2026.08.02","merchant":"쿠팡이츠-쿠팡이츠","billed":24000,"category":"공금","subcategory":"배달식비","reason":"쿠팡이츠 가족 공동 배달 식사"},{"id":"0821-c082","src":"국민카드","date":"2026.08.02","merchant":"쿠팡(쿠페이)-쿠팡(쿠페이)","billed":6050,"category":"공금","subcategory":"쿠팡장보기","reason":"쿠팡 생필품/식재료 온라인 장보기"},{"id":"0821-c083","src":"국민카드","date":"2026.08.03","merchant":"쿠팡이츠-쿠팡이츠","billed":12900,"category":"공금","subcategory":"배달식비","reason":"쿠팡이츠 가족 공동 배달 식사"},{"id":"0821-c084","src":"국민카드","date":"2026.08.03","merchant":"쿠팡(쿠페이)-쿠팡(쿠페이)","billed":37360,"category":"공금","subcategory":"쿠팡장보기","reason":"쿠팡 생필품/식재료 온라인 장보기"},{"id":"0821-c085","src":"국민카드","date":"2026.08.03","merchant":"씨유(CU) 대연양우내안애점","billed":4200,"category":"내 용돈","subcategory":"편의점","reason":"CU 편의점 소액 지출"},{"id":"0821-c086","src":"국민카드","date":"2026.08.04","merchant":"쿠팡이츠-쿠팡이츠","billed":17700,"category":"공금","subcategory":"배달식비","reason":"쿠팡이츠 가족 공동 배달 식사"},{"id":"0821-c087","src":"국민카드","date":"2026.08.04","merchant":"쿠팡(쿠페이)-쿠팡(쿠페이)","billed":3490,"category":"공금","subcategory":"쿠팡장보기","reason":"쿠팡 생필품/식재료 온라인 장보기"},{"id":"0821-c088","src":"국민카드","date":"2026.08.04","merchant":"쿠팡(쿠페이)-쿠팡(쿠페이)","billed":4700,"category":"공금","subcategory":"쿠팡장보기","reason":"쿠팡 생필품/식재료 온라인 장보기"},{"id":"0821-c089","src":"국민카드","date":"2026.08.04","merchant":"쿠팡(쿠페이)-쿠팡(쿠페이)","billed":4120,"category":"공금","subcategory":"쿠팡장보기","reason":"쿠팡 생필품/식재료 온라인 장보기"},{"id":"0821-c090","src":"국민카드","date":"2026.08.05","merchant":"쿠팡(쿠페이)-쿠팡(쿠페이)","billed":49370,"category":"공금","subcategory":"쿠팡장보기","reason":"쿠팡 생필품/식재료 온라인 장보기"},{"id":"0821-c091","src":"국민카드","date":"2026.08.06","merchant":"쿠팡(쿠페이)-쿠팡(쿠페이)","billed":43460,"category":"공금","subcategory":"쿠팡장보기","reason":"쿠팡 생필품/식재료 온라인 장보기"},{"id":"0821-c092","src":"국민카드","date":"2026.08.06","merchant":"쿠팡(와우멤버십)-쿠팡(와우멤버십)","billed":7890,"category":"공금","subcategory":"정기구독","reason":"쿠팡 와우멤버십 월정액 구독"},{"id":"0821-c093","src":"국민카드","date":"2026.08.06","merchant":"현대서비스 대연점","billed":37290,"category":"공금","subcategory":"차량유지","reason":"현대서비스 차량 정비 및 점검"},{"id":"0821-c094","src":"국민카드","date":"2026.08.06","merchant":"쿠팡(쿠페이)-쿠팡(쿠페이)","billed":2780,"category":"공금","subcategory":"쿠팡장보기","reason":"쿠팡 생필품/식재료 온라인 장보기"},{"id":"0821-b001","src":"통장","date":"2026.07.22","merchant":"카카오페이","billed":21383,"category":"고정지출","subcategory":"카카오페이","reason":"통장 직접 출금"},{"id":"0821-b002","src":"통장","date":"2026.07.22","merchant":"동백전충전","billed":100000,"category":"공금","subcategory":"지역화폐충전","reason":"통장 직접 출금"},{"id":"0821-b003","src":"통장","date":"2026.07.23","merchant":"삼성화07016","billed":123137,"category":"고정지출","subcategory":"보험료","reason":"통장 직접 출금"},{"id":"0821-b004","src":"통장","date":"2026.07.23","merchant":"감만종합사회복","billed":4000,"category":"공금","subcategory":"장난감 대여료","reason":"통장 직접 출금"},{"id":"0821-b005","src":"통장","date":"2026.07.23","merchant":"동백전충전","billed":30000,"category":"공금","subcategory":"지역화폐충전","reason":"통장 직접 출금"},{"id":"0821-b006","src":"통장","date":"2026.07.23","merchant":"카카오페이","billed":10000,"category":"고정지출","subcategory":"카카오페이","reason":"통장 직접 출금"},{"id":"0821-b007","src":"통장","date":"2026.07.24","merchant":"한국철도공사_토스","billed":-6300,"category":"출장비","subcategory":"KTX 환급","reason":"KTX 취소 환급 (상계)"},{"id":"0821-b008","src":"통장","date":"2026.07.24","merchant":"한국철도공사_","billed":-50800,"category":"출장비","subcategory":"KTX 환급","reason":"KTX 취소 환급 (상계)"},{"id":"0821-b009","src":"통장","date":"2026.07.24","merchant":"토스페이","billed":50800,"category":"출장비","subcategory":"KTX 예매","reason":"통장 직접 출금"},{"id":"0821-b010","src":"통장","date":"2026.07.24","merchant":"한국철도공사_","billed":-56400,"category":"출장비","subcategory":"KTX 환급","reason":"KTX 취소 환급 (상계)"},{"id":"0821-b011","src":"통장","date":"2026.07.24","merchant":"토스페이","billed":59800,"category":"출장비","subcategory":"KTX 예매","reason":"통장 직접 출금"},{"id":"0821-b012","src":"통장","date":"2026.07.24","merchant":"토스페이","billed":56400,"category":"출장비","subcategory":"KTX 예매","reason":"통장 직접 출금"},{"id":"0821-b013","src":"통장","date":"2026.07.26","merchant":"동백전충전","billed":30000,"category":"공금","subcategory":"지역화폐충전","reason":"통장 직접 출금"},{"id":"0821-b014","src":"통장","date":"2026.07.26","merchant":"카카오페이","billed":10000,"category":"고정지출","subcategory":"카카오페이","reason":"통장 직접 출금"},{"id":"0821-b015","src":"통장","date":"2026.07.27","merchant":"카카오페이","billed":10000,"category":"고정지출","subcategory":"카카오페이","reason":"통장 직접 출금"},{"id":"0821-b016","src":"통장","date":"2026.07.29","merchant":"카카오페이","billed":10000,"category":"고정지출","subcategory":"카카오페이","reason":"통장 직접 출금"},{"id":"0821-b017","src":"통장","date":"2026.07.29","merchant":"카카오페이","billed":10574,"category":"고정지출","subcategory":"카카오페이","reason":"통장 직접 출금"},{"id":"0821-b018","src":"통장","date":"2026.07.30","merchant":"동백전충전","billed":30000,"category":"공금","subcategory":"지역화폐충전","reason":"통장 직접 출금"},{"id":"0821-b019","src":"통장","date":"2026.08.04","merchant":"동백전충전","billed":10000,"category":"공금","subcategory":"지역화폐충전","reason":"통장 직접 출금"},{"id":"0821-b020","src":"통장","date":"2026.08.05","merchant":"동백전충전","billed":30000,"category":"공금","subcategory":"지역화폐충전","reason":"통장 직접 출금"},{"id":"0821-b021","src":"통장","date":"2026.08.05","merchant":"한화손08028","billed":24599,"category":"고정지출","subcategory":"보험료","reason":"통장 직접 출금"},{"id":"0821-b022","src":"통장","date":"2026.08.11","merchant":"동백전충전","billed":10000,"category":"공금","subcategory":"지역화폐충전","reason":"통장 직접 출금"},{"id":"0821-b023","src":"통장","date":"2026.08.11","merchant":"동백전충전","billed":10000,"category":"공금","subcategory":"지역화폐충전","reason":"통장 직접 출금"},{"id":"0821-b024","src":"통장","date":"2026.08.11","merchant":"카카오페이","billed":10000,"category":"고정지출","subcategory":"카카오페이","reason":"통장 직접 출금"},{"id":"0821-b025","src":"통장","date":"2026.08.13","merchant":"하나카드","billed":1900,"category":"공금","subcategory":"마켓컬리","reason":"통장 직접 출금"},{"id":"0821-b026","src":"통장","date":"2026.08.14","merchant":"동백전충전","billed":30000,"category":"공금","subcategory":"지역화폐충전","reason":"통장 직접 출금"},{"id":"0821-b027","src":"통장","date":"2026.08.14","merchant":"동백전충전","billed":10000,"category":"공금","subcategory":"지역화폐충전","reason":"통장 직접 출금"},{"id":"0821-b028","src":"통장","date":"2026.08.14","merchant":"동백전충전","billed":10000,"category":"공금","subcategory":"지역화폐충전","reason":"통장 직접 출금"},{"id":"0821-b029","src":"통장","date":"2026.08.16","merchant":"카카오페이","billed":10000,"category":"고정지출","subcategory":"카카오페이","reason":"통장 직접 출금"},{"id":"0821-b030","src":"통장","date":"2026.08.17","merchant":"KIA 한재림","billed":100000,"category":"공금","subcategory":"계약금","reason":"통장 직접 출금"},{"id":"0821-b031","src":"통장","date":"2026.08.18","merchant":"삼성생명08063","billed":24825,"category":"고정지출","subcategory":"보험료","reason":"통장 직접 출금"},{"id":"0821-b032","src":"통장","date":"2026.08.18","merchant":"한재림현대카드","billed":17365,"category":"공금","subcategory":"하이패스","reason":"통장 직접 출금"},{"id":"0821-b033","src":"통장","date":"2026.08.20","merchant":"카카오페이","billed":10000,"category":"고정지출","subcategory":"카카오페이","reason":"통장 직접 출금"},{"id":"0821-b034","src":"통장","date":"2026.08.20","merchant":"동백전충전","billed":10000,"category":"공금","subcategory":"지역화폐충전","reason":"통장 직접 출금"},{"id":"0821-b035","src":"통장","date":"2026.08.20","merchant":"자동충전","billed":13838,"category":"공금","subcategory":"지역화폐충전","reason":"통장 직접 출금"},{"id":"0821-b036","src":"통장","date":"2026.08.20","merchant":"카카오페이","billed":10000,"category":"고정지출","subcategory":"카카오페이","reason":"통장 직접 출금"},{"id":"0821-b037","src":"통장","date":"2026.08.21","merchant":"롯데카드(주)","billed":61500,"category":"공금","subcategory":"노트북 할부","reason":"통장 직접 출금"}]},{"key":"9/21분","pay":"2026.09.21","window":["2026.08.22","2026.09.21"],"received":400000,"receivedDate":"2026.08.24","cards":{"국민카드":{"period":"08.07 ~ 09.07","paid":819545,"count":43,"total":819545},"신한카드":{"period":"08.08 ~ 09.07","paid":344518,"count":45,"total":344518}},"rows":[{"id":"0921-c001","src":"신한카드","date":"2026.06.21","merchant":"주식회사 무신사페이먼츠(MU","billed":20400,"category":"공금","subcategory":"의류/패션","reason":""},{"id":"0921-c002","src":"신한카드","date":"2026.08.19","merchant":"08월5599KT통신요금","billed":34650,"category":"고정지출","subcategory":"통신비","reason":""},{"id":"0921-c003","src":"신한카드","date":"2026.08.08","merchant":"씨유(CU) 대연양우내안애점","billed":1170,"category":"내 용돈","subcategory":"편의점","reason":""},{"id":"0921-c004","src":"신한카드","date":"2026.08.09","merchant":"씨유(CU) 대연양우내안애점","billed":1620,"category":"내 용돈","subcategory":"편의점","reason":""},{"id":"0921-c005","src":"신한카드","date":"2026.08.10","merchant":"씨유(CU) 동구수정점","billed":3240,"category":"내 용돈","subcategory":"편의점","reason":""},{"id":"0921-c006","src":"신한카드","date":"2026.08.11","merchant":"씨유(CU) 동구수정점","billed":800,"category":"내 용돈","subcategory":"편의점","reason":""},{"id":"0921-c007","src":"신한카드","date":"2026.08.11","merchant":"페이타랩","billed":1500,"category":"내 용돈","subcategory":"카페/커피","reason":""},{"id":"0921-c008","src":"신한카드","date":"2026.08.12","merchant":"페이타랩","billed":1500,"category":"내 용돈","subcategory":"카페/커피","reason":""},{"id":"0921-c009","src":"신한카드","date":"2026.08.14","merchant":"페이타랩","billed":1500,"category":"내 용돈","subcategory":"카페/커피","reason":""},{"id":"0921-c010","src":"신한카드","date":"2026.08.14","merchant":"씨유(CU) 대연양우내안애점","billed":2500,"category":"내 용돈","subcategory":"편의점","reason":""},{"id":"0921-c011","src":"신한카드","date":"2026.08.15","merchant":"페이타랩","billed":2000,"category":"내 용돈","subcategory":"카페/커피","reason":""},{"id":"0921-c012","src":"신한카드","date":"2026.08.15","merchant":"페이타랩","billed":1800,"category":"내 용돈","subcategory":"카페/커피","reason":""},{"id":"0921-c013","src":"신한카드","date":"2026.08.16","merchant":"(주)메가마트문현점","billed":15860,"category":"공금","subcategory":"마트장보기","reason":""},{"id":"0921-c014","src":"신한카드","date":"2026.08.17","merchant":"씨유(CU) 대연양우내안애점","billed":3700,"category":"내 용돈","subcategory":"편의점","reason":""},{"id":"0921-c015","src":"신한카드","date":"2026.08.18","merchant":"페이타랩","billed":1500,"category":"내 용돈","subcategory":"카페/커피","reason":""},{"id":"0921-c016","src":"신한카드","date":"2026.08.18","merchant":"페이타랩","billed":1500,"category":"내 용돈","subcategory":"카페/커피","reason":""},{"id":"0921-c017","src":"신한카드","date":"2026.08.20","merchant":"페이타랩","billed":1500,"category":"내 용돈","subcategory":"카페/커피","reason":""},{"id":"0921-c018","src":"신한카드","date":"2026.08.21","merchant":"페이타랩","billed":3000,"category":"내 용돈","subcategory":"카페/커피","reason":""},{"id":"0921-c019","src":"신한카드","date":"2026.08.21","merchant":"페이타랩","billed":1500,"category":"내 용돈","subcategory":"카페/커피","reason":""},{"id":"0921-c020","src":"신한카드","date":"2026.08.22","merchant":"에프알엘코리아 주식회사","billed":79700,"category":"공금","subcategory":"의류/패션","reason":""},{"id":"0921-c021","src":"신한카드","date":"2026.08.23","merchant":"페이타랩","billed":2000,"category":"내 용돈","subcategory":"카페/커피","reason":""},{"id":"0921-c022","src":"신한카드","date":"2026.08.24","merchant":"동구청","billed":1000,"category":"고정지출","subcategory":"주차비","reason":""},{"id":"0921-c023","src":"신한카드","date":"2026.08.24","merchant":"페이타랩","billed":1500,"category":"내 용돈","subcategory":"카페/커피","reason":""},{"id":"0921-c024","src":"신한카드","date":"2026.08.24","merchant":"씨유(CU) 동구수정점","billed":800,"category":"내 용돈","subcategory":"편의점","reason":""},{"id":"0921-c025","src":"신한카드","date":"2026.08.25","merchant":"씨유(CU) 동구수정점","billed":800,"category":"내 용돈","subcategory":"편의점","reason":""},{"id":"0921-c026","src":"신한카드","date":"2026.08.25","merchant":"페이타랩","billed":1500,"category":"내 용돈","subcategory":"카페/커피","reason":""},{"id":"0921-c027","src":"신한카드","date":"2026.08.26","merchant":"동구청","billed":2000,"category":"고정지출","subcategory":"주차비","reason":""},{"id":"0921-c028","src":"신한카드","date":"2026.08.26","merchant":"한국맥도날드(유)범일SKDT점","billed":5000,"category":"공금","subcategory":"외식","reason":""},{"id":"0921-c029","src":"신한카드","date":"2026.08.26","merchant":"지마켓","billed":14100,"category":"공금","subcategory":"생활용품","reason":""},{"id":"0921-c030","src":"신한카드","date":"2026.08.26","merchant":"지마켓","billed":14770,"category":"공금","subcategory":"생활용품","reason":""},{"id":"0921-c031","src":"신한카드","date":"2026.08.27","merchant":"페이타랩","billed":1500,"category":"내 용돈","subcategory":"카페/커피","reason":""},{"id":"0921-c032","src":"신한카드","date":"2026.08.28","merchant":"페이타랩","billed":1500,"category":"내 용돈","subcategory":"카페/커피","reason":""},{"id":"0921-c033","src":"신한카드","date":"2026.08.29","merchant":"씨유(CU) 대연양우내안애점","billed":2500,"category":"내 용돈","subcategory":"편의점","reason":""},{"id":"0921-c034","src":"신한카드","date":"2026.08.30","merchant":"씨유(CU) 동구수정점","billed":800,"category":"내 용돈","subcategory":"편의점","reason":""},{"id":"0921-c035","src":"신한카드","date":"2026.08.31","merchant":"동구청","billed":1000,"category":"고정지출","subcategory":"주차비","reason":""},{"id":"0921-c036","src":"신한카드","date":"2026.08.31","merchant":"씨유(CU) 동구수정점","billed":800,"category":"내 용돈","subcategory":"편의점","reason":""},{"id":"0921-c037","src":"신한카드","date":"2026.08.31","merchant":"페이타랩","billed":500,"category":"내 용돈","subcategory":"카페/커피","reason":""},{"id":"0921-c038","src":"신한카드","date":"2026.09.01","merchant":"동구청","billed":1000,"category":"고정지출","subcategory":"주차비","reason":""},{"id":"0921-c039","src":"신한카드","date":"2026.09.01","merchant":"씨유(CU) 동구수정점","billed":800,"category":"내 용돈","subcategory":"편의점","reason":""},{"id":"0921-c040","src":"신한카드","date":"2026.09.01","merchant":"페이타랩","billed":500,"category":"내 용돈","subcategory":"카페/커피","reason":""},{"id":"0921-c041","src":"신한카드","date":"2026.09.02","merchant":"지마켓","billed":17520,"category":"공금","subcategory":"생활용품","reason":""},{"id":"0921-c042","src":"신한카드","date":"2026.09.07","merchant":"페이타랩","billed":500,"category":"내 용돈","subcategory":"카페/커피","reason":""},{"id":"0921-c043","src":"신한카드","date":"2026.08.21","merchant":"ANTHROPIC* CLAUDE SUB","billed":31091,"category":"공금","subcategory":"정기구독","reason":""},{"id":"0921-c044","src":"신한카드","date":"2026.08.24","merchant":"OPENAI *CHATGPT SUBSCR","billed":29642,"category":"공금","subcategory":"정기구독","reason":""},{"id":"0921-c045","src":"신한카드","date":"2026.09.04","merchant":"ANTHROPIC* CLAUDE SUB","billed":30455,"category":"공금","subcategory":"정기구독","reason":""},{"id":"0921-c046","src":"국민카드","date":"2026.08.07","merchant":"쿠팡(쿠페이)-쿠팡(쿠페이)","billed":60000,"category":"공금","subcategory":"쿠팡장보기","reason":""},{"id":"0921-c047","src":"국민카드","date":"2026.08.07","merchant":"쿠팡이츠-쿠팡이츠","billed":30400,"category":"공금","subcategory":"배달식비","reason":""},{"id":"0921-c048","src":"국민카드","date":"2026.08.08","merchant":"씨유(CU) 대연양우내안애점","billed":2400,"category":"내 용돈","subcategory":"편의점","reason":""},{"id":"0921-c049","src":"국민카드","date":"2026.08.08","merchant":"롯데백화점(주)부산점-수변최고돼지","billed":35000,"category":"공금","subcategory":"외식","reason":""},{"id":"0921-c050","src":"국민카드","date":"2026.08.08","merchant":"롯데쇼핑(주)부산점(주차장)","billed":1000,"category":"공금","subcategory":"차량유지","reason":""},{"id":"0921-c051","src":"국민카드","date":"2026.08.08","merchant":"패스오더-주식회사페이타랩","billed":4500,"category":"내 용돈","subcategory":"카페/커피","reason":""},{"id":"0921-c052","src":"국민카드","date":"2026.08.09","merchant":"패스오더-주식회사페이타랩","billed":1800,"category":"내 용돈","subcategory":"카페/커피","reason":""},{"id":"0921-c053","src":"국민카드","date":"2026.08.09","merchant":"쿠팡(쿠페이)-쿠팡(쿠페이)","billed":18890,"category":"공금","subcategory":"쿠팡장보기","reason":""},{"id":"0921-c054","src":"국민카드","date":"2026.08.11","merchant":"KT통신요금자동납부(65**96**)","billed":12600,"category":"고정지출","subcategory":"통신비","reason":""},{"id":"0921-c055","src":"국민카드","date":"2026.08.13","merchant":"쿠팡(쿠페이)-쿠팡(쿠페이)","billed":8580,"category":"공금","subcategory":"쿠팡장보기","reason":""},{"id":"0921-c056","src":"국민카드","date":"2026.08.14","merchant":"네이버페이","billed":75000,"category":"공금","subcategory":"의류/패션","reason":""},{"id":"0921-c057","src":"국민카드","date":"2026.08.14","merchant":"쿠팡(쿠페이)-쿠팡(쿠페이)","billed":8600,"category":"공금","subcategory":"쿠팡장보기","reason":""},{"id":"0921-c058","src":"국민카드","date":"2026.08.15","merchant":"창원노리터349","billed":3500,"category":"공금","subcategory":"아이 놀이","reason":""},{"id":"0921-c059","src":"국민카드","date":"2026.08.16","merchant":"(주)이마트 문현점","billed":50090,"category":"공금","subcategory":"마트장보기","reason":""},{"id":"0921-c060","src":"국민카드","date":"2026.08.17","merchant":"쿠팡이츠-쿠팡이츠","billed":21600,"category":"공금","subcategory":"배달식비","reason":""},{"id":"0921-c061","src":"국민카드","date":"2026.08.17","merchant":"태양주차장","billed":1000,"category":"공금","subcategory":"차량유지","reason":""},{"id":"0921-c062","src":"국민카드","date":"2026.08.17","merchant":"쿠팡(쿠페이)-쿠팡(쿠페이)","billed":3000,"category":"공금","subcategory":"쿠팡장보기","reason":""},{"id":"0921-c063","src":"국민카드","date":"2026.08.17","merchant":"쿠팡(쿠페이)-쿠팡(쿠페이)","billed":25070,"category":"공금","subcategory":"쿠팡장보기","reason":""},{"id":"0921-c064","src":"국민카드","date":"2026.08.18","merchant":"쿠팡(쿠페이)-쿠팡(쿠페이)","billed":14480,"category":"공금","subcategory":"쿠팡장보기","reason":""},{"id":"0921-c065","src":"국민카드","date":"2026.08.19","merchant":"쿠팡이츠-쿠팡이츠","billed":15100,"category":"공금","subcategory":"배달식비","reason":""},{"id":"0921-c066","src":"국민카드","date":"2026.08.21","merchant":"쿠팡이츠-쿠팡이츠","billed":21000,"category":"공금","subcategory":"배달식비","reason":""},{"id":"0921-c067","src":"국민카드","date":"2026.08.22","merchant":"씨유(CU) 대연양우내안애점","billed":3800,"category":"내 용돈","subcategory":"편의점","reason":""},{"id":"0921-c068","src":"국민카드","date":"2026.08.22","merchant":"씨유(CU) 대연양우내안애점","billed":2600,"category":"내 용돈","subcategory":"편의점","reason":""},{"id":"0921-c069","src":"국민카드","date":"2026.08.23","merchant":"(주)신세계백화점센텀시티점","billed":10000,"category":"공금","subcategory":"식음/쇼핑","reason":""},{"id":"0921-c070","src":"국민카드","date":"2026.08.23","merchant":"(주)신세계백화점센텀시티점","billed":8500,"category":"공금","subcategory":"식음/쇼핑","reason":""},{"id":"0921-c071","src":"국민카드","date":"2026.08.23","merchant":"(주)신세계백화점센텀시티점","billed":4300,"category":"공금","subcategory":"식음/쇼핑","reason":""},{"id":"0921-c072","src":"국민카드","date":"2026.08.23","merchant":"(주)신세계백화점센텀시티점","billed":9730,"category":"공금","subcategory":"식음/쇼핑","reason":""},{"id":"0921-c073","src":"국민카드","date":"2026.08.24","merchant":"쿠팡(쿠페이)-쿠팡(쿠페이)","billed":23070,"category":"공금","subcategory":"쿠팡장보기","reason":""},{"id":"0921-c074","src":"국민카드","date":"2026.08.24","merchant":"토스페이_오늘의집-(주)비바리퍼블리카","billed":22705,"category":"공금","subcategory":"생활용품","reason":""},{"id":"0921-c075","src":"국민카드","date":"2026.08.25","merchant":"KB아파트관리비-26년07월분","billed":172880,"category":"고정지출","subcategory":"관리비","reason":""},{"id":"0921-c076","src":"국민카드","date":"2026.08.25","merchant":"쿠팡이츠-쿠팡이츠","billed":15500,"category":"공금","subcategory":"배달식비","reason":""},{"id":"0921-c077","src":"국민카드","date":"2026.08.26","merchant":"(주)부산도시가스-자동납부","billed":10570,"category":"고정지출","subcategory":"공과금","reason":""},{"id":"0921-c078","src":"국민카드","date":"2026.08.28","merchant":"배민클럽_우아한형제들-배민클럽_우아한","billed":1990,"category":"공금","subcategory":"정기구독","reason":""},{"id":"0921-c079","src":"국민카드","date":"2026.08.28","merchant":"쿠팡이츠-쿠팡이츠","billed":37400,"category":"공금","subcategory":"배달식비","reason":""},{"id":"0921-c080","src":"국민카드","date":"2026.08.30","merchant":"쿠팡이츠-쿠팡이츠","billed":12500,"category":"공금","subcategory":"배달식비","reason":""},{"id":"0921-c081","src":"국민카드","date":"2026.09.01","merchant":"(주)우아한형제들-(주)우아한형제들","billed":26400,"category":"공금","subcategory":"배달식비","reason":""},{"id":"0921-c082","src":"국민카드","date":"2026.09.02","merchant":"상쾌한내과이비인후과의원","billed":5600,"category":"공금","subcategory":"의료/약국","reason":""},{"id":"0921-c083","src":"국민카드","date":"2026.09.02","merchant":"이로운 약국","billed":3700,"category":"공금","subcategory":"의료/약국","reason":""},{"id":"0921-c084","src":"국민카드","date":"2026.09.03","merchant":"동구청","billed":1000,"category":"고정지출","subcategory":"주차비","reason":""},{"id":"0921-c085","src":"국민카드","date":"2026.09.06","merchant":"쿠팡(와우멤버십)-쿠팡(와우멤버십)","billed":7890,"category":"공금","subcategory":"정기구독","reason":""},{"id":"0921-c086","src":"국민카드","date":"2026.09.06","merchant":"아성다이소","billed":5000,"category":"공금","subcategory":"생활용품","reason":""},{"id":"0921-c087","src":"국민카드","date":"2026.09.06","merchant":"쿠팡이츠-쿠팡이츠","billed":19800,"category":"공금","subcategory":"배달식비","reason":""},{"id":"0921-c088","src":"국민카드","date":"2026.09.07","merchant":"동구청","billed":1000,"category":"고정지출","subcategory":"주차비","reason":""},{"id":"0921-b001","src":"통장","date":"2026.08.22","merchant":"감만종합사회복","billed":3000,"category":"공금","subcategory":"장난감 대여료","reason":"통장 직접 출금"},{"id":"0921-b002","src":"통장","date":"2026.08.22","merchant":"동백전충전","billed":100000,"category":"공금","subcategory":"지역화폐충전","reason":"통장 직접 출금"},{"id":"0921-b003","src":"통장","date":"2026.08.24","merchant":"카카오페이","billed":10000,"category":"고정지출","subcategory":"카카오페이","reason":"통장 직접 출금"},{"id":"0921-b004","src":"통장","date":"2026.08.24","merchant":"삼성화08017","billed":123137,"category":"고정지출","subcategory":"보험료","reason":"통장 직접 출금"},{"id":"0921-b005","src":"통장","date":"2026.08.24","merchant":"동백전충전","billed":30000,"category":"공금","subcategory":"지역화폐충전","reason":"통장 직접 출금"},{"id":"0921-b006","src":"통장","date":"2026.08.24","merchant":"카카오페이","billed":10000,"category":"고정지출","subcategory":"카카오페이","reason":"통장 직접 출금"},{"id":"0921-b007","src":"통장","date":"2026.08.26","merchant":"카카오페이","billed":10000,"category":"고정지출","subcategory":"카카오페이","reason":"통장 직접 출금"},{"id":"0921-b008","src":"통장","date":"2026.08.27","merchant":"동백전충전","billed":50000,"category":"공금","subcategory":"지역화폐충전","reason":"통장 직접 출금"},{"id":"0921-b009","src":"통장","date":"2026.08.27","merchant":"카카오페이","billed":10000,"category":"고정지출","subcategory":"카카오페이","reason":"통장 직접 출금"},{"id":"0921-b010","src":"통장","date":"2026.09.01","merchant":"한재림","billed":10000,"category":"고정지출","subcategory":"본인 이체","reason":"통장 직접 출금"},{"id":"0921-b011","src":"통장","date":"2026.09.01","merchant":"카카오페이","billed":10000,"category":"고정지출","subcategory":"카카오페이","reason":"통장 직접 출금"},{"id":"0921-b012","src":"통장","date":"2026.09.01","merchant":"카카오페이","billed":10000,"category":"고정지출","subcategory":"카카오페이","reason":"통장 직접 출금"},{"id":"0921-b013","src":"통장","date":"2026.09.05","merchant":"감만종합사회복","billed":2000,"category":"공금","subcategory":"장난감 대여료","reason":"통장 직접 출금"},{"id":"0921-b014","src":"통장","date":"2026.09.06","merchant":"카카오페이","billed":10000,"category":"고정지출","subcategory":"카카오페이","reason":"통장 직접 출금"},{"id":"0921-b015","src":"통장","date":"2026.09.07","merchant":"토스페이","billed":53700,"category":"출장비","subcategory":"KTX 예매","reason":"통장 직접 출금"},{"id":"0921-b016","src":"통장","date":"2026.09.07","merchant":"토스페이","billed":48000,"category":"출장비","subcategory":"KTX 예매","reason":"통장 직접 출금"},{"id":"0921-b017","src":"통장","date":"2026.09.07","merchant":"한화손09029","billed":24599,"category":"고정지출","subcategory":"보험료","reason":"통장 직접 출금"},{"id":"0921-b018","src":"통장","date":"2026.09.08","merchant":"카카오페이","billed":10000,"category":"고정지출","subcategory":"카카오페이","reason":"통장 직접 출금"},{"id":"0921-b019","src":"통장","date":"2026.09.12","merchant":"네이버페이충전","billed":10000,"category":"내 용돈","subcategory":"네이버페이 충전","reason":"통장 직접 출금"},{"id":"0921-b020","src":"통장","date":"2026.09.12","merchant":"네이버페이충전","billed":10000,"category":"내 용돈","subcategory":"네이버페이 충전","reason":"통장 직접 출금"},{"id":"0921-b021","src":"통장","date":"2026.09.12","merchant":"카카오페이","billed":10000,"category":"고정지출","subcategory":"카카오페이","reason":"통장 직접 출금"},{"id":"0921-b022","src":"통장","date":"2026.09.14","merchant":"하나카드","billed":16900,"category":"공금","subcategory":"마켓컬리","reason":"통장 직접 출금"},{"id":"0921-b023","src":"통장","date":"2026.09.15","merchant":"삼성생명09064","billed":24825,"category":"고정지출","subcategory":"보험료","reason":"통장 직접 출금"},{"id":"0921-b024","src":"통장","date":"2026.09.16","merchant":"동백전충전","billed":100000,"category":"공금","subcategory":"지역화폐충전","reason":"통장 직접 출금"},{"id":"0921-b025","src":"통장","date":"2026.09.16","merchant":"한재림현대카드","billed":17912,"category":"공금","subcategory":"하이패스","reason":"통장 직접 출금"},{"id":"0921-b026","src":"통장","date":"2026.09.21","merchant":"카카오페이","billed":10000,"category":"고정지출","subcategory":"카카오페이","reason":"통장 직접 출금"},{"id":"0921-b027","src":"통장","date":"2026.09.21","merchant":"동백전충전","billed":50000,"category":"공금","subcategory":"지역화폐충전","reason":"통장 직접 출금"},{"id":"0921-b028","src":"통장","date":"2026.09.21","merchant":"자동충전","billed":7521,"category":"공금","subcategory":"지역화폐충전","reason":"통장 직접 출금"},{"id":"0921-b029","src":"통장","date":"2026.09.21","merchant":"카카오페이","billed":10000,"category":"고정지출","subcategory":"카카오페이","reason":"통장 직접 출금"},{"id":"0921-b030","src":"통장","date":"2026.09.21","merchant":"축의금 (카카오페이 머니)","billed":50000,"category":"공금","subcategory":"경조사비","reason":"수기 입력 — 통장 기록 없음"}]}];
+    const DATA_VERSION = 'b3fbecbe';
+    /*DATA:END*/
+    // 데이터는 scripts/build_web.py 가 위 DATA 블록에 넣는다 (settle.py 와 같은 계산).
+    const BILLABLE = ['공금', '고정지출'];
+    const isClaim = t => BILLABLE.includes(t.category);
+    const won = n => n.toLocaleString() + '원';
+    const esc = s => String(s).replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+    const WEEK = ['일', '월', '화', '수', '목', '금', '토'];
+    const withDay = d => { const [y, m, dd] = d.split('.').map(Number); return `${d} (${WEEK[new Date(y, m - 1, dd).getDay()]})`; };
+    const md = d => d.slice(5).replace('.', '/');
 
-    let txns = loadFromStorage();
-    let isCheckPanelExpanded = false;
+    // 사용자가 바꾼 분류/메모만 id별로 저장한다. 키에 DATA_VERSION 을 넣어
+    // 데이터가 다시 빌드되면 예전 브라우저의 낡은 수정값이 새 데이터를 덮지 않게 한다.
+    const STORAGE_KEY = `jaenan_overrides_${DATA_VERSION}`;
+    const SETTLE_KEY = 'jaenan_settlement';
 
-    function loadFromStorage() {
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if (saved) {
-        try {
-          const parsed = JSON.parse(saved);
-          if (Array.isArray(parsed) && parsed.length === defaultData.length) {
-            return parsed;
-          }
-        } catch(e) {
-          console.error('LocalStorage load error:', e);
-        }
-      }
-      const initial = defaultData.map((item, idx) => ({
-        id: idx + 1,
-        ...item
-      }));
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(initial));
-      return initial;
+    function loadOverrides() {
+      try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; }
+      catch (e) { return {}; }
+    }
+    function saveOverrides() {
+      try { localStorage.setItem(STORAGE_KEY, JSON.stringify(overrides)); }
+      catch (e) { console.error('LocalStorage save error:', e); }
     }
 
-    function saveToStorage() {
-      try {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(txns));
-      } catch(e) {
-        console.error('LocalStorage save error:', e);
-      }
+    let overrides = loadOverrides();
+    let settlement = null;   // 현재 회차 메타
+    let txns = [];           // 현재 회차 행 (카드 + 통장), 수정값 반영본
+
+    function applySettlement(key) {
+      settlement = SETTLEMENTS.find(s => s.key === key) || SETTLEMENTS[SETTLEMENTS.length - 1];
+      txns = settlement.rows.map(r => ({ ...r, ...(overrides[r.id] || {}) }));
     }
 
-    function resetToDefault() {
-      if (confirm('모든 분류를 기본 상태로 되돌리시겠습니까?')) {
-        localStorage.removeItem(STORAGE_KEY);
-        txns = defaultData.map((item, idx) => ({
-          id: idx + 1,
-          ...item
-        }));
-        saveToStorage();
-        isCheckPanelExpanded = false;
-        renderCheckItems();
-        updateAll();
-        showToast('초기화 완료', '모든 분류가 기본값으로 복원되었습니다.');
-      }
+    function saved(key) {
+      try { return localStorage.getItem(SETTLE_KEY) || key; } catch (e) { return key; }
     }
 
-    let currentPeriod = 'ALL';
+    let currentSrc = 'ALL';
     let currentCategory = 'ALL';
     let searchQuery = '';
     let sortField = 'date';
     let sortOrder = 'asc';
 
-    // 캘린더 상태
-    let calYear = 2026;
-    let calMonth = 7;
-    let calSelectedDate = '2026.07.27';
-    let calCategoryFilter = 'ALL'; // ALL, CLAIM, 출장비, 내 용돈, 확인필요
-    let calCardFilter = 'ALL';
+    let calYear, calMonth, calSelectedDate;
+    let calCategoryFilter = 'ALL';
 
     let doughnutChart = null;
     let categoryChart = null;
@@ -638,12 +539,118 @@
     let currentStockMode = 'all';
 
     document.addEventListener('DOMContentLoaded', () => {
-      renderCheckItems();
-      updateAll();
+      const sel = document.getElementById('settle-select');
+      sel.innerHTML = SETTLEMENTS.slice().reverse().map(s =>
+        `<option value="${s.key}">${s.pay.slice(5, 7).replace(/^0/, '')}월 정산 (${md(s.pay)} 결제)</option>`).join('');
+      applySettlement(saved(SETTLEMENTS[SETTLEMENTS.length - 1].key));
+      sel.value = settlement.key;
       initCharts();
-      renderCalendar();
-      renderCalSelectedDetails('2026.07.27');
+      renderStatic();
+      resetCalendar();
+      updateAll();
     });
+
+    function setSettlement(key) {
+      try { localStorage.setItem(SETTLE_KEY, key); } catch (e) {}
+      applySettlement(key);
+      currentSrc = 'ALL';
+      renderStatic();
+      resetCalendar();
+      updateAll();
+    }
+
+    function resetCalendar() {
+      const [y, m] = settlement.pay.split('.').map(Number);
+      calYear = y; calMonth = m - 1;  // 사용분이 몰린 결제 전달부터
+      calSelectedDate = settlement.pay;
+    }
+
+    // ==================== 회차 고정 정보 (배너·제목) ====================
+    function renderStatic() {
+      const s = settlement;
+      const month = Number(s.pay.slice(5, 7));
+      document.getElementById('app-title').innerText = `${month}월 가계 카드 정산`;
+      const nCard = s.cards['국민카드'].count + s.cards['신한카드'].count;
+      document.getElementById('app-sub').innerText = `KB국민 + 신한카드 ${nCard}건 · 통장 ${txns.length - nCard}건`;
+
+      const banner = (name, short, color, c) => {
+        const diff = c.total - c.paid;
+        return `
+        <div class="bg-gradient-to-r from-${color}-500/10 via-${color}-500/5 to-white border border-${color}-300 rounded-2xl p-4 sm:p-5 shadow-xs">
+          <div class="flex justify-between items-start">
+            <div class="flex items-center gap-2.5">
+              <div class="w-8 h-8 rounded-lg bg-${color}-500 text-white font-black flex items-center justify-center text-xs shadow-xs">${short}</div>
+              <div>
+                <h3 class="text-sm font-extrabold text-slate-900 flex items-center gap-2">
+                  ${name}
+                  <span class="text-[10px] px-2 py-0.5 rounded-full bg-${color}-100 text-${color}-800 font-bold border border-${color}-200">${c.count}건</span>
+                </h3>
+                <p class="text-[11px] text-slate-500">결제계좌: 신한은행 (자동이체)</p>
+              </div>
+            </div>
+            <div class="text-right">
+              <span class="text-[10px] font-bold text-${color}-700 bg-${color}-100 px-2 py-0.5 rounded">결제일 (출금일)</span>
+              <div class="text-base sm:text-lg font-black text-${color}-900 mt-0.5">${withDay(s.pay)}</div>
+            </div>
+          </div>
+          <div class="mt-3 pt-3 border-t border-${color}-200/60 grid grid-cols-2 gap-2 text-xs">
+            <div>
+              <span class="text-[10px] text-slate-400 block">이용기간 (명세서)</span>
+              <b class="text-slate-700 font-mono text-[11px]">${s.pay.slice(0, 4)}.${c.period}</b>
+            </div>
+            <div class="text-right">
+              <span class="text-[10px] text-slate-400 block">통장 출금액 · 명세서 합계</span>
+              <b class="text-slate-900 font-mono font-bold text-sm">${won(c.paid)}</b>
+              <span class="block text-[10px] ${Math.abs(diff) < 200 ? 'text-emerald-600' : 'text-rose-600 font-bold'}">
+                ${diff === 0 ? '명세서와 원 단위 일치' : `명세서 ${won(c.total)} (${diff > 0 ? '+' : ''}${diff.toLocaleString()}원${Math.abs(diff) < 200 ? ', 반올림 오차' : ' 불일치!'})`}
+              </span>
+            </div>
+          </div>
+        </div>`;
+      };
+      document.getElementById('card-banners').innerHTML =
+        banner('KB국민카드 (신용)', 'KB', 'amber', s.cards['국민카드']) +
+        banner('신한카드 (신용)', 'SH', 'blue', s.cards['신한카드']);
+
+      document.getElementById('settle-title').innerText = `${md(s.pay)} 정산 청구서`;
+      document.getElementById('settle-card-sub').innerText = `${md(s.pay)} 결제분 (KB·신한)`;
+      document.getElementById('settle-bank-sub').innerText = `${s.window[0].slice(5)}~${s.window[1].slice(5)} · 카드 외 출금`;
+      document.getElementById('settle-recv-label').innerText = `${s.receivedDate ? md(s.receivedDate) + ' ' : ''}기수령 고정지출비`;
+      document.getElementById('cal-pay-date').innerText = withDay(s.pay).slice(5);
+      document.getElementById('stock-bank-note').innerText = `${s.window[0].slice(5)} ~ ${s.window[1].slice(5)}`;
+
+      document.getElementById('src-filters').innerHTML = ['ALL', '국민카드', '신한카드', '통장'].map(k => {
+        const n = k === 'ALL' ? txns.length : txns.filter(t => t.src === k).length;
+        return `<button onclick="setSrcFilter('${k}')" data-src="${k}" class="src-btn px-3 py-1.5 rounded-lg text-xs transition">${k === 'ALL' ? '전체' : k} (${n}건)</button>`;
+      }).join('');
+      setSrcFilter(currentSrc, true);
+    }
+
+    // ==================== 정산 계산 (settle.py 와 같은 식) ====================
+    function computeSettle() {
+      const sum = f => txns.filter(f).reduce((s, t) => s + t.billed, 0);
+      const card = sum(t => t.src !== '통장' && isClaim(t));
+      const bank = sum(t => t.src === '통장' && isClaim(t));
+      const gross = card + bank;
+      return {
+        card, bank, gross, received: settlement.received, claim: gross - settlement.received,
+        business: sum(t => t.category === '출장비'),
+        allowance: sum(t => t.category === '내 용돈'),
+        check: sum(t => t.category === '확인필요'),
+        total: sum(() => true),
+        cardTotal: sum(t => t.src !== '통장'),
+        bankTotal: sum(t => t.src === '통장'),
+      };
+    }
+
+    function resetToDefault() {
+      if (!confirm(`${settlement.key.replace('분', '')} 회차의 분류·메모 수정을 모두 기본값으로 되돌리시겠습니까?`)) return;
+      settlement.rows.forEach(r => delete overrides[r.id]);
+      saveOverrides();
+      applySettlement(settlement.key);
+      updateAll();
+      showToast('초기화 완료', '이 회차의 분류가 기본값으로 복원되었습니다.');
+    }
 
     function switchView(viewName) {
       const views = ['dashboard', 'stock', 'calendar', 'table'];
@@ -666,290 +673,201 @@
       }
     }
 
-    function changeCategory(id, newCat) {
+    function setOverride(id, patch) {
+      overrides[id] = { ...(overrides[id] || {}), ...patch };
       const item = txns.find(t => t.id === id);
-      if (item) {
-        item.category = newCat;
-        if (newCat === '공금') {
-          item.subcategory = item.subcategory.includes('온라인쇼핑') ? '온라인쇼핑(공금)' : item.subcategory;
-          if (item.reason.includes('확인')) {
-            item.reason = '온라인 쇼핑 생필품/생활용품 (가계 공금 반영)';
-          }
-        } else if (newCat === '내 용돈') {
-          if (item.reason.includes('확인') || item.reason.includes('공금')) {
-            item.reason = '온라인 쇼핑 개인 물품 (남편 용돈)';
-          }
-        }
-        saveToStorage();
-        renderCheckItems();
-        updateAll();
-      }
+      if (item) Object.assign(item, patch);
+      saveOverrides();
+    }
+
+    function changeCategory(id, newCat) {
+      setOverride(id, { category: newCat });
+      updateAll();
     }
 
     function updateReason(id, newReason) {
-      const item = txns.find(t => t.id === id);
-      if (item) {
-        item.reason = newReason;
-        saveToStorage();
-      }
+      setOverride(id, { reason: newReason });
     }
 
-    function toggleCheckPanelExpand() {
-      isCheckPanelExpanded = !isCheckPanelExpanded;
-      renderCheckItems();
-    }
-
-    function toggleShoppingClaim(id, isClaim) {
-      changeCategory(id, isClaim ? '공금' : '확인필요');
-    }
-
-    function setAllShoppingClaim(isClaim) {
-      txns.forEach(t => {
-        if (SHOPPING_TXN_IDS.includes(t.id)) {
-          t.category = isClaim ? '공금' : '확인필요';
-          if (isClaim) {
-            t.subcategory = '온라인쇼핑(공금)';
-            t.reason = '온라인 쇼핑 생필품/생활용품 (가계 공금 반영)';
-          } else {
-            t.subcategory = '온라인쇼핑';
-            t.reason = '온라인 쇼핑몰 결제 (공동 생필품 여부 확인)';
-          }
-        }
-      });
-      saveToStorage();
-      isCheckPanelExpanded = false;
-      renderCheckItems();
-      updateAll();
-      showToast(isClaim ? '전체 공금 반영 완료!' : '전체 해제 완료', isClaim ? '8건(142,988원)이 와이프 청구액에 합산되었습니다.' : '온라인 쇼핑몰이 미분류 상태로 변경되었습니다.');
-    }
-
+    // ==================== 미분류 간편 지정 패널 ====================
     function renderCheckItems() {
       const wrapper = document.getElementById('check-panel-wrapper');
-      const shoppingTxns = txns.filter(t => SHOPPING_TXN_IDS.includes(t.id));
-      const claimCount = shoppingTxns.filter(t => t.category === '공금').length;
-      const totalCount = shoppingTxns.length;
-      const claimAmount = shoppingTxns.filter(t => t.category === '공금').reduce((s, t) => s + t.billed, 0);
-      const allClaimed = claimCount === totalCount;
+      const pending = txns.filter(t => t.category === '확인필요');
 
-      if (allClaimed && !isCheckPanelExpanded) {
+      if (pending.length === 0) {
         wrapper.className = 'bg-emerald-50 border border-emerald-300 rounded-2xl p-4 shadow-sm no-print transition-all duration-300';
         wrapper.innerHTML = `
-          <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3">
-            <div class="flex items-center gap-3">
-              <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-sm shadow-sm">
-                <i class="fa-solid fa-check"></i>
-              </div>
-              <div>
-                <h3 class="text-sm font-bold text-emerald-950 flex items-center gap-2">
-                  온라인 쇼핑몰 (${totalCount}건 / ${claimAmount.toLocaleString()}원) 모두 아래 표에 [공금]으로 완벽 반영되었습니다!
-                </h3>
-                <p class="text-xs text-emerald-700/80 mt-0.5">와이프 최종 청구 금액에 142,988원이 100% 정상 합산되었습니다.</p>
-              </div>
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-sm shadow-sm">
+              <i class="fa-solid fa-check"></i>
             </div>
-            <div class="flex items-center gap-2 text-xs font-semibold">
-              <button onclick="toggleCheckPanelExpand()" class="px-3 py-1.5 bg-white hover:bg-emerald-100 text-emerald-900 border border-emerald-300 rounded-lg transition flex items-center gap-1.5 shadow-xs">
-                <i class="fa-solid fa-sliders"></i> 개별 항목 다시 보기/수정
-              </button>
-              <button onclick="setAllShoppingClaim(false)" class="px-2.5 py-1.5 bg-white hover:bg-rose-50 text-rose-700 border border-rose-200 rounded-lg transition">
-                전체 해제
-              </button>
+            <div>
+              <h3 class="text-sm font-bold text-emerald-950">이번 회차 ${txns.length}건 모두 분류 완료</h3>
+              <p class="text-xs text-emerald-700/80 mt-0.5">분류를 바꾸려면 아래 전체 목록에서 대분류를 고르면 됩니다.</p>
             </div>
-          </div>
-        `;
+          </div>`;
         return;
       }
 
+      const amt = pending.reduce((s, t) => s + t.billed, 0);
+      const choices = ['공금', '고정지출', '내 용돈', '출장비'];
       wrapper.className = 'bg-amber-50/70 border border-amber-200 rounded-2xl p-4 sm:p-5 shadow-sm no-print transition-all duration-300';
       wrapper.innerHTML = `
-        <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-3 pb-3 border-b border-amber-200/60">
-          <div>
-            <h3 class="text-base font-bold text-amber-950 flex items-center gap-2">
-              <i class="fa-solid fa-cart-shopping text-amber-500"></i>
-              온라인 쇼핑몰 결제건 간편 지정 (총 8건)
-              <span class="text-[10px] bg-amber-200/70 text-amber-900 font-semibold px-2 py-0.5 rounded-full">
-                ${claimCount}/${totalCount}건 공금 반영 (${claimAmount.toLocaleString()}원)
-              </span>
-            </h3>
-            <p class="text-xs text-amber-800/80 mt-0.5">체크 시 <b>아래 표의 대분류가 즉시 [공금]으로 바뀌고 와이프 청구액에 합산</b>됩니다.</p>
-          </div>
-          <div class="flex items-center gap-2 text-xs font-semibold">
-            ${allClaimed ? `
-              <button onclick="toggleCheckPanelExpand()" class="px-2.5 py-1 bg-white hover:bg-slate-100 text-slate-700 border border-slate-300 rounded-md transition shadow-xs">
-                <i class="fa-solid fa-chevron-up"></i> 완료창 접기
-              </button>
-            ` : ''}
-            <button onclick="setAllShoppingClaim(true)" class="px-2.5 py-1 bg-amber-200 hover:bg-amber-300 text-amber-900 rounded-md transition shadow-xs">전체 공금 포함</button>
-            <button onclick="setAllShoppingClaim(false)" class="px-2.5 py-1 bg-white hover:bg-amber-100 text-amber-900 border border-amber-300 rounded-md transition shadow-xs">전체 해제</button>
-          </div>
+        <div class="pb-3 border-b border-amber-200/60">
+          <h3 class="text-base font-bold text-amber-950 flex items-center gap-2">
+            <i class="fa-solid fa-circle-question text-amber-500"></i>
+            미분류 간편 지정 (${pending.length}건 / ${won(amt)})
+          </h3>
+          <p class="text-xs text-amber-800/80 mt-0.5">버튼을 누르면 <b>아래 표의 대분류가 바로 바뀌고</b> 청구액에 반영됩니다.</p>
         </div>
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-4">
-          ${shoppingTxns.map(item => {
-            const isClaim = item.category === '공금';
-            return `
-              <label class="flex items-center gap-2.5 p-2.5 bg-white border rounded-xl cursor-pointer hover:border-blue-400 transition shadow-xs ${isClaim ? 'bg-rose-50/30 border-rose-300 ring-1 ring-rose-300/50' : 'border-slate-200'}">
-                <input type="checkbox" onchange="toggleShoppingClaim(${item.id}, this.checked)" ${isClaim ? 'checked' : ''} class="w-4 h-4 text-rose-600 rounded border-slate-300 focus:ring-rose-500 cursor-pointer">
-                <div class="flex-1 min-w-0">
-                  <div class="flex justify-between items-center text-xs">
-                    <b class="text-slate-800 truncate">${item.merchant}</b>
-                    <span class="font-bold text-rose-600 text-xs ml-1">${item.billed.toLocaleString()}원</span>
-                  </div>
-                  <div class="flex justify-between text-[11px] text-slate-400 mt-0.5">
-                    <span>${item.date} (${item.card})</span>
-                    <span class="${isClaim ? 'text-rose-600 font-bold' : 'text-slate-400'}">${isClaim ? '✓ 공금(청구)' : '미분류'}</span>
-                  </div>
-                </div>
-              </label>
-            `;
-          }).join('')}
-        </div>
-      `;
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 mt-4">
+          ${pending.map(item => `
+            <div class="p-2.5 bg-white border border-slate-200 rounded-xl shadow-xs">
+              <div class="flex justify-between items-center text-xs">
+                <b class="text-slate-800 truncate">${esc(item.merchant)}</b>
+                <span class="font-bold text-amber-700 ml-1">${won(item.billed)}</span>
+              </div>
+              <div class="text-[11px] text-slate-400 mt-0.5">${item.date} (${item.src})</div>
+              <div class="flex gap-1 mt-2">
+                ${choices.map(c => `<button onclick="changeCategory('${item.id}', '${c}')" class="flex-1 px-1.5 py-1 text-[11px] font-semibold rounded-md border border-slate-200 hover:bg-slate-100">${c}</button>`).join('')}
+              </div>
+            </div>`).join('')}
+        </div>`;
     }
 
     function updateAll() {
-      const totalClaim = txns.filter(t => t.category === '공금' || t.category === '고정지출').reduce((sum, t) => sum + t.billed, 0);
-      const claimCount = txns.filter(t => t.category === '공금' || t.category === '고정지출').length;
-      
-      const businessTotal = txns.filter(t => t.category === '출장비').reduce((sum, t) => sum + t.billed, 0);
-      const allowanceTotal = txns.filter(t => t.category === '내 용돈').reduce((sum, t) => sum + t.billed, 0);
-      const checkTotal = txns.filter(t => t.category === '확인필요').reduce((sum, t) => sum + t.billed, 0);
-      const checkCount = txns.filter(t => t.category === '확인필요').length;
-      const grandTotal = txns.reduce((sum, t) => sum + t.billed, 0);
+      const r = computeSettle();
+      const count = f => txns.filter(f).length;
+      const claimCount = count(isClaim);
+      const checkCount = count(t => t.category === '확인필요');
 
-      document.getElementById('kpi-claim-amount').innerText = totalClaim.toLocaleString();
+      document.getElementById('kpi-claim-amount').innerText = r.claim.toLocaleString();
       document.getElementById('kpi-claim-count').innerText = `${claimCount}건`;
-      
-      document.getElementById('kpi-business-amount').innerText = businessTotal.toLocaleString();
-      document.getElementById('kpi-business-count').innerText = `${txns.filter(t => t.category === '출장비').length}건`;
+      document.getElementById('kpi-claim-status').innerText = `기수령 ${(r.received / 10000).toLocaleString()}만 차감`;
 
-      document.getElementById('kpi-allowance-amount').innerText = allowanceTotal.toLocaleString();
-      document.getElementById('kpi-allowance-count').innerText = `${txns.filter(t => t.category === '내 용돈').length}건`;
-      
-      document.getElementById('kpi-check-amount').innerText = checkTotal.toLocaleString();
+      document.getElementById('kpi-business-amount').innerText = r.business.toLocaleString();
+      document.getElementById('kpi-business-count').innerText = `${count(t => t.category === '출장비')}건`;
+
+      document.getElementById('kpi-allowance-amount').innerText = r.allowance.toLocaleString();
+      document.getElementById('kpi-allowance-count').innerText = `${count(t => t.category === '내 용돈')}건`;
+
+      document.getElementById('kpi-check-amount').innerText = r.check.toLocaleString();
       document.getElementById('kpi-check-total-count').innerText = `총 ${checkCount}건`;
       document.getElementById('kpi-check-status-badge').innerText = checkCount === 0 ? '모두 분류 완료' : `${checkCount}건 미분류`;
 
-      document.getElementById('kpi-total-amount').innerText = grandTotal.toLocaleString();
+      document.getElementById('kpi-total-amount').innerText = r.total.toLocaleString();
+      document.getElementById('kpi-total-card').innerText = `카드 ${r.cardTotal.toLocaleString()}`;
+      document.getElementById('kpi-total-bank').innerText = `통장 ${r.bankTotal.toLocaleString()}`;
 
       document.getElementById('count-cat-all').innerText = txns.length;
       document.getElementById('count-cat-claim').innerText = claimCount;
-      document.getElementById('count-cat-business').innerText = txns.filter(t => t.category === '출장비').length;
-      document.getElementById('count-cat-allowance').innerText = txns.filter(t => t.category === '내 용돈').length;
+      document.getElementById('count-cat-business').innerText = count(t => t.category === '출장비');
+      document.getElementById('count-cat-allowance').innerText = count(t => t.category === '내 용돈');
       document.getElementById('count-cat-check').innerText = checkCount;
 
-      const cardClaim = txns.filter(t => t.bill === '8/21분' && (t.category === '공금' || t.category === '고정지출')).reduce((s, t) => s + t.billed, 0);
-      const bankClaim = bankDirect.reduce((s, t) => s + t.out, 0);
-      document.getElementById('settle-card').innerText = cardClaim.toLocaleString() + '원';
-      document.getElementById('settle-bank').innerText = bankClaim.toLocaleString() + '원';
-      document.getElementById('settle-recv').innerText = '-' + RECEIVED.toLocaleString() + '원';
-      document.getElementById('settle-total').innerText = (cardClaim + bankClaim - RECEIVED).toLocaleString() + '원';
+      document.getElementById('settle-card').innerText = won(r.card);
+      document.getElementById('settle-bank').innerText = won(r.bank);
+      document.getElementById('settle-recv').innerText = '-' + won(r.received);
+      document.getElementById('settle-total').innerText = won(r.claim);
 
+      const s = settlement;
+      document.getElementById('cal-range-title').innerText =
+        `카드 명세서 ${md(s.pay)} 결제분 + 통장 ${s.window[0].slice(5)}~${s.window[1].slice(5)} (총 ${txns.length}건)`;
+      document.getElementById('cal-range-detail').innerHTML = `
+        <span class="flex items-center gap-1 font-semibold text-blue-700"><span class="w-2.5 h-2.5 rounded-sm bg-blue-400 inline-block"></span>카드 청구분: <b class="text-slate-900">${won(r.card)}</b></span>
+        <span class="text-slate-300">|</span>
+        <span class="flex items-center gap-1 font-semibold text-slate-700"><span class="w-2.5 h-2.5 rounded-sm bg-slate-400 inline-block"></span>통장 청구분: <b class="text-slate-900">${won(r.bank)}</b></span>
+        <span class="text-slate-300">|</span>
+        <span class="font-bold text-rose-600">청구액: ${won(r.claim)} (기수령 ${(r.received / 10000).toLocaleString()}만 차감)</span>`;
+
+      renderCheckItems();
       renderTable();
-      updateCharts(totalClaim, businessTotal, allowanceTotal, checkTotal);
+      updateCharts(r);
       renderCalendar();
+      renderCalSelectedDetails(calSelectedDate);
       updateStockChart();
+    }
+
+    const catStyle = {
+      '공금': { select: 'bg-rose-50 border-rose-300 text-rose-800 font-bold', badge: 'bg-rose-100 text-rose-700', amount: 'text-rose-600' },
+      '고정지출': { select: 'bg-indigo-50 border-indigo-300 text-indigo-800 font-bold', badge: 'bg-indigo-100 text-indigo-700', amount: 'text-rose-600' },
+      '출장비': { select: 'bg-cyan-50 border-cyan-300 text-cyan-800 font-bold', badge: 'bg-cyan-100 text-cyan-800 font-bold', amount: 'text-cyan-800' },
+      '내 용돈': { select: 'bg-emerald-50 border-emerald-300 text-emerald-800 font-bold', badge: 'bg-emerald-100 text-emerald-700', amount: 'text-emerald-600' },
+      '확인필요': { select: 'bg-amber-50 border-amber-300 text-amber-800 font-bold', badge: 'bg-amber-100 text-amber-700', amount: 'text-amber-700' },
+    };
+    const srcStyle = { '국민카드': 'bg-amber-100 text-amber-800', '신한카드': 'bg-blue-100 text-blue-800', '통장': 'bg-slate-200 text-slate-700' };
+
+    function matchesCategory(item, filter) {
+      if (filter === 'CLAIM') return isClaim(item);
+      return filter === 'ALL' || item.category === filter;
     }
 
     function renderTable() {
       const tbody = document.getElementById('txns-table-body');
-      
-      let filtered = txns.filter(item => {
-        if (currentPeriod !== 'ALL' && item.bill !== currentPeriod) return false;
 
-        if (currentCategory === 'CLAIM' && item.category !== '공금' && item.category !== '고정지출') return false;
-        if (currentCategory === '출장비' && item.category !== '출장비') return false;
-        if (currentCategory === '내 용돈' && item.category !== '내 용돈') return false;
-        if (currentCategory === '확인필요' && item.category !== '확인필요') return false;
-
+      const filtered = txns.filter(item => {
+        if (currentSrc !== 'ALL' && item.src !== currentSrc) return false;
+        if (!matchesCategory(item, currentCategory)) return false;
         if (searchQuery) {
           const q = searchQuery.toLowerCase();
-          const match = item.merchant.toLowerCase().includes(q) ||
-                        item.reason.toLowerCase().includes(q) ||
-                        item.subcategory.toLowerCase().includes(q) ||
-                        item.date.includes(q) ||
-                        item.billed.toString().includes(q);
-          if (!match) return false;
+          return [item.merchant, item.reason, item.subcategory, item.date, String(item.billed)]
+            .some(v => v.toLowerCase().includes(q));
         }
-
         return true;
       });
 
       filtered.sort((a, b) => {
-        let vA = a[sortField];
-        let vB = b[sortField];
-        if (sortOrder === 'asc') return vA > vB ? 1 : -1;
-        return vA < vB ? 1 : -1;
+        const vA = a[sortField], vB = b[sortField];
+        if (vA === vB) return 0;
+        return (vA > vB ? 1 : -1) * (sortOrder === 'asc' ? 1 : -1);
       });
 
       document.getElementById('table-showing-count').innerText = filtered.length;
 
       if (filtered.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="10" class="text-center py-8 text-slate-400">조건에 일치하는 거래 내역이 없습니다.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="9" class="text-center py-8 text-slate-400">조건에 일치하는 거래 내역이 없습니다.</td></tr>`;
         return;
       }
 
       tbody.innerHTML = filtered.map((item, idx) => {
-        const isClaimItem = item.category === '공금' || item.category === '고정지출';
-
-        let selectBg = 'bg-white border-slate-300 text-slate-800';
-        if (item.category === '공금') selectBg = 'bg-rose-50 border-rose-300 text-rose-800 font-bold';
-        else if (item.category === '고정지출') selectBg = 'bg-indigo-50 border-indigo-300 text-indigo-800 font-bold';
-        else if (item.category === '출장비') selectBg = 'bg-cyan-50 border-cyan-300 text-cyan-800 font-bold';
-        else if (item.category === '내 용돈') selectBg = 'bg-emerald-50 border-emerald-300 text-emerald-800 font-bold';
-        else if (item.category === '확인필요') selectBg = 'bg-amber-50 border-amber-300 text-amber-800 font-bold';
-
+        const claim = isClaim(item);
+        const st = catStyle[item.category] || catStyle['확인필요'];
         let claimText = '<span class="text-slate-300">-</span>';
-        if (isClaimItem) {
-          claimText = '<span class="text-xs text-rose-600 font-bold"><i class="fa-solid fa-circle-check"></i> 와이프 청구</span>';
-        } else if (item.category === '출장비') {
-          claimText = '<span class="text-xs text-cyan-700 font-bold"><i class="fa-solid fa-briefcase"></i> 회사환급</span>';
-        } else if (item.category === '확인필요') {
-          claimText = '<span class="text-xs text-amber-600 font-semibold"><i class="fa-solid fa-circle-question"></i> 미분류</span>';
-        }
+        if (claim) claimText = '<span class="text-xs text-rose-600 font-bold"><i class="fa-solid fa-circle-check"></i> 와이프 청구</span>';
+        else if (item.category === '출장비') claimText = '<span class="text-xs text-cyan-700 font-bold"><i class="fa-solid fa-briefcase"></i> 회사환급</span>';
+        else if (item.category === '확인필요') claimText = '<span class="text-xs text-amber-600 font-semibold"><i class="fa-solid fa-circle-question"></i> 미분류</span>';
 
         return `
-          <tr class="hover:bg-slate-50 transition ${isClaimItem ? 'bg-rose-50/20' : (item.category === '출장비' ? 'bg-cyan-50/20' : (item.category === '확인필요' ? 'bg-amber-50/20' : ''))}">
+          <tr class="hover:bg-slate-50 transition ${claim ? 'bg-rose-50/20' : (item.category === '출장비' ? 'bg-cyan-50/20' : (item.category === '확인필요' ? 'bg-amber-50/20' : ''))}">
             <td class="py-2.5 px-3 text-center text-slate-400 font-mono">${idx + 1}</td>
             <td class="py-2.5 px-3 font-mono font-medium text-slate-700 whitespace-nowrap">${item.date}</td>
             <td class="py-2.5 px-3 whitespace-nowrap">
-              <span class="px-1.5 py-0.5 rounded text-[10px] font-semibold ${item.card === '국민카드' ? 'bg-amber-100 text-amber-800' : 'bg-blue-100 text-blue-800'}">${item.card}</span>
+              <span class="px-1.5 py-0.5 rounded text-[10px] font-semibold ${srcStyle[item.src]}">${item.src}</span>
             </td>
-            <td class="py-2.5 px-4 font-semibold text-slate-900">${item.merchant}</td>
-            <td class="py-2.5 px-3 text-right font-mono font-bold ${isClaimItem ? 'text-rose-600' : (item.category === '출장비' ? 'text-cyan-800' : 'text-slate-700')} whitespace-nowrap">
-              ${item.billed.toLocaleString()}원
-            </td>
-            <td class="py-2.5 px-3 text-center whitespace-nowrap">
-              <span class="text-[11px] px-2 py-0.5 rounded font-medium ${item.bill === '8/21분' ? 'bg-blue-50 text-blue-700 border border-blue-100' : 'bg-slate-100 text-slate-500 border border-slate-200'}">${item.bill}</span>
-            </td>
+            <td class="py-2.5 px-4 font-semibold text-slate-900">${esc(item.merchant)}</td>
+            <td class="py-2.5 px-3 text-right font-mono font-bold ${st.amount} whitespace-nowrap">${won(item.billed)}</td>
             <td class="py-2 px-2 text-center whitespace-nowrap">
-              <select onchange="changeCategory(${item.id}, this.value)" class="text-xs px-2.5 py-1 rounded-lg border focus:ring-2 focus:ring-blue-500 cursor-pointer ${selectBg} shadow-xs">
-                <option value="공금" ${item.category === '공금' ? 'selected' : ''}>공금</option>
-                <option value="고정지출" ${item.category === '고정지출' ? 'selected' : ''}>고정지출</option>
-                <option value="출장비" ${item.category === '출장비' ? 'selected' : ''}>출장비</option>
-                <option value="내 용돈" ${item.category === '내 용돈' ? 'selected' : ''}>내 용돈</option>
-                <option value="확인필요" ${item.category === '확인필요' ? 'selected' : ''}>확인필요</option>
+              <select onchange="changeCategory('${item.id}', this.value)" class="text-xs px-2.5 py-1 rounded-lg border focus:ring-2 focus:ring-blue-500 cursor-pointer ${st.select} shadow-xs">
+                ${Object.keys(catStyle).map(c => `<option value="${c}" ${item.category === c ? 'selected' : ''}>${c}</option>`).join('')}
               </select>
             </td>
-            <td class="py-2.5 px-3 text-slate-600 whitespace-nowrap">${item.subcategory}</td>
+            <td class="py-2.5 px-3 text-slate-600 whitespace-nowrap">${esc(item.subcategory)}</td>
             <td class="py-1.5 px-3">
-              <input type="text" value="${item.reason}" onchange="updateReason(${item.id}, this.value)" class="w-full text-xs text-slate-600 bg-transparent hover:bg-white focus:bg-white px-1.5 py-1 rounded border border-transparent hover:border-slate-200 focus:border-blue-400 focus:outline-none transition">
+              <input type="text" value="${esc(item.reason)}" onchange="updateReason('${item.id}', this.value)" class="w-full text-xs text-slate-600 bg-transparent hover:bg-white focus:bg-white px-1.5 py-1 rounded border border-transparent hover:border-slate-200 focus:border-blue-400 focus:outline-none transition">
             </td>
-            <td class="py-2.5 px-3 text-center no-print whitespace-nowrap">
-              ${claimText}
-            </td>
-          </tr>
-        `;
+            <td class="py-2.5 px-3 text-center no-print whitespace-nowrap">${claimText}</td>
+          </tr>`;
       }).join('');
     }
 
-    function setPeriodFilter(p) {
-      currentPeriod = p;
-      ['all', '7', '8'].forEach(k => {
-        const btn = document.getElementById(`btn-period-${k}`);
-        btn.className = (k === 'all' && p === 'ALL') || (k === '7' && p === '7/21분') || (k === '8' && p === '8/21분')
-          ? 'px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-900 text-white shadow-sm transition'
-          : 'px-3 py-1.5 rounded-lg text-xs font-semibold bg-white hover:bg-slate-100 text-slate-700 border border-slate-200 transition';
+    function setSrcFilter(src, silent) {
+      currentSrc = src;
+      document.querySelectorAll('.src-btn').forEach(btn => {
+        btn.className = 'src-btn px-3 py-1.5 rounded-lg text-xs transition ' + (btn.dataset.src === src
+          ? 'font-bold bg-slate-900 text-white shadow-sm'
+          : 'font-semibold bg-white hover:bg-slate-100 text-slate-700 border border-slate-200');
       });
-      renderTable();
+      if (!silent) renderTable();
     }
 
     function setCategoryFilter(c) {
@@ -989,37 +907,18 @@
     function getDailyAggregated() {
       const dateMap = {};
       txns.forEach(t => {
-        const d = t.date;
-        if (!dateMap[d]) {
-          dateMap[d] = { total: 0, claim: 0, business: 0, allowance: 0, check: 0, items: [] };
-        }
-        dateMap[d].total += t.billed;
-        dateMap[d].items.push(t);
-        if (t.category === '공금' || t.category === '고정지출') {
-          dateMap[d].claim += t.billed;
-        } else if (t.category === '출장비') {
-          dateMap[d].business += t.billed;
-        } else if (t.category === '내 용돈') {
-          dateMap[d].allowance += t.billed;
-        } else {
-          dateMap[d].check += t.billed;
-        }
+        const d = dateMap[t.date] ||= { total: 0, claim: 0, business: 0, allowance: 0, check: 0, items: [] };
+        d.total += t.billed;
+        d.items.push(t);
+        if (isClaim(t)) d.claim += t.billed;
+        else if (t.category === '출장비') d.business += t.billed;
+        else if (t.category === '내 용돈') d.allowance += t.billed;
+        else d.check += t.billed;
       });
-
-      const sortedDates = Object.keys(dateMap).sort();
       let cumul = 0;
-      return sortedDates.map(d => {
-        cumul += dateMap[d].total;
-        return {
-          date: d,
-          total: dateMap[d].total,
-          claim: dateMap[d].claim,
-          business: dateMap[d].business,
-          allowance: dateMap[d].allowance,
-          check: dateMap[d].check,
-          cumul: cumul,
-          items: dateMap[d].items
-        };
+      return Object.keys(dateMap).sort().map(date => {
+        cumul += dateMap[date].total;
+        return { date, ...dateMap[date], cumul };
       });
     }
 
@@ -1027,238 +926,101 @@
       currentStockMode = mode;
       ['all', 'claim', 'compare', 'cumul'].forEach(m => {
         const btn = document.getElementById(`btn-stock-${m}`);
-        if (m === mode) {
-          btn.className = 'px-3 py-1.5 rounded-lg bg-blue-600 text-white transition';
-        } else {
-          btn.className = 'px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 transition';
-        }
+        btn.className = m === mode
+          ? 'px-3 py-1.5 rounded-lg bg-blue-600 text-white transition'
+          : 'px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-300 transition';
       });
       updateStockChart();
     }
 
+    function tooltipGroup(items, title, amount, head, text, amountCls) {
+      if (!items.length) return '';
+      return `
+        <div class="mb-2">
+          <div class="flex justify-between items-center text-[11px] font-bold ${head} mb-1 px-1.5 py-0.5 rounded border">
+            <span>${title} (${items.length}건)</span>
+            <span class="font-mono">${won(amount)}</span>
+          </div>
+          <div class="space-y-1 pl-1">
+            ${items.map(it => `
+              <div class="flex justify-between text-[11px] text-slate-300">
+                <span class="truncate max-w-[180px] ${text}">· ${esc(it.merchant)} <span class="text-[9px] text-slate-400">(${it.src})</span></span>
+                <b class="font-mono ${amountCls}">${won(it.billed)}</b>
+              </div>`).join('')}
+          </div>
+        </div>`;
+    }
+
     function customTooltipHandler(context) {
-      const { chart, tooltip } = context;
+      const { tooltip } = context;
       const tooltipEl = document.getElementById('chartjs-custom-tooltip');
 
       if (tooltip.opacity === 0) {
         tooltipEl.classList.add('opacity-0');
         return;
       }
+      if (!tooltip.dataPoints || !tooltip.dataPoints.length) return;
 
-      if (tooltip.dataPoints && tooltip.dataPoints.length > 0) {
-        const dataIndex = tooltip.dataPoints[0].dataIndex;
-        const dailyData = getDailyAggregated();
-        const dayInfo = dailyData[dataIndex];
+      const dayInfo = getDailyAggregated()[tooltip.dataPoints[0].dataIndex];
+      if (!dayInfo) return;
+      const by = f => dayInfo.items.filter(f);
 
-        if (!dayInfo) return;
-
-        const claimItems = dayInfo.items.filter(t => t.category === '공금' || t.category === '고정지출');
-        const businessItems = dayInfo.items.filter(t => t.category === '출장비');
-        const allowanceItems = dayInfo.items.filter(t => t.category === '내 용돈');
-        const checkItems = dayInfo.items.filter(t => t.category === '확인필요');
-
-        let html = `
-          <div class="bg-slate-950/95 backdrop-blur-md text-white border border-slate-700 rounded-xl shadow-2xl p-3.5 min-w-[280px] max-w-[340px] text-xs pointer-events-auto">
-            <div class="flex justify-between items-center pb-2 mb-2 border-b border-slate-800">
-              <div class="flex items-center gap-1.5 font-bold text-slate-200">
-                <i class="fa-solid fa-calendar-day text-blue-400"></i>
-                <span>${dayInfo.date}</span>
-              </div>
-              <div class="text-right">
-                <span class="text-[10px] text-slate-400 block">당일 총 지출</span>
-                <b class="text-sm font-extrabold text-sky-400 font-mono">${dayInfo.total.toLocaleString()}원</b>
-              </div>
+      tooltipEl.innerHTML = `
+        <div class="bg-slate-950/95 backdrop-blur-md text-white border border-slate-700 rounded-xl shadow-2xl p-3.5 min-w-[280px] max-w-[340px] text-xs pointer-events-auto">
+          <div class="flex justify-between items-center pb-2 mb-2 border-b border-slate-800">
+            <div class="flex items-center gap-1.5 font-bold text-slate-200">
+              <i class="fa-solid fa-calendar-day text-blue-400"></i><span>${dayInfo.date}</span>
             </div>
-
-            ${claimItems.length > 0 ? `
-              <div class="mb-2">
-                <div class="flex justify-between items-center text-[11px] font-bold text-rose-400 mb-1 bg-rose-950/40 px-1.5 py-0.5 rounded border border-rose-900/50">
-                  <span>🔴 와이프 청구 (${claimItems.length}건)</span>
-                  <span class="font-mono">${dayInfo.claim.toLocaleString()}원</span>
-                </div>
-                <div class="space-y-1 pl-1">
-                  ${claimItems.map(it => `
-                    <div class="flex justify-between text-[11px] text-slate-300">
-                      <span class="truncate max-w-[180px] text-slate-200">· ${it.merchant} <span class="text-[9px] text-slate-400">(${it.category})</span></span>
-                      <b class="font-mono text-rose-300">${it.billed.toLocaleString()}원</b>
-                    </div>
-                  `).join('')}
-                </div>
-              </div>
-            ` : ''}
-
-            ${businessItems.length > 0 ? `
-              <div class="mb-2">
-                <div class="flex justify-between items-center text-[11px] font-bold text-cyan-300 mb-1 bg-cyan-950/50 px-1.5 py-0.5 rounded border border-cyan-800/60">
-                  <span>💼 회사 출장비 (${businessItems.length}건)</span>
-                  <span class="font-mono">${dayInfo.business.toLocaleString()}원</span>
-                </div>
-                <div class="space-y-1 pl-1">
-                  ${businessItems.map(it => `
-                    <div class="flex justify-between text-[11px] text-slate-300">
-                      <span class="truncate max-w-[180px] text-cyan-200">· ${it.merchant}</span>
-                      <b class="font-mono text-cyan-300">${it.billed.toLocaleString()}원</b>
-                    </div>
-                  `).join('')}
-                </div>
-              </div>
-            ` : ''}
-
-            ${allowanceItems.length > 0 ? `
-              <div class="mb-2">
-                <div class="flex justify-between items-center text-[11px] font-bold text-emerald-400 mb-1 bg-emerald-950/40 px-1.5 py-0.5 rounded border border-emerald-900/50">
-                  <span>🟢 남편 용돈 (${allowanceItems.length}건)</span>
-                  <span class="font-mono">${dayInfo.allowance.toLocaleString()}원</span>
-                </div>
-                <div class="space-y-1 pl-1">
-                  ${allowanceItems.map(it => `
-                    <div class="flex justify-between text-[11px] text-slate-300">
-                      <span class="truncate max-w-[180px] text-slate-300">· ${it.merchant}</span>
-                      <b class="font-mono text-emerald-300">${it.billed.toLocaleString()}원</b>
-                    </div>
-                  `).join('')}
-                </div>
-              </div>
-            ` : ''}
-
-            ${checkItems.length > 0 ? `
-              <div class="mb-1">
-                <div class="flex justify-between items-center text-[11px] font-bold text-amber-400 mb-1 bg-amber-950/40 px-1.5 py-0.5 rounded border border-amber-900/50">
-                  <span>🟡 미분류 확인필요 (${checkItems.length}건)</span>
-                  <span class="font-mono">${dayInfo.check.toLocaleString()}원</span>
-                </div>
-                <div class="space-y-1 pl-1">
-                  ${checkItems.map(it => `
-                    <div class="flex justify-between text-[11px] text-slate-300">
-                      <span class="truncate max-w-[180px] text-amber-200">· ${it.merchant}</span>
-                      <b class="font-mono text-amber-300">${it.billed.toLocaleString()}원</b>
-                    </div>
-                  `).join('')}
-                </div>
-              </div>
-            ` : ''}
-
-            <div class="text-[10px] text-slate-500 pt-1.5 mt-1.5 border-t border-slate-800 text-center">
-              클릭 시 하단 목록 및 캘린더에서 상세 확인 가능
+            <div class="text-right">
+              <span class="text-[10px] text-slate-400 block">당일 총 지출</span>
+              <b class="text-sm font-extrabold text-sky-400 font-mono">${won(dayInfo.total)}</b>
             </div>
           </div>
-        `;
-
-        tooltipEl.innerHTML = html;
-        tooltipEl.classList.remove('opacity-0');
-
-        const left = tooltip.caretX;
-        const top = tooltip.caretY;
-
-        tooltipEl.style.left = left + 'px';
-        tooltipEl.style.top = top + 'px';
-      }
+          ${tooltipGroup(by(isClaim), '🔴 와이프 청구', dayInfo.claim, 'text-rose-400 bg-rose-950/40 border-rose-900/50', 'text-slate-200', 'text-rose-300')}
+          ${tooltipGroup(by(t => t.category === '출장비'), '💼 회사 출장비', dayInfo.business, 'text-cyan-300 bg-cyan-950/50 border-cyan-800/60', 'text-cyan-200', 'text-cyan-300')}
+          ${tooltipGroup(by(t => t.category === '내 용돈'), '🟢 남편 용돈', dayInfo.allowance, 'text-emerald-400 bg-emerald-950/40 border-emerald-900/50', 'text-slate-300', 'text-emerald-300')}
+          ${tooltipGroup(by(t => t.category === '확인필요'), '🟡 미분류 확인필요', dayInfo.check, 'text-amber-400 bg-amber-950/40 border-amber-900/50', 'text-amber-200', 'text-amber-300')}
+        </div>`;
+      tooltipEl.classList.remove('opacity-0');
+      tooltipEl.style.left = tooltip.caretX + 'px';
+      tooltipEl.style.top = tooltip.caretY + 'px';
     }
 
     function updateStockChart() {
       const dailyData = getDailyAggregated();
-      const labels = dailyData.map(d => d.date.substring(5));
+      const r = computeSettle();
 
-      let peak = { date: '', val: 0 };
-      dailyData.forEach(d => {
-        if (d.total > peak.val) peak = { date: d.date.substring(5), val: d.total };
-      });
-      document.getElementById('stock-peak-day').innerText = `${peak.date} (${peak.val.toLocaleString()}원)`;
-
-      const avg = Math.round(dailyData.reduce((s, d) => s + d.total, 0) / dailyData.length);
-      document.getElementById('stock-daily-avg').innerText = `${avg.toLocaleString()}원`;
+      const peak = dailyData.reduce((p, d) => d.total > p.total ? d : p, { total: 0, items: [] });
+      document.getElementById('stock-peak-day').innerText = peak.date ? `${peak.date.slice(5)} (${won(peak.total)})` : '-';
+      const top = peak.items.slice().sort((a, b) => b.billed - a.billed).slice(0, 2).map(t => t.merchant);
+      document.getElementById('stock-peak-note').innerText = top.join(' + ');
+      const avg = dailyData.length ? Math.round(r.total / dailyData.length) : 0;
+      document.getElementById('stock-daily-avg').innerText = won(avg);
+      document.getElementById('stock-days-note').innerText = `총 ${dailyData.length}개 지출 일자`;
+      document.getElementById('stock-card-total').innerText = won(r.cardTotal);
+      document.getElementById('stock-bank-total').innerText = won(r.bankTotal);
 
       if (!stockMainChart) return;
-
-      if (currentStockMode === 'all') {
-        stockMainChart.data.labels = labels;
-        stockMainChart.data.datasets = [
-          {
-            type: 'line',
-            label: '일별 총 지출액',
-            data: dailyData.map(d => d.total),
-            borderColor: '#38bdf8',
-            backgroundColor: 'rgba(56, 189, 248, 0.15)',
-            borderWidth: 2.5,
-            fill: true,
-            tension: 0.35,
-            pointBackgroundColor: '#0ea5e9',
-            pointRadius: 4,
-            pointHoverRadius: 7
-          },
-          {
-            type: 'bar',
-            label: '일별 결제 거래량',
-            data: dailyData.map(d => d.total),
-            backgroundColor: 'rgba(148, 163, 184, 0.25)',
-            borderRadius: 4,
-            yAxisID: 'y'
-          }
-        ];
-      } else if (currentStockMode === 'claim') {
-        stockMainChart.data.labels = labels;
-        stockMainChart.data.datasets = [
-          {
-            type: 'line',
-            label: '와이프 청구액 (공금/고정비)',
-            data: dailyData.map(d => d.claim),
-            borderColor: '#f43f5e',
-            backgroundColor: 'rgba(244, 63, 94, 0.15)',
-            borderWidth: 2.5,
-            fill: true,
-            tension: 0.35,
-            pointBackgroundColor: '#e11d48',
-            pointRadius: 4,
-            pointHoverRadius: 7
-          }
-        ];
-      } else if (currentStockMode === 'compare') {
-        stockMainChart.data.labels = labels;
-        stockMainChart.data.datasets = [
-          {
-            type: 'line',
-            label: '와이프 청구 (공금)',
-            data: dailyData.map(d => d.claim),
-            borderColor: '#f43f5e',
-            borderWidth: 2,
-            tension: 0.3,
-            pointRadius: 3
-          },
-          {
-            type: 'line',
-            label: '회사 출장비',
-            data: dailyData.map(d => d.business),
-            borderColor: '#06b6d4',
-            borderWidth: 2,
-            tension: 0.3,
-            pointRadius: 4
-          },
-          {
-            type: 'line',
-            label: '남편 용돈',
-            data: dailyData.map(d => d.allowance),
-            borderColor: '#10b981',
-            borderWidth: 2,
-            tension: 0.3,
-            pointRadius: 3
-          }
-        ];
-      } else if (currentStockMode === 'cumul') {
-        stockMainChart.data.labels = labels;
-        stockMainChart.data.datasets = [
-          {
-            type: 'line',
-            label: '누적 지출 추이 (원)',
-            data: dailyData.map(d => d.cumul),
-            borderColor: '#a855f7',
-            backgroundColor: 'rgba(168, 85, 247, 0.15)',
-            borderWidth: 3,
-            fill: true,
-            tension: 0.2,
-            pointRadius: 3
-          }
-        ];
-      }
+      const labels = dailyData.map(d => d.date.substring(5));
+      const line = (label, key, color, fill, extra = {}) => ({
+        type: 'line', label, data: dailyData.map(d => d[key]), borderColor: color,
+        backgroundColor: fill, fill: !!fill, borderWidth: 2.5, tension: 0.35, pointRadius: 3, pointHoverRadius: 7, ...extra,
+      });
+      const sets = {
+        all: [
+          line('일별 총 지출액', 'total', '#38bdf8', 'rgba(56, 189, 248, 0.15)', { pointBackgroundColor: '#0ea5e9', pointRadius: 4 }),
+          { type: 'bar', label: '일별 결제 거래량', data: dailyData.map(d => d.total), backgroundColor: 'rgba(148, 163, 184, 0.25)', borderRadius: 4 },
+        ],
+        claim: [line('와이프 청구액 (공금/고정비)', 'claim', '#f43f5e', 'rgba(244, 63, 94, 0.15)', { pointBackgroundColor: '#e11d48', pointRadius: 4 })],
+        compare: [
+          line('와이프 청구 (공금)', 'claim', '#f43f5e', null, { borderWidth: 2 }),
+          line('회사 출장비', 'business', '#06b6d4', null, { borderWidth: 2, pointRadius: 4 }),
+          line('남편 용돈', 'allowance', '#10b981', null, { borderWidth: 2 }),
+        ],
+        cumul: [line('누적 지출 추이 (원)', 'cumul', '#a855f7', 'rgba(168, 85, 247, 0.15)', { borderWidth: 3, tension: 0.2 })],
+      };
+      stockMainChart.data.labels = labels;
+      stockMainChart.data.datasets = sets[currentStockMode];
       stockMainChart.update();
     }
 
@@ -1283,76 +1045,66 @@
       renderCalSelectedDetails(calSelectedDate);
     }
 
+    function calMonthRange() {
+      // 이번 회차 행이 걸친 달 (할부 원거래 등 한참 전 사용일은 제외하고 결제일 기준 3개월 안쪽)
+      const [py, pm] = settlement.pay.split('.').map(Number);
+      const keys = txns.map(t => t.date.slice(0, 7)).filter(k => {
+        const [y, m] = k.split('.').map(Number);
+        const diff = (py - y) * 12 + (pm - m);
+        return diff >= 0 && diff <= 2;
+      });
+      return [keys.reduce((a, b) => a < b ? a : b), keys.reduce((a, b) => a > b ? a : b)];
+    }
+
     function changeCalMonth(delta) {
-      calMonth += delta;
-      if (calMonth > 8) { calMonth = 6; calYear = 2026; }
-      if (calMonth < 6) { calMonth = 8; calYear = 2026; }
+      const [lo, hi] = calMonthRange();
+      const d = new Date(calYear, calMonth - 1 + delta, 1);
+      const key = `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}`;
+      if (key < lo || key > hi) return;
+      calYear = d.getFullYear();
+      calMonth = d.getMonth() + 1;
       renderCalendar();
     }
 
     function renderCalendar() {
       document.getElementById('cal-month-title').innerText = `${calYear}년 ${calMonth}월`;
       const grid = document.getElementById('cal-days-grid');
-      
+
       const firstDay = new Date(calYear, calMonth - 1, 1).getDay();
       const lastDate = new Date(calYear, calMonth, 0).getDate();
+      const prefix = `${calYear}.${String(calMonth).padStart(2, '0')}.`;
 
       const dateMap = {};
-
       txns.forEach(t => {
-        const parts = t.date.split('.');
-        const y = parseInt(parts[0]);
-        const m = parseInt(parts[1]);
-        const d = parseInt(parts[2]);
-
-        let matchesCat = true;
-        const isClaim = t.category === '공금' || t.category === '고정지출';
-        if (calCategoryFilter === 'CLAIM' && !isClaim) matchesCat = false;
-        else if (calCategoryFilter === '출장비' && t.category !== '출장비') matchesCat = false;
-        else if (calCategoryFilter === '내 용돈' && t.category !== '내 용돈') matchesCat = false;
-
-        if (y === calYear && m === calMonth && matchesCat) {
-          if (!dateMap[d]) dateMap[d] = { total: 0, claim: 0, business: 0, allowance: 0, count: 0, items: [] };
-          dateMap[d].total += t.billed;
-          dateMap[d].count += 1;
-          dateMap[d].items.push(t);
-
-          if (isClaim) dateMap[d].claim += t.billed;
-          else if (t.category === '출장비') dateMap[d].business += t.billed;
-          else if (t.category === '내 용돈') dateMap[d].allowance += t.billed;
-        }
+        if (!t.date.startsWith(prefix) || !matchesCategory(t, calCategoryFilter)) return;
+        const d = dateMap[Number(t.date.slice(8))] ||= { total: 0, claim: 0, business: 0, allowance: 0 };
+        d.total += t.billed;
+        if (isClaim(t)) d.claim += t.billed;
+        else if (t.category === '출장비') d.business += t.billed;
+        else if (t.category === '내 용돈') d.allowance += t.billed;
       });
 
       let cellsHtml = '';
-
       for (let i = 0; i < firstDay; i++) {
         cellsHtml += `<div class="h-24 sm:h-28 bg-slate-50/40 rounded-xl border border-dashed border-slate-200"></div>`;
       }
 
       for (let day = 1; day <= lastDate; day++) {
-        const fullDateStr = `${calYear}.${String(calMonth).padStart(2,'0')}.${String(day).padStart(2,'0')}`;
+        const fullDateStr = prefix + String(day).padStart(2, '0');
         const data = dateMap[day];
-        const hasSpend = !!data;
         const isSelected = calSelectedDate === fullDateStr;
+        const inWindow = fullDateStr >= settlement.window[0] && fullDateStr <= settlement.window[1];
 
+        const payDayBadge = fullDateStr === settlement.pay
+          ? `<span class="text-[9px] font-bold text-blue-900 bg-blue-200/90 px-1 rounded block truncate mt-0.5 border border-blue-300">💳 KB·신한 결제일</span>`
+          : (fullDateStr === settlement.receivedDate
+            ? `<span class="text-[9px] font-bold text-emerald-900 bg-emerald-100 px-1 rounded block truncate mt-0.5 border border-emerald-300">💰 고정지출비 입금</span>` : '');
 
-        // 결제일 특별 뱃지 (8월 7일: KB국민 결제일 / 8월 21일: 신한 결제일)
-        let payDayBadge = '';
-        if (calMonth === 8 && day === 21) {
-          payDayBadge = `<span class="text-[9px] font-bold text-blue-900 bg-blue-200/90 px-1 rounded block truncate mt-0.5 border border-blue-300">💳 KB·신한 결제일</span>`;
-        }
-
-        // 사용일 뷰 — 관리기간 띠는 결제회차와 어긋나므로 표시하지 않는다
-        const periodHeaderTag = '';
+        let bgStyle = inWindow ? 'bg-white border-slate-200 hover:border-slate-400' : 'bg-slate-50 border-slate-200 hover:border-slate-400';
+        if (isSelected) bgStyle = 'bg-blue-50/90 border-blue-500 shadow-md ring-2 ring-blue-400/40';
 
         let spendBadge = '';
-        let bgStyle = 'bg-white border-slate-200 hover:border-slate-400';
-
-        if (isSelected) {
-          bgStyle = 'bg-blue-50/90 border-blue-500 shadow-md ring-2 ring-blue-400/40';
-        }
-
-        if (hasSpend) {
+        if (data) {
           let badgeColor = 'text-slate-700 bg-slate-100';
           if (calCategoryFilter === 'CLAIM' || (data.claim > 0 && calCategoryFilter === 'ALL')) {
             badgeColor = data.total >= 100000 ? 'text-rose-700 bg-rose-100 font-extrabold' : 'text-rose-600 bg-rose-50 font-bold';
@@ -1361,8 +1113,7 @@
           } else if (calCategoryFilter === '내 용돈') {
             badgeColor = 'text-emerald-700 bg-emerald-50 font-bold';
           }
-
-          spendBadge = `<span class="text-[10px] ${badgeColor} px-1 py-0.5 rounded block truncate shadow-xs">${data.total >= 100000 ? Math.round(data.total/10000) + '만' : data.total.toLocaleString()}</span>`;
+          spendBadge = `<span class="text-[10px] ${badgeColor} px-1 py-0.5 rounded block truncate shadow-xs">${data.total >= 100000 ? Math.round(data.total / 10000) + '만' : data.total.toLocaleString()}</span>`;
         }
 
         const dayOfWeek = (firstDay + day - 1) % 7;
@@ -1370,24 +1121,16 @@
 
         cellsHtml += `
           <div onclick="selectCalDate('${fullDateStr}')" class="cal-day-cell h-24 sm:h-28 p-1.5 rounded-xl border ${bgStyle} cursor-pointer flex flex-col justify-between transition text-left relative overflow-hidden">
-            <!-- 상단: 날짜 + 결제일 뱃지 -->
             <div>
-              <div class="flex justify-between items-start">
-                <span class="text-xs font-bold ${dayColor}">${day}</span>
-                ${periodHeaderTag}
-              </div>
+              <span class="text-xs font-bold ${dayColor}">${day}</span>
               ${payDayBadge}
             </div>
-
-            <!-- 하단: 결제 금액 뱃지 -->
             <div>
               ${spendBadge}
-              ${hasSpend && data.claim > 0 && calCategoryFilter === 'ALL' ? `<span class="text-[9px] text-rose-500 font-medium block truncate mt-0.5">청:${Math.round(data.claim/1000)}k</span>` : ''}
+              ${data && data.claim > 0 && calCategoryFilter === 'ALL' ? `<span class="text-[9px] text-rose-500 font-medium block truncate mt-0.5">청:${Math.round(data.claim / 1000)}k</span>` : ''}
             </div>
-          </div>
-        `;
+          </div>`;
       }
-
       grid.innerHTML = cellsHtml;
     }
 
@@ -1399,22 +1142,10 @@
 
     function renderCalSelectedDetails(dateStr) {
       document.getElementById('cal-selected-date').innerText = dateStr;
-      document.getElementById('cal-selected-period-tag').innerText = '사용일 기준';
-
       const listEl = document.getElementById('cal-selected-list');
-      const totalEl = document.getElementById('cal-selected-total');
-
-      let dayTxns = txns.filter(t => {
-        if (t.date !== dateStr) return false;
-        const isClaim = t.category === '공금' || t.category === '고정지출';
-        if (calCategoryFilter === 'CLAIM' && !isClaim) return false;
-        if (calCategoryFilter === '출장비' && t.category !== '출장비') return false;
-        if (calCategoryFilter === '내 용돈' && t.category !== '내 용돈') return false;
-        return true;
-      });
-
+      const dayTxns = txns.filter(t => t.date === dateStr && matchesCategory(t, calCategoryFilter));
       const dayTotal = dayTxns.reduce((s, t) => s + t.billed, 0);
-      totalEl.innerText = `${dayTotal.toLocaleString()}원 (${dayTxns.length}건)`;
+      document.getElementById('cal-selected-total').innerText = `${won(dayTotal)} (${dayTxns.length}건)`;
 
       if (dayTxns.length === 0) {
         listEl.innerHTML = `<div class="text-center py-10 text-xs text-slate-400">선택한 날짜/필터에 해당하는 거래 내역이 없습니다.</div>`;
@@ -1422,80 +1153,49 @@
       }
 
       listEl.innerHTML = dayTxns.map(item => {
-        const isClaim = item.category === '공금' || item.category === '고정지출';
-        let badgeStyle = 'bg-slate-100 text-slate-700';
-        if (item.category === '공금') badgeStyle = 'bg-rose-100 text-rose-700';
-        else if (item.category === '고정지출') badgeStyle = 'bg-indigo-100 text-indigo-700';
-        else if (item.category === '출장비') badgeStyle = 'bg-cyan-100 text-cyan-800 font-bold';
-        else if (item.category === '내 용돈') badgeStyle = 'bg-emerald-100 text-emerald-700';
-        else if (item.category === '확인필요') badgeStyle = 'bg-amber-100 text-amber-700';
-
+        const claim = isClaim(item);
+        const st = catStyle[item.category] || catStyle['확인필요'];
         return `
-          <div class="p-3 rounded-xl border border-slate-200 ${isClaim ? 'bg-rose-50/30' : (item.category === '출장비' ? 'bg-cyan-50/40 border-cyan-200' : 'bg-slate-50/50')} space-y-1.5">
+          <div class="p-3 rounded-xl border border-slate-200 ${claim ? 'bg-rose-50/30' : (item.category === '출장비' ? 'bg-cyan-50/40 border-cyan-200' : 'bg-slate-50/50')} space-y-1.5">
             <div class="flex justify-between items-start">
-              <b class="text-xs text-slate-900 truncate">${item.merchant}</b>
-              <span class="text-xs font-mono font-bold ${isClaim ? 'text-rose-600' : (item.category === '출장비' ? 'text-cyan-800' : 'text-emerald-600')}">${item.billed.toLocaleString()}원</span>
+              <b class="text-xs text-slate-900 truncate">${esc(item.merchant)}</b>
+              <span class="text-xs font-mono font-bold ${st.amount}">${won(item.billed)}</span>
             </div>
             <div class="flex justify-between items-center text-[11px] text-slate-500">
-              <span>${item.card} | ${item.subcategory}</span>
-              <span class="px-1.5 py-0.5 rounded text-[10px] font-bold ${badgeStyle}">${item.category}</span>
+              <span>${item.src} | ${esc(item.subcategory)}</span>
+              <span class="px-1.5 py-0.5 rounded text-[10px] font-bold ${st.badge}">${item.category}</span>
             </div>
-            <p class="text-[11px] text-slate-400">${item.reason}</p>
-          </div>
-        `;
+            ${item.reason ? `<p class="text-[11px] text-slate-400">${esc(item.reason)}</p>` : ''}
+          </div>`;
       }).join('');
     }
 
-    // ==================== 📊 차트 초기화 ====================
+    // ==================== 📊 차트 ====================
     function initCharts() {
-      const ctxD = document.getElementById('chartDoughnut').getContext('2d');
-      doughnutChart = new Chart(ctxD, {
+      doughnutChart = new Chart(document.getElementById('chartDoughnut').getContext('2d'), {
         type: 'doughnut',
         data: {
           labels: ['와이프 청구(공금/고정)', '회사 출장비', '남편 용돈', '미분류 잔여'],
-          datasets: [{
-            data: [996068, 59400, 216340, 142988],
-            backgroundColor: ['#f43f5e', '#06b6d4', '#10b981', '#f59e0b'],
-            borderWidth: 0,
-            hoverOffset: 6
-          }]
+          datasets: [{ data: [0, 0, 0, 0], backgroundColor: ['#f43f5e', '#06b6d4', '#10b981', '#f59e0b'], borderWidth: 0, hoverOffset: 6 }]
         },
-        options: {
-          responsive: true,
-          maintainAspectRatio: false,
-          plugins: { legend: { display: false } },
-          cutout: '70%'
-        }
+        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, cutout: '70%' }
       });
 
-      const ctxC = document.getElementById('chartCategory').getContext('2d');
-      categoryChart = new Chart(ctxC, {
+      categoryChart = new Chart(document.getElementById('chartCategory').getContext('2d'), {
         type: 'bar',
-        data: {
-          labels: ['쿠팡/쇼핑몰', '아파트관리비', '배달식비', '대형마트', '통신/구독'],
-          datasets: [{
-            label: '지출액(원)',
-            data: [416668, 171380, 172170, 158040, 110238],
-            backgroundColor: '#6366f1',
-            borderRadius: 6
-          }]
-        },
+        data: { labels: [], datasets: [{ label: '지출액(원)', data: [], backgroundColor: '#6366f1', borderRadius: 6 }] },
         options: {
           responsive: true,
           maintainAspectRatio: false,
           plugins: { legend: { display: false } },
           scales: {
-            y: {
-              beginAtZero: true,
-              ticks: { callback: function(v) { return (v/10000) + '만'; } }
-            },
+            y: { beginAtZero: true, ticks: { callback: v => (v / 10000) + '만' } },
             x: { grid: { display: false } }
           }
         }
       });
 
-      const ctxStock = document.getElementById('chartStockMain').getContext('2d');
-      stockMainChart = new Chart(ctxStock, {
+      stockMainChart = new Chart(document.getElementById('chartStockMain').getContext('2d'), {
         type: 'line',
         data: { labels: [], datasets: [] },
         options: {
@@ -1503,76 +1203,89 @@
           maintainAspectRatio: false,
           interaction: { mode: 'index', intersect: false },
           plugins: {
-            legend: {
-              labels: { color: '#cbd5e1', font: { size: 11 } }
-            },
-            tooltip: {
-              enabled: false,
-              external: customTooltipHandler
-            }
+            legend: { labels: { color: '#cbd5e1', font: { size: 11 } } },
+            tooltip: { enabled: false, external: customTooltipHandler }
           },
           scales: {
-            x: {
-              grid: { color: 'rgba(255, 255, 255, 0.05)' },
-              ticks: { color: '#94a3b8', maxRotation: 45, font: { size: 10 } }
-            },
-            y: {
-              grid: { color: 'rgba(255, 255, 255, 0.08)' },
-              ticks: {
-                color: '#94a3b8',
-                callback: function(v) { return (v/10000) + '만원'; }
-              }
-            }
+            x: { grid: { color: 'rgba(255, 255, 255, 0.05)' }, ticks: { color: '#94a3b8', maxRotation: 45, font: { size: 10 } } },
+            y: { grid: { color: 'rgba(255, 255, 255, 0.08)' }, ticks: { color: '#94a3b8', callback: v => (v / 10000) + '만원' } }
           }
         }
       });
-
-      updateStockChart();
     }
 
-    function updateCharts(claimAmt, businessAmt, allowanceAmt, checkRemainAmt) {
-      if (doughnutChart) {
-        doughnutChart.data.datasets[0].data = [claimAmt, businessAmt, allowanceAmt, checkRemainAmt];
-        doughnutChart.update();
-        
-        const total = claimAmt + businessAmt + allowanceAmt + checkRemainAmt;
-        document.getElementById('chart-pie-claim').innerText = Math.round((claimAmt/total)*100) + '%';
-        document.getElementById('chart-pie-business').innerText = Math.round((businessAmt/total)*100) + '%';
-        document.getElementById('chart-pie-allowance').innerText = Math.round((allowanceAmt/total)*100) + '%';
-        document.getElementById('chart-pie-check').innerText = Math.round((checkRemainAmt/total)*100) + '%';
-      }
+    function claimLines() {
+      const m = {};
+      txns.filter(isClaim).forEach(t => {
+        const k = `${t.category}|${t.subcategory}`;
+        m[k] = (m[k] || 0) + t.billed;
+      });
+      return Object.entries(m).map(([k, v]) => { const [cat, sub] = k.split('|'); return { cat, sub, v }; })
+        .sort((a, b) => b.v - a.v);
+    }
+
+    function updateCharts(r) {
+      const parts = [r.gross, r.business, r.allowance, r.check];
+      doughnutChart.data.datasets[0].data = parts;
+      doughnutChart.update();
+      const total = parts.reduce((a, b) => a + b, 0) || 1;
+      ['claim', 'business', 'allowance', 'check'].forEach((k, i) => {
+        document.getElementById(`chart-pie-${k}`).innerText = Math.round(parts[i] / total * 100) + '%';
+      });
+
+      const top = claimLines().slice(0, 5);
+      categoryChart.data.labels = top.map(l => l.sub);
+      categoryChart.data.datasets[0].data = top.map(l => l.v);
+      categoryChart.update();
+    }
+
+    // ==================== 💬 카톡 청구서 ====================
+    function buildKakaoMessage() {
+      const r = computeSettle();
+      const s = settlement;
+      const lines = claimLines();
+      const block = cat => {
+        const items = lines.filter(l => l.cat === cat);
+        const sum = items.reduce((a, l) => a + l.v, 0);
+        return [`■ ${cat} ${won(sum)}`, ...items.map(l => ` - ${l.sub}: ${won(l.v)}`)].join('\n');
+      };
+      const pending = txns.filter(t => t.category === '확인필요');
+      return `[${md(s.pay)} 카드결제 정산]
+카드 ${md(s.pay)} 결제분 + 통장 ${md(s.window[0])}~${md(s.window[1])} 출금분
+
+${block('공금')}
+
+${block('고정지출')}
+
+합계 ${won(r.gross)}
+받은 고정지출비 -${won(r.received)}
+━━━━━━━━━━━━
+청구액 ${won(r.claim)}
+
+※ 내 용돈 ${won(r.allowance)}, 출장비 ${won(r.business)} 제외${pending.length ? `\n※ 미분류 ${pending.length}건(${won(r.check)})은 확인 후 추가 정산` : ''}`;
     }
 
     function copyKakaoMessage() {
-      const totalClaim = txns.filter(t => t.category === '공금' || t.category === '고정지출').reduce((sum, t) => sum + t.billed, 0);
-      const allowanceTotal = txns.filter(t => t.category === '내 용돈').reduce((sum, t) => sum + t.billed, 0);
-      const businessTotal = txns.filter(t => t.category === '출장비').reduce((sum, t) => sum + t.billed, 0);
-      const shoppingClaim = txns.filter(t => SHOPPING_TXN_IDS.includes(t.id) && t.category === '공금');
-
-      let shoppingText = '';
-      if (shoppingClaim.length > 0) {
-        const shoppingAmt = shoppingClaim.reduce((s, t) => s + t.billed, 0);
-        shoppingText = `\n- 온라인 쇼핑몰 생필품/장보기(${shoppingClaim.length}건): ${shoppingAmt.toLocaleString()}원`;
+      const msg = buildKakaoMessage();
+      const done = () => showToast('청구서 복사 완료!', '카카오톡 채팅창에 바로 붙여넣기(Ctrl+V) 하세요.');
+      if (navigator.clipboard && window.isSecureContext) {
+        navigator.clipboard.writeText(msg).then(done, () => fallbackCopy(msg, done));
+      } else {
+        fallbackCopy(msg, done);
       }
+    }
 
-      const msg = `여보~ 이번 8월 카드 청구서(KB국민+신한)에서 내가 개인 카드로 먼저 결제한 가계 생활비랑 공과금 정산 내역이야!
-
-■ 최종 정산 청구 금액: ${totalClaim.toLocaleString()}원
-- 아파트 관리비(6월분): 171,380원
-- 도시가스 & 통신비: 61,010원
-- 대형마트(이마트/메가마트/다이소): 190,450원
-- 가족 배달 식비(쿠팡이츠/배민): 172,170원
-- 쿠팡 생필품/식료품 장보기: 273,680원
-- 의류/패션(무신사 등): 20,400원
-- 차량 정비(현대서비스) 및 기타: 39,840원
-- 정기구독(와우/배민클럽/AI구독): 72,868원${shoppingText}
-
-※ 회사 출장비 KTX(${businessTotal.toLocaleString()}원)와 내 개인 용돈(${allowanceTotal.toLocaleString()}원)은 싹 제외했어!
-확정 금액 ${totalClaim.toLocaleString()}원 계좌로 입금 부탁해❤️`;
-
-      navigator.clipboard.writeText(msg).then(() => {
-        showToast('청구서 복사 완료!', '카카오톡 채팅창에 바로 붙여넣기(Ctrl+V) 하세요.');
-      });
+    function fallbackCopy(text, done) {
+      // file:// 로 열었을 때 clipboard API 가 막히는 경우 대비
+      const ta = document.createElement('textarea');
+      ta.value = text;
+      ta.style.position = 'fixed';
+      ta.style.opacity = '0';
+      document.body.appendChild(ta);
+      ta.select();
+      try { document.execCommand('copy'); done(); }
+      catch (e) { prompt('아래 내용을 복사하세요', text); }
+      ta.remove();
     }
 
     function showToast(title, desc) {
