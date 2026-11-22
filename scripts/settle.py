@@ -33,6 +33,23 @@ SETTLEMENTS = {
         # 9/12 충전분은 9/21 축의금(MANUAL 5만원)의 재원 — 축의금으로 한 번만 센다
         "reclass": [("2026-09-12", "카카오페이", 43115, "제외", "축의금 재원 충전")],
     },
+    "10/21분": {
+        "card": ROOT / "data" / "card_2610.json",
+        "prev": "2026-09-21", "pay": "2026-10-21",
+        "periods": {"국민카드": "09.08 ~ 10.07", "신한카드": "09.08 ~ 10.07"},
+        # 명세서 작성기준일(10/08) 이후 처리된 취소·미리결제는 명세서에 반영되지 않는다.
+        # 국민카드 명세서 698,258 vs 10/21 통장 출금 662,648 → 차액 35,610 만큼 실제 출금이 적었다.
+        # 청구는 "결제일에 실제로 나간 돈"으로 맞추기 위해 차액을 조정 행으로 넣는다.
+        "card_adj": [{"card": "국민카드", "amount": -35610,
+                      "merchant": "(조정) 국민카드 명세서-통장 출금 차액"}],
+    },
+    "11/21분": {
+        "card": ROOT / "data" / "card_2611.json",
+        "prev": "2026-10-21", "pay": "2026-11-21",
+        "periods": {"국민카드": "10.08 ~ 11.07", "신한카드": "10.08 ~ 11.07"},
+        # 2026-11-21 은 토요일 — 카드사 출금은 다음 영업일(11/23 월)에 이뤄진다
+        "withdraw": "2026-11-23",
+    },
 }
 LATEST = list(SETTLEMENTS)[-1]
 
@@ -66,7 +83,16 @@ def load_bank():
 def card_rows(key):
     """이번 결제일에 청구된 카드 명세서 건만 (clean_txns.json 의 직전 명세서 건은 bill 로 걸러짐)."""
     rows = json.load(open(SETTLEMENTS[key]["card"], encoding="utf-8"))
-    return [x for x in rows if x.get("bill", key) == key]
+    rows = [x for x in rows if x.get("bill", key) == key]
+    for adj in SETTLEMENTS[key].get("card_adj", []):
+        rows.append({
+            "card": adj["card"], "date": SETTLEMENTS[key]["pay"].replace("-", "."),
+            "merchant": adj["merchant"], "amount": adj["amount"], "billed": adj["amount"],
+            "period": "", "category": "공금", "subcategory": "카드 취소/미리결제",
+            "reason": "명세서 작성기준일 이후 취소·미리결제로 실제 출금이 줄어든 금액",
+            "note": "", "bill": key,
+        })
+    return rows
 
 
 def bank_rows(key, bank):
@@ -112,8 +138,10 @@ def settle(key=LATEST, bank=None):
     bank = bank if bank is not None else load_bank()
     card, direct = card_rows(key), bank_rows(key, bank)
 
-    # 명세서 합계가 통장에서 실제로 빠진 카드값과 맞는지 — 틀리면 명세서가 어긋난 것
-    gap = sum(x["billed"] for x in card) - sum(card_paid(key, bank).values())
+    # 명세서 합계가 통장에서 실제로 빠진 카드값과 맞는지 — 틀리면 명세서가 어긋난 것.
+    # 결제일이 주말이라 아직 출금 전이면(paid 없음) 비교할 값이 없으므로 None.
+    paid = card_paid(key, bank)
+    gap = (sum(x["billed"] for x in card) - sum(paid.values())) if paid else None
 
     lines = Counter()
     for cat, sub, amt in [(x["category"], x["subcategory"], x["billed"]) for x in card] + \
@@ -148,20 +176,31 @@ def render(key=LATEST, kakao=False):
         f"※ 내 용돈 {본인:,}원, 출장비 {출장:,}원 제외",
     ]
     text = "\n".join(out)
-    if not kakao and gap:
+    if not kakao and gap is not None and gap:
         text += f"\n\n[검증] 명세서 합계가 통장 카드출금과 {gap:+,}원 차이"
+    if gap is None:
+        w = SETTLEMENTS[key].get("withdraw")
+        tail = f" — 실제 출금 {w[5:].replace('-', '/')} 예정" if w else ""
+        text += f"\n\n[참고] 결제일({hi[5:].replace('-', '/')})이 주말이라 통장 카드출금이 아직 없다{tail}"
     return text
 
 
 def demo():
+    """칸 금액이 바뀌면 실패 — 정산 결과를 고정해 두는 최소 검증."""
     bank = load_bank()
-    expect = {"8/21분": (1840097, 1440097), "9/21분": (1822527, 1422527)}
-    for key, (총, 청) in expect.items():
+    # (총액, 기수령, 청구액)
+    expect = {"10/21분": (1490442, 400000, 1090442),
+              "11/21분": (2319848, 400000, 1919848)}
+    for key, (총, 받, 청) in expect.items():
         _, 총액, 받음, 청구, _, _, gap = settle(key, bank)
-        assert (총액, 받음, 청구) == (총, 400000, 청), (key, 총액, 받음, 청구)
-        assert abs(gap) < 200, (key, gap)  # 신한 원단위 반올림 오차만 허용
-        print(f"demo ok {key} (청구액 {청구:,}원, 명세서-통장 오차 {gap:+,}원)")
-    assert window("9/21분") == ("2026-08-22", "2026-09-21")
+        assert (총액, 받음, 청구) == (총, 받, 청), (key, 총액, 받음, 청구)
+        print(f"demo ok {key}: 총액 {총액:,} / 기수령 {받음:,} / 청구 {청구:,} / 명세서-통장 오차 {gap}")
+    # 명세서 합계 = 통장 카드출금 (10/21분은 조정 행으로 맞춤), 11/21분은 출금 전이라 비교 없음
+    assert abs(settle("10/21분", bank)[6]) < 200
+    assert settle("11/21분", bank)[6] is None
+    assert window("10/21분") == ("2026-09-22", "2026-10-21")
+    assert window("11/21분") == ("2026-10-22", "2026-11-21")
+    print("demo ok")
 
 
 if __name__ == "__main__":

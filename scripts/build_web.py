@@ -54,9 +54,28 @@ def build(key, bank):
     }
 
 
+def load_previous():
+    """이미 index.html 에 박혀 있는 회차들 — 원본이 없을 때 그대로 이어받기 위해."""
+    html = HTML.read_text(encoding="utf-8")
+    m = re.search(r"/\*DATA:START\*/\s*const SETTLEMENTS = (\[.*?\]);", html, re.S)
+    return {d["key"]: d for d in json.loads(m.group(1))} if m else {}
+
+
 def main():
     bank = settle.load_bank()
-    data = [build(k, bank) for k in settle.SETTLEMENTS]
+    bank_from = min(x["date"] for x in bank)
+    prev = load_previous()
+    data = []
+    for key in settle.SETTLEMENTS:
+        lo, _hi = settle.window(key)
+        src = settle.SETTLEMENTS[key]["card"]
+        # 원본(카드 명세서 파일)이 없거나, 통장 데이터가 정산구간 시작일까지 못 미치면
+        # 다시 계산하지 않고 index.html 에 이미 있던 그 회차를 그대로 둔다.
+        if key in prev and (not src.exists() or lo < bank_from):
+            print(f"{key}: 원본 데이터 없음(통장 {bank_from}부터) → 기존 값 유지")
+            data.append(prev[key])
+            continue
+        data.append(build(key, bank))
     blob = json.dumps(data, ensure_ascii=False, separators=(",", ":"))
     version = hashlib.sha1(blob.encode()).hexdigest()[:8]
     js = f"/*DATA:START*/\n    const SETTLEMENTS = {blob};\n    const DATA_VERSION = '{version}';\n    /*DATA:END*/"

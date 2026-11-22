@@ -13,6 +13,8 @@
 |---|---|---|---|
 | 8/21 결제 | KB 07.13~08.06 · 신한 07.08~08.07 | 07.22 ~ 08.21 | 1,440,097원 |
 | 9/21 결제 | KB 08.07~09.07 · 신한 08.08~09.07 | 08.22 ~ 09.21 | 1,415,642원 |
+| 10/21 결제 | KB 09.08~10.07 · 신한 09.08~10.07 | 09.22 ~ 10.21 | 1,090,442원 |
+| 11/21 결제 | KB 10.08~11.07 · 신한 10.08~11.07 | 10.22 ~ 11.21 | 1,919,848원 (출금 11/23) |
 
 - 청구액 = 공금 + 고정지출 − 구간 안에 이미 받은 고정지출비(매월 24일 40만원)
 - 카드 사용분은 카드사가 기간을 끊으므로 날짜로 다시 자르지 않는다 (이중청구·누락 방지)
@@ -28,8 +30,8 @@
 
 ## 🔁 매달 할 일
 
-1. 신한은행 거래내역 `.xls`, 카드 명세서 받기
-2. `python scripts/parse_bank.py <통장.xls>` → `data/bank_txns.json`
+1. 카드 명세서 받기 + 신한은행 거래내역 받기 (웹 조회는 안랩 보안프로그램 때문에 막히면 SOL뱅크 앱에서 PDF로 내보내기)
+2. `python scripts/parse_bank_pdf.py <통장.pdf> --password <생년월일6자리>` (또는 `.xls`면 `parse_bank.py`) → `data/bank_txns.json`
 3. 카드 명세서를 `data/card_YYMM.json` 으로 정리하고 `scripts/settle.py` 의 `SETTLEMENTS` 에 회차 한 줄 추가
 4. `python scripts/settle.py --demo` 로 검증, `python scripts/settle.py --kakao` 로 청구서 확인
 5. `python scripts/build_web.py` → `index.html` 데이터 갱신
@@ -42,6 +44,9 @@ jaenan_count/
 ├── clean_txns.json         # 8/21 회차 카드 명세서 (분류 포함)
 ├── scripts/
 │   ├── parse_bank.py       # 통장 .xls → data/bank_txns.json (분류 규칙)
+│   ├── parse_bank_pdf.py   # 통장 PDF(거래내역조회) → 같은 JSON (좌표로 열 구분)
+│   ├── parse_shinhan.py    # 신한카드 명세서 .xls(HTML 표) → 카드 JSON
+│   ├── parse_kb_card.py    # 국민카드 명세서 .xlsx → 카드 JSON
 │   ├── settle.py           # 회차별 정산 계산 · 청구서 · 검증
 │   └── build_web.py        # 정산 데이터를 index.html 에 임베드
 ├── data/                   # (git 제외) 통장·카드 원본 가공본
